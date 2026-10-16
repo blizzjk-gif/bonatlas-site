@@ -1,0 +1,52 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft);
+  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }));
+}
+
+type Props = { post: CollectionEntry<'blog'> };
+const { post } = Astro.props;
+const { Content } = await render(post);
+const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(post.data.publishedAt);
+---
+<BaseLayout title={`${post.data.title} — Bon Atlas`} description={post.data.description}>
+  <article>
+    <header class="article-hero">
+      <div class="container article-hero__inner">
+        <a class="back" href="/blog">← Все заметки</a>
+        <p class="eyebrow">{post.data.category}</p>
+        <h1>{post.data.title}</h1>
+        <p class="lede">{post.data.description}</p>
+        <div class="meta"><span>{post.data.author}</span><time datetime={post.data.publishedAt.toISOString()}>{published}</time><span>Демонстрационный материал</span></div>
+      </div>
+    </header>
+    <div class="container article-layout">
+      <aside><span>В этой заметке</span><p>Тестовая структура статьи для проверки Markdown и редакции через Sveltia CMS.</p></aside>
+      <div class="prose"><Content /></div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  .article-hero { padding: 70px 0 78px; border-bottom: 1px solid var(--line); }
+  .article-hero__inner { max-width: 900px; }
+  .back { display: inline-block; margin-bottom: 60px; color: var(--muted); font-size: .82rem; text-decoration: none; }
+  .article-hero h1 { font-size: clamp(3rem,7vw,6rem); }
+  .article-hero .lede { margin-top: 28px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 34px; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+  .article-layout { display: grid; grid-template-columns: 230px minmax(0, 700px); justify-content: center; gap: clamp(50px,8vw,110px); padding-block: clamp(65px,9vw,110px); }
+  .article-layout aside { align-self: start; position: sticky; top: 30px; padding-top: 15px; border-top: 1px solid var(--ink); color: var(--muted); font-size: .78rem; }
+  .article-layout aside span { color: var(--ink); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+  .article-layout aside p { margin-top: 12px; }
+  .prose { font-size: 1.06rem; }
+  .prose h2 { margin: 2.4em 0 .65em; font-size: clamp(2rem,4vw,3rem); }
+  .prose h3 { margin: 2em 0 .6em; font-size: 1.6rem; }
+  .prose p, .prose ul, .prose ol { margin: 1.15em 0; }
+  .prose li { margin: .55em 0; }
+  .prose blockquote { margin: 2em 0; padding: 22px 28px; border-left: 3px solid var(--rust); background: var(--rust-soft); font-family: var(--display); font-size: 1.25rem; }
+  .prose a { color: var(--rust); text-underline-offset: 4px; }
+  @media (max-width: 760px) { .article-layout { grid-template-columns: 1fr; } .article-layout aside { position: static; } }
+</style>

@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Страница не найдена — Bon Atlas" description="Такой страницы нет." noindex={true}>
+  <section class="not-found"><div class="container"><span>404</span><p class="eyebrow">Маршрут потерялся</p><h1>Этой точки<br/>нет на карте.</h1><p>Вернитесь к мастерской и выберите другой путь.</p><a class="button" href="/">На главную</a></div></section>
+</BaseLayout>
+<style>
+  .not-found { padding: clamp(90px,15vw,180px) 0; text-align: center; }
+  .not-found .container { position: relative; display: grid; justify-items: center; }
+  .not-found .container > span { position: absolute; top: -90px; z-index: -1; color: rgba(23,60,53,.06); font-family: var(--display); font-size: clamp(10rem,35vw,30rem); line-height: 1; }
+  .not-found h1 { font-size: clamp(3rem,8vw,7rem); }
+  .not-found .container > p:not(.eyebrow) { margin: 28px 0; color: var(--muted); }
+</style>

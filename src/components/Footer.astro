@@ -1,0 +1,31 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="footer" id="footer">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <a href="/">BON</a>
+      <p>Инструменты для авторов миров и историй.</p>
+    </div>
+    <div class="footer-links"><p>Продукты</p><a href="/atlas">Bon Atlas</a><a href="/plot">Bon Plot</a></div>
+    <div class="footer-links"><p>Материалы</p><a href="/blog">Блог</a><a href="/admin/" rel="nofollow">Редакция</a></div>
+    <div class="footer-links"><p>Статус</p><span>Atlas — в разработке</span><span>Plot — готовится тестирование</span></div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© {year} BON</span><span>bonatlas.ru</span><span>Продукты развиваются независимо и работают локально.</span>
+  </div>
+</footer>
+
+<style>
+  .footer { padding: 78px 0 30px; border-top: 1px solid var(--line); background: #050c12; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 50px; }
+  .footer-brand a { display: inline-block; margin-bottom: 16px; font-size: 1.7rem; font-weight: 650; letter-spacing: .22em; text-decoration: none; }
+  .footer-brand p { max-width: 340px; color: var(--muted); }
+  .footer-links { display: grid; align-content: start; gap: 8px; }
+  .footer-links p { margin-bottom: 8px; color: var(--ink); font-size: .68rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .footer-links a, .footer-links span { color: var(--muted); font-size: .84rem; text-decoration: none; }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-bottom { display: flex; justify-content: space-between; gap: 28px; margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); color: #67757d; font-size: .72rem; }
+  @media (max-width: 860px) { .footer-top { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px) { .footer-top { grid-template-columns: 1fr; gap: 30px; } .footer-bottom { align-items: flex-start; flex-direction: column; } }
+</style>

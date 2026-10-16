@@ -1,0 +1,48 @@
+---
+import { nav } from '../data/site';
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => href !== '/#products' && pathname.startsWith(href);
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="BON — на главную">BON</a>
+    <nav class="desktop-nav" aria-label="Основная навигация">
+      {nav.filter((item) => item.href !== '/#products').map((item) => (
+        <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+    <div class="header-side"><span>bonatlas.ru</span><a href="#footer">Контакты</a></div>
+    <details class="mobile-nav">
+      <summary aria-label="Открыть меню"><span></span><span></span></summary>
+      <nav aria-label="Мобильная навигация">
+        {nav.filter((item) => item.href !== '/#products').map((item) => (
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+        ))}
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--line); background: rgba(5, 13, 20, .82); backdrop-filter: blur(18px); }
+  .header-inner { min-height: 68px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(28px, 5vw, 80px); }
+  .brand { color: var(--ink); font-size: 1.42rem; font-weight: 650; letter-spacing: .23em; text-decoration: none; }
+  .desktop-nav { display: flex; align-items: center; gap: clamp(24px, 3vw, 42px); }
+  .desktop-nav a, .header-side a { position: relative; color: #c0c9ce; font-size: .82rem; font-weight: 600; text-decoration: none; }
+  .desktop-nav a:hover, .desktop-nav a[aria-current='page'], .header-side a:hover { color: var(--ink); }
+  .desktop-nav a[aria-current='page']::after { content: ''; position: absolute; right: 0; bottom: -25px; left: 0; height: 2px; background: currentColor; }
+  .header-side { display: flex; align-items: center; gap: 24px; }
+  .header-side span { color: #65747d; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
+  .mobile-nav { display: none; }
+  @media (max-width: 860px) {
+    .header-inner { grid-template-columns: 1fr auto; }
+    .desktop-nav, .header-side { display: none; }
+    .mobile-nav { display: block; position: relative; }
+    .mobile-nav summary { width: 42px; height: 42px; display: grid; place-content: center; gap: 6px; border: 1px solid var(--line); border-radius: 50%; cursor: pointer; list-style: none; }
+    .mobile-nav summary::-webkit-details-marker { display: none; }
+    .mobile-nav summary span { display: block; width: 18px; height: 1px; background: var(--ink); }
+    .mobile-nav nav { position: absolute; top: 51px; right: 0; width: min(290px, calc(100vw - 24px)); display: grid; padding: 10px; border: 1px solid var(--line); border-radius: 16px; background: #101b24; box-shadow: var(--shadow); }
+    .mobile-nav nav a { padding: 13px 14px; border-radius: 10px; text-decoration: none; }
+    .mobile-nav nav a:hover, .mobile-nav nav a[aria-current='page'] { background: rgba(255,255,255,.07); }
+  }
+</style>

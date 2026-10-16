@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+# Локальный режим использует эту пару только как внутренний идентификатор.
+# Перед удалённой работой замените значение на настоящий GitHub owner/repository.
+backend:
+  name: github
+  repo: local/bonatlas-site
+  branch: main
+  # OAuth отключён, пока не развёрнут собственный OAuth-клиент.
+  # Локальная работа не требует входа; для удалённой можно использовать GitHub token.
+  auth_methods: [token]
+
+media_folder: public/uploads/blog
+public_folder: /uploads/blog
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  - name: blog
+    label: Блог
+    label_singular: Статья
+    folder: src/content/blog
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    summary: "{{title}} — {{publishedAt}}"
+    sortable_fields: [publishedAt, title, category]
+    view_filters:
+      - label: Черновики
+        field: draft
+        pattern: true
+    fields:
+      - { label: Заголовок, name: title, widget: string }
+      - { label: Описание, name: description, widget: text }
+      - { label: URL, name: slug, widget: string, hint: "Латиницей, например: first-map" }
+      - label: Рубрика
+        name: category
+        widget: select
+        options: [Карты, Писательская работа, Персонажи, Сюжет, Создание миров]
+      - { label: Автор, name: author, widget: string, default: "Команда Bon Atlas" }
+      - { label: Дата публикации, name: publishedAt, widget: datetime, date_format: "DD.MM.YYYY", time_format: false }
+      - { label: Дата обновления, name: updatedAt, widget: datetime, date_format: "DD.MM.YYYY", time_format: false, required: false }
+      - { label: Черновик, name: draft, widget: boolean, default: true }
+      - { label: Обложка, name: image, widget: image, required: false }
+      - { label: Описание обложки, name: imageAlt, widget: string, required: false }
+      - { label: Связанные статьи, name: related, widget: list, required: false }
+      - { label: Текст, name: body, widget: markdown }

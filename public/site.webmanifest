@@ -1,0 +1,10 @@
+{
+  "name": "Bon Atlas",
+  "short_name": "Bon",
+  "description": "Инструменты для авторов миров и историй.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3efe6",
+  "theme_color": "#173c35",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

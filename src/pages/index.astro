@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="BON — инструменты для авторов миров и историй"
+  description="Bon Atlas помогает создавать карты вымышленных миров, Bon Plot — работать с книгой, персонажами и логикой истории."
+  image="/images/atlas/01-editor-overview.png"
+>
+  <section class="hero">
+    <div class="hero-sky" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow">Мастерская автора</p>
+      <h1><span>Создавайте миры.</span><em>Рассказывайте их истории.</em></h1>
+      <p class="lede">Два локальных инструмента — для пространства истории и для самой истории. Работают отдельно, развиваются вместе.</p>
+      <div class="hero-stage">
+        <a class="product-window product-window--atlas screen screen--atlas" href="/atlas">
+          <span class="window-label">Bon Atlas</span>
+          <img src="/images/atlas/01-editor-overview.png" alt="Редактор карты Bon Atlas" width="1800" height="1125" />
+        </a>
+        <span class="story-route" aria-hidden="true"></span>
+        <a class="product-window product-window--plot screen screen--plot" href="/plot">
+          <span class="window-label">Bon Plot</span>
+          <img src="/images/plot/00-hero-fantasy-book.png" alt="Книжный режим Bon Plot" width="1600" height="1000" />
+        </a>
+      </div>
+      <div class="hero-actions">
+        <a class="button" href="/atlas">Открыть Atlas <span>→</span></a>
+        <a class="button button--plot" href="/plot">Открыть Plot <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section products" id="products">
+    <div class="container">
+      <div class="section-head">
+        <div><p class="eyebrow">Одна экосистема</p><h2>Два пространства<br/>для одной работы.</h2></div>
+        <p class="lede">Начните с карты или с текста. Каждый продукт решает свою задачу и не требует второго для полноценной работы.</p>
+      </div>
+      <div class="product-cards">
+        <article class="product-card product-card--atlas">
+          <div class="product-card__top">
+            <img class="product-logo product-logo--atlas" src="/images/brand/bon-atlas-logo.png" alt="Логотип Bon Atlas" />
+            <span class="status">В разработке</span>
+          </div>
+          <div class="product-card__copy"><p>Карты и миры</p><h3>Создайте основу мира и продолжайте вручную.</h3><a href="/atlas">Исследовать Atlas <span>↗</span></a></div>
+          <div class="product-card__shot"><img src="/images/atlas/07-map-result.png" alt="Готовая карта в Bon Atlas" loading="lazy" /></div>
+        </article>
+        <article class="product-card product-card--plot">
+          <div class="product-card__top">
+            <img class="product-logo product-logo--plot" src="/images/brand/bon-plot-logo.png" alt="Логотип Bon Plot" />
+            <span class="status">Готовится тестирование</span>
+          </div>
+          <div class="product-card__copy"><p>Рукописи и истории</p><h3>Соберите книгу, персонажей и логику сюжета.</h3><a href="/plot">Исследовать Plot <span>↗</span></a></div>
+          <div class="product-card__shot"><img src="/images/plot/01-characters-overview.png" alt="Персонажи в Bon Plot" loading="lazy" /></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section connection">
+    <div class="container connection-grid">
+      <div class="connection-copy"><span class="kicker-number">01 / От карты к истории</span><h2>Место становится сценой. Сцена — частью пути.</h2><p class="lede">В Atlas вы собираете пространство: рельеф, дороги, поселения и детали. В Plot удерживаете персонажей, главы, знания и последствия их решений.</p></div>
+      <div class="connection-list">
+        <article><span>Мир</span><strong>Карта, рельеф и важные места</strong><i>Bon Atlas</i></article>
+        <article><span>Действие</span><strong>Сцены, цели и конфликты</strong><i>Bon Plot</i></article>
+        <article><span>Причина</span><strong>Связи, знания и логика</strong><i>Bon Plot</i></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section proof">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Не концепт, а рабочие продукты</p><h2>Каждый экран показывает настоящую функцию.</h2></div><p class="lede">На сайте используются актуальные скриншоты приложений. Визуальная оболочка помогает их раскрыть, но не подменяет возможности продукта.</p></div>
+      <div class="proof-grid">
+        <figure class="screen"><img src="/images/atlas/02-generator-settings.png" alt="Настройки генерации Bon Atlas" loading="lazy" /><figcaption>Генерация основы карты</figcaption></figure>
+        <figure class="screen"><img src="/images/plot/02-relationship-map.png" alt="Карта отношений Bon Plot" loading="lazy" /><figcaption>Связи между персонажами</figcaption></figure>
+        <figure class="screen"><img src="/images/plot/09-ai-assistant.png" alt="AI-проверки Bon Plot" loading="lazy" /><figcaption>Проверка согласованности</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section principles">
+    <div class="container principles-grid">
+      <div><p class="eyebrow">Подход BON</p><h2>Инструменты поддерживают автора, а не заменяют его.</h2></div>
+      <div class="principle-list">
+        <article><span>01</span><h3>Локальная работа</h3><p>Проекты остаются на компьютере и не требуют постоянного облачного аккаунта.</p></article>
+        <article><span>02</span><h3>Ручной контроль</h3><p>После генерации и автоматического разбора каждую деталь можно проверить и изменить.</p></article>
+        <article><span>03</span><h3>Честная помощь</h3><p>AI используется по желанию и объясняет замечания вместо незаметной переписи текста.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section closing">
+    <div class="container closing-inner"><p class="eyebrow">BON / bonatlas.ru</p><h2>Выберите, с чего начнётся следующая история.</h2><div><a class="button" href="/atlas">Создать карту</a><a class="button button--plot" href="/plot">Работать над книгой</a></div></div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { position: relative; min-height: calc(100svh - 68px); padding: clamp(58px, 7vw, 104px) 0 70px; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .hero-sky { position: absolute; inset: 0; background: radial-gradient(circle at 50% 38%, rgba(31,82,104,.58), transparent 31%), linear-gradient(180deg, rgba(4,10,16,.05), #071019 92%); }
+  .hero-sky::after { content: ''; position: absolute; inset: 0; opacity: .16; background-image: url('/images/atlas/07-map-result.png'); background-size: cover; background-position: center; filter: saturate(.65) brightness(.52); mask-image: linear-gradient(to bottom, black, transparent 84%); }
+  .hero-inner { position: relative; z-index: 1; text-align: center; }
+  .hero h1 { display: grid; font-family: var(--display); font-weight: 400; }
+  .hero h1 em { color: var(--plot); font-style: normal; }
+  .hero .lede { margin: 20px auto 0; }
+  .hero-stage { position: relative; height: clamp(360px, 43vw, 650px); margin-top: clamp(42px, 5vw, 72px); }
+  .product-window { position: absolute; display: block; width: 55%; aspect-ratio: 16/10; color: var(--ink); text-decoration: none; transition: transform .35s ease; }
+  .product-window:hover { z-index: 4; transform: translateY(-10px) rotate(0); }
+  .product-window--atlas { top: 0; left: 0; transform: perspective(1400px) rotateY(4deg) rotate(-1deg); }
+  .product-window--plot { right: 0; bottom: 0; transform: perspective(1400px) rotateY(-4deg) rotate(1deg); }
+  .product-window img { object-position: top left; }
+  .window-label { position: absolute; top: 16px; left: 16px; z-index: 3; padding: 7px 11px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(4,10,16,.78); font-size: .72rem; font-weight: 800; backdrop-filter: blur(8px); }
+  .story-route { position: absolute; top: 51%; left: 47%; z-index: 5; width: 11%; height: 2px; background: linear-gradient(90deg, var(--atlas), var(--plot)); box-shadow: 0 0 16px rgba(255,255,255,.45); transform: rotate(7deg); }
+  .story-route::before, .story-route::after { content: ''; position: absolute; top: 50%; width: 9px; height: 9px; border: 2px solid currentColor; border-radius: 50%; background: var(--bg); transform: translateY(-50%); } .story-route::before { left: -4px; color: var(--atlas); } .story-route::after { right: -4px; color: var(--plot); }
+  .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+  .products { background: #08121a; }
+  .product-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .product-card { position: relative; min-height: 680px; overflow: hidden; border: 1px solid var(--line); border-radius: 30px; background: linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.018)); }
+  .product-card::before { content: ''; position: absolute; inset: -20% 40% 45% -20%; background: radial-gradient(circle, rgba(70,194,219,.16), transparent 67%); }
+  .product-card--plot::before { inset: -20% -20% 45% 40%; background: radial-gradient(circle, rgba(255,126,80,.17), transparent 67%); }
+  .product-card__top, .product-card__copy { position: relative; z-index: 2; padding-inline: clamp(24px, 4vw, 48px); }
+  .product-card__top { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 34px; }
+  .product-logo { width: 94px; height: 94px; object-fit: contain; }
+  .product-logo--atlas { border-radius: 22px; background: #f9f4e8; }
+  .product-logo--plot { width: 110px; height: 110px; }
+  .product-card__copy { margin-top: 18px; }
+  .product-card__copy > p { color: var(--muted); font-size: .72rem; letter-spacing: .13em; text-transform: uppercase; }
+  .product-card__copy h3 { max-width: 600px; margin-top: 10px; }
+  .product-card__copy a { display: inline-flex; gap: 8px; margin-top: 24px; font-weight: 800; text-decoration: none; }
+  .product-card--atlas .product-card__copy a { color: var(--atlas); } .product-card--plot .product-card__copy a { color: var(--plot); }
+  .product-card__shot { position: absolute; right: 0; bottom: 0; left: 0; height: 47%; overflow: hidden; border-top: 1px solid var(--line); }
+  .product-card__shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .5s ease; } .product-card:hover .product-card__shot img { transform: scale(1.025); }
+  .connection { background: #050c12; }
+  .connection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(60px, 10vw, 150px); }
+  .connection-copy h2 { max-width: 720px; }
+  .connection-copy .lede { margin-top: 30px; }
+  .connection-list { border-top: 1px solid var(--line); }
+  .connection-list article { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 22px; padding: 27px 0; border-bottom: 1px solid var(--line); }
+  .connection-list span, .connection-list i { color: var(--muted); font-size: .75rem; font-style: normal; } .connection-list strong { font-size: 1rem; }
+  .proof { overflow: hidden; }
+  .proof-grid { display: grid; grid-template-columns: .9fr 1.1fr .9fr; gap: 20px; align-items: center; }
+  .proof-grid figure { margin: 0; background: var(--surface); }
+  .proof-grid figure:nth-child(2) { transform: translateY(-24px); }
+  .proof-grid img { aspect-ratio: 16/10; object-position: top; }
+  .proof-grid figcaption { padding: 17px 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem; }
+  .principles { border-block: 1px solid var(--line); background: linear-gradient(135deg, rgba(52,138,154,.11), rgba(255,119,72,.08)); }
+  .principles-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(60px, 10vw, 150px); }
+  .principle-list article { display: grid; grid-template-columns: 44px 210px 1fr; gap: 20px; padding: 27px 0; border-top: 1px solid var(--line); }
+  .principle-list span { color: var(--plot); font-size: .72rem; } .principle-list h3 { font-size: 1.25rem; } .principle-list p { color: var(--muted); }
+  .closing { text-align: center; }
+  .closing-inner { display: grid; justify-items: center; }
+  .closing h2 { max-width: 950px; }
+  .closing-inner > div { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 38px; }
+  @media (max-width: 900px) {
+    .product-cards, .connection-grid, .principles-grid { grid-template-columns: 1fr; }
+    .proof-grid { grid-template-columns: 1fr; } .proof-grid figure:nth-child(2) { transform: none; }
+    .principle-list article { grid-template-columns: 40px 1fr; } .principle-list article p { grid-column: 2; }
+  }
+  @media (max-width: 680px) {
+    .hero-stage { height: 580px; }
+    .product-window { width: 92%; }
+    .product-window--atlas { left: 0; } .product-window--plot { right: 0; bottom: 0; }
+    .story-route { display: none; }
+    .product-card { min-height: 610px; }
+    .product-card__top { align-items: flex-start; }
+    .connection-list article { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+type Props = {
+  title: string;
+  description: string;
+  slug: string;
+  category: string;
+  publishedAt: Date;
+};
+const { title, description, slug, category, publishedAt } = Astro.props;
+const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(publishedAt);
+---
+<article class="article-card">
+  <a class="article-card__art" href={`/blog/${slug}`} aria-label={`Читать: ${title}`}>
+    <span>{category}</span>
+    <i></i><i></i><i></i>
+  </a>
+  <div class="article-card__copy">
+    <div class="article-card__meta"><span>{category}</span><time datetime={publishedAt.toISOString()}>{date}</time></div>
+    <h2><a href={`/blog/${slug}`}>{title}</a></h2>
+    <p>{description}</p>
+    <a class="article-card__link" href={`/blog/${slug}`}>Читать заметку <span aria-hidden="true">→</span></a>
+  </div>
+</article>
+
+<style>
+  .article-card { overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,253,248,.72); }
+  .article-card__art { position: relative; height: 205px; display: block; overflow: hidden; background: var(--forest-soft); text-decoration: none; }
+  .article-card:nth-child(even) .article-card__art { background: var(--rust-soft); }
+  .article-card__art > span { position: absolute; top: 18px; left: 18px; z-index: 1; font-family: var(--display); font-size: 1.15rem; }
+  .article-card__art i { position: absolute; inset: auto -8% -55% 8%; height: 135%; border: 1px solid rgba(23,60,53,.25); border-radius: 50%; transform: rotate(-9deg); }
+  .article-card__art i:nth-of-type(2) { inset: auto 8% -66% -12%; } .article-card__art i:nth-of-type(3) { inset: 55% -10% auto 25%; }
+  .article-card__copy { padding: 26px; }
+  .article-card__meta { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
+  .article-card h2 { margin: 18px 0 12px; font-size: 1.75rem; }
+  .article-card h2 a { text-decoration: none; }
+  .article-card p { color: var(--muted); font-size: .92rem; }
+  .article-card__link { display: inline-flex; gap: 8px; margin-top: 22px; font-size: .82rem; font-weight: 800; text-decoration: none; }
+</style>

@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Bon Plot — программа для книг, персонажей и сюжета"
+  description="Пишите книгу, собирайте сцены и персонажей, отслеживайте связи и проверяйте согласованность истории в одном локальном проекте."
+  image="/images/plot/00-hero-fantasy-book.png"
+>
+  <section class="product-hero plot-hero">
+    <div class="plot-glow" aria-hidden="true"></div>
+    <div class="container product-hero__grid">
+      <div class="product-hero__copy">
+        <img class="brand-logo" src="/images/brand/bon-plot-logo.png" alt="Логотип Bon Plot" />
+        <span class="status">Готовится тестирование</span>
+        <p class="eyebrow">Рукописи и истории</p>
+        <h1>История держится<br/><em>на деталях.</em></h1>
+        <p class="lede">Пишите книгу, связывайте персонажей и проверяйте логику истории в одном пространстве. Решение всегда остаётся за автором.</p>
+        <div class="actions"><a class="button button--plot" href="#book">Посмотреть возможности</a><a class="button button--ghost" href="#assistant">AI-проверки</a></div>
+        <p class="meta">Windows · локальное хранение · DOCX, TXT, Markdown</p>
+      </div>
+      <div class="screen screen--plot hero-screen"><img src="/images/plot/00-hero-fantasy-book.png" alt="Фэнтезийный книжный режим Bon Plot" width="1600" height="1000" /></div>
+    </div>
+  </section>
+
+  <nav class="feature-nav" aria-label="Возможности Bon Plot"><div class="container"><a href="#book"><span>01</span>Книга</a><a href="#characters"><span>02</span>Персонажи</a><a href="#story"><span>03</span>Сюжет</a><a href="#world"><span>04</span>Мир</a><a href="#assistant"><span>05</span>AI-проверки</a><a href="#import"><span>06</span>Импорт</a></div></nav>
+
+  <section class="section book" id="book">
+    <div class="container">
+      <div class="section-head"><div><span class="kicker-number">01 / Книга</span><p class="eyebrow">Текст остаётся центром</p><h2>От рабочего редактора до книжного разворота.</h2></div><p class="lede">Главы и сцены собираются в единую рукопись. Переключайтесь между обычным редактором и режимом чтения, не создавая отдельные копии текста.</p></div>
+      <div class="book-grid"><figure class="screen screen--plot book-main"><img src="/images/plot/00-hero-fantasy-book.png" alt="Книжный вид Bon Plot" loading="lazy" /><figcaption>Фэнтезийный книжный режим</figcaption></figure><figure class="screen book-side"><img src="/images/plot/03-book-editor.png" alt="Редактор книги Bon Plot" loading="lazy" /><figcaption>Редактор глав и сцен</figcaption></figure></div>
+    </div>
+  </section>
+
+  <section class="section characters" id="characters">
+    <div class="container feature-grid">
+      <div class="feature-copy"><span class="kicker-number">02 / Персонажи</span><p class="eyebrow">Люди, которые двигают историю</p><h2>Не анкеты, а действующие лица.</h2><p class="lede">У каждого героя есть роль, мотивация, главный страх, арка развития и связи. Карточки помогают видеть ансамбль, не теряя отдельного человека.</p><ul><li>Цели, тайны и страхи</li><li>Роль в истории и арка развития</li><li>Быстрый переход между связанными героями</li></ul></div>
+      <figure class="screen screen--plot"><img src="/images/plot/01-characters-overview.png" alt="Обзор персонажей Bon Plot" loading="lazy" /><figcaption>Карточки персонажей и профиль героя</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="section relations">
+    <div class="container relation-grid">
+      <figure class="screen screen--plot"><img src="/images/plot/02-relationship-map.png" alt="Карта отношений персонажей" loading="lazy" /></figure>
+      <div><span class="kicker-number">02.1 / Связи</span><p class="eyebrow">Переплетение историй</p><h2>Увидеть отношения, которые меняют всё.</h2><p class="lede">Дружба, конфликт, семья, романтика и наставничество складываются в наглядную карту. Выбранный герой остаётся в фокусе.</p></div>
+    </div>
+  </section>
+
+  <section class="section story" id="story">
+    <div class="container">
+      <div class="section-head"><div><span class="kicker-number">03 / Сюжет</span><p class="eyebrow">От сцены к целому</p><h2>Цель, конфликт, поворот и результат.</h2></div><p class="lede">Сцены можно писать в любом порядке, затем связывать с главами и сюжетными линиями. Структура помогает увидеть пульс истории.</p></div>
+      <div class="story-grid"><figure class="screen"><img src="/images/plot/04-scenes.png" alt="Редактор сцен Bon Plot" loading="lazy" /><figcaption>Сцена как самостоятельная единица</figcaption></figure><figure class="screen"><img src="/images/plot/05-plot-structure.png" alt="Структура сюжета Bon Plot" loading="lazy" /><figcaption>План истории и конструкция сцены</figcaption></figure><figure class="screen story-wide"><img src="/images/plot/06-plot-thread-matrix.png" alt="Матрица сюжетных линий Bon Plot" loading="lazy" /><figcaption>Матрица сюжетных линий</figcaption></figure></div>
+    </div>
+  </section>
+
+  <section class="section world" id="world">
+    <div class="container world-grid">
+      <div class="world-copy"><span class="kicker-number">04 / Мир истории</span><p class="eyebrow">Правила и знания</p><h2>Мир существует не только на карте.</h2><p class="lede">Храните места, предметы, организации и правила мира. Отдельная карта знаний показывает, кто из героев знает правду, ошибается или ещё ничего не слышал.</p></div>
+      <div class="world-screens"><figure class="screen screen--plot"><img src="/images/plot/07-world-bible.png" alt="Библия мира Bon Plot" loading="lazy" /><figcaption>Библия мира</figcaption></figure><figure class="screen screen--plot"><img src="/images/plot/08-knowledge-map.png" alt="Карта знаний персонажей" loading="lazy" /><figcaption>Состояние знаний к концу сцены</figcaption></figure></div>
+    </div>
+  </section>
+
+  <section class="section assistant" id="assistant">
+    <div class="container feature-grid">
+      <div class="feature-copy"><span class="kicker-number">05 / Второй взгляд</span><p class="eyebrow">Редактор-помощник</p><h2>Не пишет вместо вас. Показывает, где стоит проверить.</h2><p class="lede">Bon Plot сопоставляет реакцию персонажа с его страхами и мотивацией, проверяет логику истории и объясняет замечание через конкретную цитату.</p><div class="assistant-note"><strong>AI подключается по желанию.</strong><p>Быстрые структурные проверки работают отдельно. Глубокий локальный разбор можно подключить через Ollama.</p></div></div>
+      <figure class="screen screen--plot"><img src="/images/plot/09-ai-assistant.png" alt="AI-помощник Bon Plot" loading="lazy" /><figcaption>Согласованность персонажа и логика истории</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="section import" id="import">
+    <div class="container import-grid">
+      <figure class="screen screen--plot"><img src="/images/plot/10-import-preview.png" alt="Предварительный просмотр импорта" loading="lazy" /></figure>
+      <div><span class="kicker-number">06 / Импорт</span><p class="eyebrow">Начните с написанного</p><h2>Сначала проверьте. Потом добавляйте в проект.</h2><p class="lede">Загрузите DOCX, TXT или Markdown. Bon Plot предложит персонажей, сцены и элементы структуры, но проект изменится только после вашего подтверждения.</p><blockquote>Рукопись остаётся основой проекта, а не сырьём для незаметной перезаписи.</blockquote></div>
+    </div>
+  </section>
+
+  <section class="section local"><div class="container local-grid"><div class="local-mark"><span>локально</span><i></i><i></i></div><div><p class="eyebrow">Ваш текст — на вашем компьютере</p><h2>Без обязательного облачного аккаунта.</h2><p class="lede">Проекты хранятся вне папки программы. Предусмотрены автоматическое сохранение, версии текста, резервные копии и восстановление.</p></div></div></section>
+
+  <section class="section product-cta"><div class="container"><img src="/images/brand/bon-plot-logo.png" alt="Bon Plot" /><p class="eyebrow">Закрытое тестирование готовится</p><h2>Соберите историю в проект,<br/>с которым удобно продолжать работу.</h2><a class="button button--plot" href="/#products">Вернуться к продуктам</a></div></section>
+</BaseLayout>
+
+<style>
+  .product-hero { position: relative; min-height: calc(100svh - 68px); display: grid; align-items: center; padding: clamp(72px, 8vw, 125px) 0; overflow: hidden; border-bottom: 1px solid var(--line); background: #090d11; }
+  .plot-glow { position: absolute; inset: 0; background: radial-gradient(circle at 16% 62%, rgba(154,72,41,.35), transparent 32rem), radial-gradient(circle at 85% 20%, rgba(98,40,26,.32), transparent 28rem), linear-gradient(120deg, #070b0e, #15100e 50%, #090d11); }
+  .plot-glow::after { content: ''; position: absolute; inset: 0; opacity: .11; background: url('/images/plot/00-hero-fantasy-book.png') center/cover; filter: blur(14px) saturate(.7); mask-image: linear-gradient(90deg, transparent, black 45%, transparent); }
+  .product-hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: .72fr 1.28fr; align-items: center; gap: clamp(46px, 6vw, 92px); }
+  .product-hero__copy { position: relative; }
+  .brand-logo { width: 120px; height: 120px; margin-bottom: 22px; object-fit: contain; }
+  .product-hero .status { position: absolute; top: 7px; left: 138px; }
+  .product-hero .eyebrow { color: var(--plot); }
+  .product-hero h1 { font-family: var(--display); font-size: clamp(3.25rem, 6vw, 6.9rem); font-weight: 400; }
+  .product-hero h1 em { color: var(--plot); font-style: normal; }
+  .product-hero .lede { margin-top: 28px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .meta { margin-top: 24px; color: var(--muted); font-size: .74rem; }
+  .hero-screen { aspect-ratio: 16/10; transform: perspective(1500px) rotateY(-3deg); }
+  .hero-screen img { object-position: top; }
+  .feature-nav { position: sticky; top: 68px; z-index: 30; border-bottom: 1px solid var(--line); background: rgba(9,13,17,.9); backdrop-filter: blur(16px); }
+  .feature-nav .container { display: grid; grid-template-columns: repeat(6,1fr); }
+  .feature-nav a { display: flex; gap: 9px; justify-content: center; padding: 18px 10px; color: var(--soft); font-size: .76rem; text-decoration: none; } .feature-nav a:hover { background: rgba(255,149,102,.07); color: var(--plot); } .feature-nav span { color: #6f777c; }
+  figure { margin: 0; }
+  figure img { aspect-ratio: 16/10; object-position: top; }
+  figcaption { padding: 15px 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .74rem; }
+  .book { background: linear-gradient(160deg, rgba(118,53,31,.15), transparent 48%); }
+  .book-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 20px; align-items: stretch; }
+  .book-side img { height: calc(100% - 54px); }
+  .feature-grid { display: grid; grid-template-columns: .75fr 1.25fr; align-items: center; gap: clamp(54px, 8vw, 120px); }
+  .feature-copy h2 { max-width: 680px; }
+  .feature-copy .lede { margin-top: 28px; }
+  .feature-copy ul { display: grid; gap: 12px; margin: 32px 0 0; padding: 24px 0 0; border-top: 1px solid var(--line); color: var(--muted); list-style: none; }
+  .feature-copy li::before { content: '＋'; margin-right: 10px; color: var(--plot); }
+  .characters { background: #050c12; }
+  .relations { border-block: 1px solid var(--line); background: linear-gradient(135deg, rgba(255,133,82,.08), rgba(66,125,132,.07)); }
+  .relation-grid { display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; gap: clamp(50px, 8vw, 110px); }
+  .relation-grid .lede { margin-top: 28px; }
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .story-wide { grid-column: 1 / -1; }
+  .world { background: #050c12; }
+  .world-grid { display: grid; grid-template-columns: .62fr 1.38fr; align-items: center; gap: clamp(50px, 8vw, 110px); }
+  .world-copy .lede { margin-top: 28px; }
+  .world-screens { position: relative; min-height: 650px; }
+  .world-screens figure { position: absolute; width: 78%; }
+  .world-screens figure:first-child { top: 0; left: 0; } .world-screens figure:last-child { right: 0; bottom: 0; }
+  .assistant { background: radial-gradient(circle at 15% 55%, rgba(255,124,76,.1), transparent 32rem); }
+  .assistant-note { margin-top: 34px; padding: 20px; border: 1px solid rgba(255,149,102,.25); border-radius: 16px; background: rgba(255,149,102,.06); }
+  .assistant-note p { margin-top: 7px; color: var(--muted); font-size: .88rem; }
+  .import { border-block: 1px solid var(--line); background: #050c12; }
+  .import-grid { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: clamp(50px, 8vw, 110px); }
+  .import-grid .lede { margin-top: 28px; }
+  blockquote { margin: 38px 0 0; padding: 22px 0 22px 26px; border-left: 2px solid var(--plot); color: var(--soft); font-family: var(--display); font-size: 1.2rem; line-height: 1.55; }
+  .local { background: linear-gradient(135deg, #10211c, #071019 70%); }
+  .local-grid { display: grid; grid-template-columns: .7fr 1.3fr; align-items: center; gap: clamp(60px, 10vw, 150px); }
+  .local-mark { position: relative; aspect-ratio: 1; display: grid; place-items: center; max-width: 420px; border: 1px solid var(--line); border-radius: 50%; }
+  .local-mark::before, .local-mark::after { content: ''; position: absolute; border: 1px solid var(--line); border-radius: 50%; } .local-mark::before { inset: 18%; } .local-mark::after { inset: 36%; }
+  .local-mark span { z-index: 1; font-family: var(--display); font-size: 1.6rem; }
+  .local-mark i { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: var(--plot); } .local-mark i:first-of-type { top: 17%; left: 29%; } .local-mark i:last-of-type { right: 16%; bottom: 31%; }
+  .local-grid .lede { margin-top: 28px; }
+  .product-cta { text-align: center; }
+  .product-cta .container { display: grid; justify-items: center; }
+  .product-cta img { width: 128px; height: 128px; margin-bottom: 24px; object-fit: contain; }
+  .product-cta h2 { max-width: 980px; }
+  .product-cta .button { margin-top: 34px; }
+  @media (max-width: 1000px) { .product-hero__grid, .book-grid, .feature-grid, .relation-grid, .world-grid, .import-grid, .local-grid { grid-template-columns: 1fr; } .hero-screen { transform: none; } .feature-nav { overflow-x: auto; } .feature-nav .container { min-width: 720px; } .world-screens { min-height: 580px; } }
+  @media (max-width: 680px) { .brand-logo { width: 100px; height: 100px; } .product-hero .status { position: static; margin-bottom: 28px; } .product-hero h1 br { display: none; } .story-grid { grid-template-columns: 1fr; } .story-wide { grid-column: auto; } .world-screens { min-height: 0; display: grid; gap: 16px; } .world-screens figure { position: static; width: auto; } }
+</style>

@@ -1,0 +1,37 @@
+---
+type Props = { kind: 'atlas' | 'plot'; label: string; caption: string; };
+const { kind, label, caption } = Astro.props;
+---
+<figure class:list={['placeholder', `placeholder--${kind}`]}>
+  <div class="placeholder__bar"><i></i><i></i><i></i><span>{label}</span></div>
+  <div class="placeholder__canvas" aria-hidden="true">
+    <div class="placeholder__rail"></div>
+    <div class="placeholder__work">
+      {kind === 'atlas' ? <div class="mini-map"><i></i><i></i><i></i></div> : <div class="mini-pages"><i></i><i></i><i></i><i></i></div>}
+    </div>
+    <div class="placeholder__panel"></div>
+  </div>
+  <figcaption>{caption} <strong>Изображение будет заменено реальным скриншотом.</strong></figcaption>
+</figure>
+
+<style>
+  .placeholder { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 24px; background: var(--white); box-shadow: var(--shadow); }
+  .placeholder__bar { height: 48px; display: flex; align-items: center; gap: 7px; padding: 0 16px; border-bottom: 1px solid var(--line); }
+  .placeholder__bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--paper-deep); }
+  .placeholder__bar span { margin-left: 7px; color: var(--muted); font-size: .72rem; }
+  .placeholder__canvas { height: clamp(300px, 43vw, 540px); display: grid; grid-template-columns: 60px 1fr 26%; background: #e3e9e2; }
+  .placeholder--plot .placeholder__canvas { background: #eee2da; }
+  .placeholder__rail { border-right: 1px solid rgba(23,33,30,.12); background: rgba(255,255,255,.35); }
+  .placeholder__panel { border-left: 1px solid rgba(23,33,30,.12); background: rgba(255,255,255,.42); }
+  .placeholder__work { position: relative; overflow: hidden; }
+  .mini-map { position: absolute; inset: 12%; border-radius: 45% 55% 48% 52% / 51% 40% 60% 49%; background: #b7cab5; box-shadow: inset 0 0 0 14px rgba(255,255,255,.22); transform: rotate(-7deg); }
+  .mini-map::before, .mini-map::after { content: ''; position: absolute; border: 1px solid rgba(23,60,53,.4); border-radius: 50%; }
+  .mini-map::before { inset: 17%; } .mini-map::after { inset: 34%; }
+  .mini-map i { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--rust); }
+  .mini-map i:nth-child(1) { top: 28%; left: 28%; } .mini-map i:nth-child(2) { top: 60%; left: 67%; } .mini-map i:nth-child(3) { top: 42%; left: 52%; }
+  .mini-pages { position: absolute; inset: 11%; padding: 10%; border-radius: 8px; background: rgba(255,253,248,.8); box-shadow: 0 15px 40px rgba(75,42,30,.08); }
+  .mini-pages i { display: block; height: 4px; margin-bottom: 18px; border-radius: 3px; background: rgba(74,48,37,.13); }
+  .mini-pages i:nth-child(2) { width: 78%; } .mini-pages i:nth-child(4) { width: 62%; }
+  figcaption { padding: 14px 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .75rem; }
+  figcaption strong { color: var(--ink); font-weight: 650; }
+</style>
