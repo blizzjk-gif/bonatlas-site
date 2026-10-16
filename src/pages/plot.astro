@@ -1,24 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import content from '../content/site/plot.json';
 ---
 <BaseLayout
-  title="Bon Plot — программа для книг, персонажей и сюжета"
-  description="Пишите книгу, собирайте сцены и персонажей, отслеживайте связи и проверяйте согласованность истории в одном локальном проекте."
-  image="/images/plot/00-hero-fantasy-book.png"
+  title={content.seo.title}
+  description={content.seo.description}
+  image={content.seo.image}
 >
   <section class="product-hero plot-hero">
-    <div class="plot-glow" aria-hidden="true"></div>
+    <div class="plot-glow" style={`--backdrop-image: url('${content.hero.backgroundImage}')`} aria-hidden="true"></div>
     <div class="container product-hero__grid">
       <div class="product-hero__copy">
-        <img class="brand-logo" src="/images/brand/bon-plot-logo.png" alt="Логотип Bon Plot" />
-        <span class="status">Готовится тестирование</span>
-        <p class="eyebrow">Рукописи и истории</p>
-        <h1>История держится<br/><em>на деталях.</em></h1>
-        <p class="lede">Пишите книгу, связывайте персонажей и проверяйте логику истории в одном пространстве. Решение всегда остаётся за автором.</p>
-        <div class="actions"><a class="button button--plot" href="#book">Посмотреть возможности</a><a class="button button--ghost" href="#assistant">AI-проверки</a></div>
-        <p class="meta">Windows · локальное хранение · DOCX, TXT, Markdown</p>
+        <img class="brand-logo" src={content.hero.logo} alt="Логотип Bon Plot" />
+        <span class="status">{content.hero.status}</span>
+        <p class="eyebrow">{content.hero.eyebrow}</p>
+        <h1>{content.hero.title}<br/><em>{content.hero.accent}</em></h1>
+        <p class="lede">{content.hero.description}</p>
+        <div class="actions"><a class="button button--plot" href="#book">{content.hero.primaryButton}</a><a class="button button--ghost" href="#assistant">{content.hero.secondaryButton}</a></div>
+        <p class="meta">{content.hero.meta}</p>
       </div>
-      <div class="screen screen--plot hero-screen"><img src="/images/plot/00-hero-fantasy-book.png" alt="Фэнтезийный книжный режим Bon Plot" width="1600" height="1000" /></div>
+      <div class="screen screen--plot hero-screen"><img src={content.hero.image} alt={content.hero.imageAlt} width="1600" height="1000" /></div>
     </div>
   </section>
 
@@ -26,62 +27,62 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="section book" id="book">
     <div class="container">
-      <div class="section-head"><div><span class="kicker-number">01 / Книга</span><p class="eyebrow">Текст остаётся центром</p><h2>От рабочего редактора до книжного разворота.</h2></div><p class="lede">Главы и сцены собираются в единую рукопись. Переключайтесь между обычным редактором и режимом чтения, не создавая отдельные копии текста.</p></div>
-      <div class="book-grid"><figure class="screen screen--plot book-main"><img src="/images/plot/00-hero-fantasy-book.png" alt="Книжный вид Bon Plot" loading="lazy" /><figcaption>Фэнтезийный книжный режим</figcaption></figure><figure class="screen book-side"><img src="/images/plot/03-book-editor.png" alt="Редактор книги Bon Plot" loading="lazy" /><figcaption>Редактор глав и сцен</figcaption></figure></div>
+      <div class="section-head"><div><span class="kicker-number">{content.book.kicker}</span><p class="eyebrow">{content.book.eyebrow}</p><h2>{content.book.title}</h2></div><p class="lede">{content.book.description}</p></div>
+      <div class="book-grid"><figure class="screen screen--plot book-main"><img src={content.book.primaryImage} alt={content.book.primaryAlt} loading="lazy" /><figcaption>{content.book.primaryCaption}</figcaption></figure><figure class="screen book-side"><img src={content.book.secondaryImage} alt={content.book.secondaryAlt} loading="lazy" /><figcaption>{content.book.secondaryCaption}</figcaption></figure></div>
     </div>
   </section>
 
   <section class="section characters" id="characters">
     <div class="container feature-grid">
-      <div class="feature-copy"><span class="kicker-number">02 / Персонажи</span><p class="eyebrow">Люди, которые двигают историю</p><h2>Не анкеты, а действующие лица.</h2><p class="lede">У каждого героя есть роль, мотивация, главный страх, арка развития и связи. Карточки помогают видеть ансамбль, не теряя отдельного человека.</p><ul><li>Цели, тайны и страхи</li><li>Роль в истории и арка развития</li><li>Быстрый переход между связанными героями</li></ul></div>
-      <figure class="screen screen--plot"><img src="/images/plot/01-characters-overview.png" alt="Обзор персонажей Bon Plot" loading="lazy" /><figcaption>Карточки персонажей и профиль героя</figcaption></figure>
+      <div class="feature-copy"><span class="kicker-number">{content.characters.kicker}</span><p class="eyebrow">{content.characters.eyebrow}</p><h2>{content.characters.title}</h2><p class="lede">{content.characters.description}</p><ul>{content.characters.bullets.map((item) => <li>{item}</li>)}</ul></div>
+      <figure class="screen screen--plot"><img src={content.characters.image} alt={content.characters.imageAlt} loading="lazy" /><figcaption>{content.characters.caption}</figcaption></figure>
     </div>
   </section>
 
   <section class="section relations">
     <div class="container relation-grid">
-      <figure class="screen screen--plot"><img src="/images/plot/02-relationship-map.png" alt="Карта отношений персонажей" loading="lazy" /></figure>
-      <div><span class="kicker-number">02.1 / Связи</span><p class="eyebrow">Переплетение историй</p><h2>Увидеть отношения, которые меняют всё.</h2><p class="lede">Дружба, конфликт, семья, романтика и наставничество складываются в наглядную карту. Выбранный герой остаётся в фокусе.</p></div>
+      <figure class="screen screen--plot"><img src={content.relations.image} alt={content.relations.imageAlt} loading="lazy" /></figure>
+      <div><span class="kicker-number">{content.relations.kicker}</span><p class="eyebrow">{content.relations.eyebrow}</p><h2>{content.relations.title}</h2><p class="lede">{content.relations.description}</p></div>
     </div>
   </section>
 
   <section class="section story" id="story">
     <div class="container">
-      <div class="section-head"><div><span class="kicker-number">03 / Сюжет</span><p class="eyebrow">От сцены к целому</p><h2>Цель, конфликт, поворот и результат.</h2></div><p class="lede">Сцены можно писать в любом порядке, затем связывать с главами и сюжетными линиями. Структура помогает увидеть пульс истории.</p></div>
-      <div class="story-grid"><figure class="screen"><img src="/images/plot/04-scenes.png" alt="Редактор сцен Bon Plot" loading="lazy" /><figcaption>Сцена как самостоятельная единица</figcaption></figure><figure class="screen"><img src="/images/plot/05-plot-structure.png" alt="Структура сюжета Bon Plot" loading="lazy" /><figcaption>План истории и конструкция сцены</figcaption></figure><figure class="screen story-wide"><img src="/images/plot/06-plot-thread-matrix.png" alt="Матрица сюжетных линий Bon Plot" loading="lazy" /><figcaption>Матрица сюжетных линий</figcaption></figure></div>
+      <div class="section-head"><div><span class="kicker-number">{content.story.kicker}</span><p class="eyebrow">{content.story.eyebrow}</p><h2>{content.story.title}</h2></div><p class="lede">{content.story.description}</p></div>
+      <div class="story-grid">{content.story.images.map((item, index) => <figure class:list={["screen", { "story-wide": index === 2 }]}><img src={item.image} alt={item.alt} loading="lazy" /><figcaption>{item.caption}</figcaption></figure>)}</div>
     </div>
   </section>
 
   <section class="section world" id="world">
     <div class="container world-grid">
-      <div class="world-copy"><span class="kicker-number">04 / Мир истории</span><p class="eyebrow">Правила и знания</p><h2>Мир существует не только на карте.</h2><p class="lede">Храните места, предметы, организации и правила мира. Отдельная карта знаний показывает, кто из героев знает правду, ошибается или ещё ничего не слышал.</p></div>
-      <div class="world-screens"><figure class="screen screen--plot"><img src="/images/plot/07-world-bible.png" alt="Библия мира Bon Plot" loading="lazy" /><figcaption>Библия мира</figcaption></figure><figure class="screen screen--plot"><img src="/images/plot/08-knowledge-map.png" alt="Карта знаний персонажей" loading="lazy" /><figcaption>Состояние знаний к концу сцены</figcaption></figure></div>
+      <div class="world-copy"><span class="kicker-number">{content.world.kicker}</span><p class="eyebrow">{content.world.eyebrow}</p><h2>{content.world.title}</h2><p class="lede">{content.world.description}</p></div>
+      <div class="world-screens">{content.world.images.map((item) => <figure class="screen screen--plot"><img src={item.image} alt={item.alt} loading="lazy" /><figcaption>{item.caption}</figcaption></figure>)}</div>
     </div>
   </section>
 
   <section class="section assistant" id="assistant">
     <div class="container feature-grid">
-      <div class="feature-copy"><span class="kicker-number">05 / Второй взгляд</span><p class="eyebrow">Редактор-помощник</p><h2>Не пишет вместо вас. Показывает, где стоит проверить.</h2><p class="lede">Bon Plot сопоставляет реакцию персонажа с его страхами и мотивацией, проверяет логику истории и объясняет замечание через конкретную цитату.</p><div class="assistant-note"><strong>AI подключается по желанию.</strong><p>Быстрые структурные проверки работают отдельно. Глубокий локальный разбор можно подключить через Ollama.</p></div></div>
-      <figure class="screen screen--plot"><img src="/images/plot/09-ai-assistant.png" alt="AI-помощник Bon Plot" loading="lazy" /><figcaption>Согласованность персонажа и логика истории</figcaption></figure>
+      <div class="feature-copy"><span class="kicker-number">{content.assistant.kicker}</span><p class="eyebrow">{content.assistant.eyebrow}</p><h2>{content.assistant.title}</h2><p class="lede">{content.assistant.description}</p><div class="assistant-note"><strong>{content.assistant.noteTitle}</strong><p>{content.assistant.note}</p></div></div>
+      <figure class="screen screen--plot"><img src={content.assistant.image} alt={content.assistant.imageAlt} loading="lazy" /><figcaption>{content.assistant.caption}</figcaption></figure>
     </div>
   </section>
 
   <section class="section import" id="import">
     <div class="container import-grid">
-      <figure class="screen screen--plot"><img src="/images/plot/10-import-preview.png" alt="Предварительный просмотр импорта" loading="lazy" /></figure>
-      <div><span class="kicker-number">06 / Импорт</span><p class="eyebrow">Начните с написанного</p><h2>Сначала проверьте. Потом добавляйте в проект.</h2><p class="lede">Загрузите DOCX, TXT или Markdown. Bon Plot предложит персонажей, сцены и элементы структуры, но проект изменится только после вашего подтверждения.</p><blockquote>Рукопись остаётся основой проекта, а не сырьём для незаметной перезаписи.</blockquote></div>
+      <figure class="screen screen--plot"><img src={content.import.image} alt={content.import.imageAlt} loading="lazy" /></figure>
+      <div><span class="kicker-number">{content.import.kicker}</span><p class="eyebrow">{content.import.eyebrow}</p><h2>{content.import.title}</h2><p class="lede">{content.import.description}</p><blockquote>{content.import.quote}</blockquote></div>
     </div>
   </section>
 
-  <section class="section local"><div class="container local-grid"><div class="local-mark"><span>локально</span><i></i><i></i></div><div><p class="eyebrow">Ваш текст — на вашем компьютере</p><h2>Без обязательного облачного аккаунта.</h2><p class="lede">Проекты хранятся вне папки программы. Предусмотрены автоматическое сохранение, версии текста, резервные копии и восстановление.</p></div></div></section>
+  <section class="section local"><div class="container local-grid"><div class="local-mark"><span>{content.local.mark}</span><i></i><i></i></div><div><p class="eyebrow">{content.local.eyebrow}</p><h2>{content.local.title}</h2><p class="lede">{content.local.description}</p></div></div></section>
 
-  <section class="section product-cta"><div class="container"><img src="/images/brand/bon-plot-logo.png" alt="Bon Plot" /><p class="eyebrow">Закрытое тестирование готовится</p><h2>Соберите историю в проект,<br/>с которым удобно продолжать работу.</h2><a class="button button--plot" href="/#products">Вернуться к продуктам</a></div></section>
+  <section class="section product-cta"><div class="container"><img src={content.hero.logo} alt="Bon Plot" /><p class="eyebrow">{content.cta.eyebrow}</p><h2>{content.cta.title}</h2><a class="button button--plot" href="/#products">{content.cta.button}</a></div></section>
 </BaseLayout>
 
 <style>
   .product-hero { position: relative; min-height: calc(100svh - 68px); display: grid; align-items: center; padding: clamp(72px, 8vw, 125px) 0; overflow: hidden; border-bottom: 1px solid var(--line); background: #090d11; }
   .plot-glow { position: absolute; inset: 0; background: radial-gradient(circle at 16% 62%, rgba(154,72,41,.35), transparent 32rem), radial-gradient(circle at 85% 20%, rgba(98,40,26,.32), transparent 28rem), linear-gradient(120deg, #070b0e, #15100e 50%, #090d11); }
-  .plot-glow::after { content: ''; position: absolute; inset: 0; opacity: .11; background: url('/images/plot/00-hero-fantasy-book.png') center/cover; filter: blur(14px) saturate(.7); mask-image: linear-gradient(90deg, transparent, black 45%, transparent); }
+  .plot-glow::after { content: ''; position: absolute; inset: 0; opacity: .11; background: var(--backdrop-image) center/cover; filter: blur(14px) saturate(.7); mask-image: linear-gradient(90deg, transparent, black 45%, transparent); }
   .product-hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: .72fr 1.28fr; align-items: center; gap: clamp(46px, 6vw, 92px); }
   .product-hero__copy { position: relative; }
   .brand-logo { width: 120px; height: 120px; margin-bottom: 22px; object-fit: contain; }

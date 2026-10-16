@@ -1,0 +1,17 @@
+{
+  "brand": "BON",
+  "domainLabel": "bonatlas.ru",
+  "tagline": "Инструменты для авторов миров и историй.",
+  "contactLabel": "Контакты",
+  "navigation": [
+    { "label": "Bon Atlas", "href": "/atlas" },
+    { "label": "Bon Plot", "href": "/plot" },
+    { "label": "Блог", "href": "/blog" }
+  ],
+  "footerProductsTitle": "Продукты",
+  "footerMaterialsTitle": "Материалы",
+  "footerStatusTitle": "Статус",
+  "atlasStatus": "Atlas — в разработке",
+  "plotStatus": "Plot — готовится тестирование",
+  "footerNote": "Продукты развиваются независимо и работают локально."
+}

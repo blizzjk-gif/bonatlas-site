@@ -1,25 +1,382 @@
 # yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
-# Локальный режим использует эту пару только как внутренний идентификатор.
-# Перед удалённой работой замените значение на настоящий GitHub owner/repository.
 backend:
   name: github
-  repo: local/bonatlas-site
+  repo: blizzjk-gif/bonatlas-site
   branch: main
-  # OAuth отключён, пока не развёрнут собственный OAuth-клиент.
-  # Локальная работа не требует входа; для удалённой можно использовать GitHub token.
   auth_methods: [token]
 
-media_folder: public/uploads/blog
-public_folder: /uploads/blog
+media_folder: public/uploads
+public_folder: /uploads
+app_title: BON — редакция сайта
+display_url: /
+logo:
+  src: /favicon.svg
+  show_in_header: true
 
 slug:
   encoding: ascii
   clean_accents: true
 
 collections:
+  - name: site
+    label: Страницы сайта
+    icon: web
+    description: Тексты, изображения и общие настройки публичных страниц.
+    format: json
+    media_folder: public/uploads/site
+    public_folder: /uploads/site
+    files:
+      - name: settings
+        label: Общие настройки
+        icon: settings
+        file: src/content/site/settings.json
+        fields:
+          - { label: Название бренда, name: brand, widget: string }
+          - { label: Подпись домена, name: domainLabel, widget: string, hint: Можно временно указать IP-адрес }
+          - { label: Краткое описание, name: tagline, widget: text }
+          - { label: Подпись контактов, name: contactLabel, widget: string }
+          - label: Навигация
+            name: navigation
+            widget: list
+            fields:
+              - { label: Название, name: label, widget: string }
+              - { label: Ссылка, name: href, widget: string }
+          - { label: Заголовок «Продукты», name: footerProductsTitle, widget: string }
+          - { label: Заголовок «Материалы», name: footerMaterialsTitle, widget: string }
+          - { label: Заголовок «Статус», name: footerStatusTitle, widget: string }
+          - { label: Статус Atlas, name: atlasStatus, widget: string }
+          - { label: Статус Plot, name: plotStatus, widget: string }
+          - { label: Подпись внизу сайта, name: footerNote, widget: text }
+
+      - name: home
+        label: Главная
+        icon: home
+        file: src/content/site/home.json
+        preview_path: /
+        fields:
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - { label: Заголовок вкладки, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Изображение для соцсетей, name: image, widget: image }
+          - label: Первый экран
+            name: hero
+            widget: object
+            fields:
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Первая строка, name: title, widget: string }
+              - { label: Акцентная строка, name: accent, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Скриншот Atlas, name: atlasImage, widget: image }
+              - { label: Скриншот Plot, name: plotImage, widget: image }
+              - { label: Кнопка Atlas, name: atlasButton, widget: string }
+              - { label: Кнопка Plot, name: plotButton, widget: string }
+          - label: Карточки продуктов
+            name: products
+            widget: object
+            fields:
+              - { label: Надзаголовок секции, name: eyebrow, widget: string }
+              - { label: Заголовок секции, name: title, widget: string }
+              - { label: Описание секции, name: description, widget: text }
+              - label: Bon Atlas
+                name: atlas
+                widget: object
+                fields:
+                  - { label: Статус, name: status, widget: string }
+                  - { label: Надзаголовок, name: eyebrow, widget: string }
+                  - { label: Заголовок, name: title, widget: text }
+                  - { label: Подпись ссылки, name: action, widget: string }
+                  - { label: Логотип, name: logo, widget: image }
+                  - { label: Изображение, name: image, widget: image }
+              - label: Bon Plot
+                name: plot
+                widget: object
+                fields:
+                  - { label: Статус, name: status, widget: string }
+                  - { label: Надзаголовок, name: eyebrow, widget: string }
+                  - { label: Заголовок, name: title, widget: text }
+                  - { label: Подпись ссылки, name: action, widget: string }
+                  - { label: Логотип, name: logo, widget: image }
+                  - { label: Изображение, name: image, widget: image }
+          - label: Связь продуктов
+            name: connection
+            widget: object
+            fields:
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - label: Строки
+                name: items
+                widget: list
+                fields:
+                  - { label: Метка, name: label, widget: string }
+                  - { label: Текст, name: title, widget: string }
+                  - { label: Продукт, name: product, widget: string }
+          - label: Рабочие экраны
+            name: proof
+            widget: object
+            fields:
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - label: Экраны
+                name: items
+                widget: list
+                fields:
+                  - { label: Изображение, name: image, widget: image }
+                  - { label: Описание изображения, name: alt, widget: string }
+                  - { label: Подпись, name: caption, widget: string }
+          - label: Принципы
+            name: principles
+            widget: object
+            fields:
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - label: Пункты
+                name: items
+                widget: list
+                fields:
+                  - { label: Номер, name: number, widget: string }
+                  - { label: Заголовок, name: title, widget: string }
+                  - { label: Описание, name: description, widget: text }
+          - label: Финальный призыв
+            name: closing
+            widget: object
+            fields:
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Кнопка Atlas, name: atlasButton, widget: string }
+              - { label: Кнопка Plot, name: plotButton, widget: string }
+
+      - name: atlas
+        label: Bon Atlas
+        icon: map
+        file: src/content/site/atlas.json
+        preview_path: /atlas
+        fields:
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - { label: Заголовок вкладки, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Изображение для соцсетей, name: image, widget: image }
+          - label: Первый экран
+            name: hero
+            widget: object
+            fields:
+              - { label: Логотип, name: logo, widget: image }
+              - { label: Статус, name: status, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Первая строка, name: title, widget: string }
+              - { label: Акцентная строка, name: accent, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Основная кнопка, name: primaryButton, widget: string }
+              - { label: Вторая кнопка, name: secondaryButton, widget: string }
+              - { label: Служебная строка, name: meta, widget: string }
+              - { label: Главный скриншот, name: image, widget: image }
+              - { label: Описание скриншота, name: imageAlt, widget: string }
+              - { label: Фоновая карта, name: backgroundImage, widget: image }
+          - label: Генерация
+            name: generator
+            widget: object
+            fields: &feature_fields
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - label: Пункты
+                name: bullets
+                widget: list
+                field: { label: Пункт, name: item, widget: string }
+              - { label: Изображение, name: image, widget: image }
+              - { label: Описание изображения, name: imageAlt, widget: string }
+              - { label: Подпись, name: caption, widget: string }
+          - label: Редактор объектов
+            name: editing
+            widget: object
+            fields: *feature_fields
+          - label: Библиотека ассетов
+            name: assets
+            widget: object
+            fields:
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Изображение, name: image, widget: image }
+              - { label: Описание изображения, name: imageAlt, widget: string }
+              - { label: Подпись, name: caption, widget: string }
+              - label: Пояснения
+                name: notes
+                widget: list
+                fields:
+                  - { label: Номер, name: number, widget: string }
+                  - { label: Заголовок, name: title, widget: string }
+                  - { label: Описание, name: description, widget: text }
+          - label: Оформление
+            name: styling
+            widget: object
+            fields:
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Изображение, name: image, widget: image }
+              - { label: Описание изображения, name: imageAlt, widget: string }
+              - { label: Подпись, name: caption, widget: string }
+          - label: Локальная библиотека
+            name: library
+            widget: object
+            fields:
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Изображение, name: image, widget: image }
+              - { label: Описание изображения, name: imageAlt, widget: string }
+          - label: Результат
+            name: result
+            widget: object
+            fields:
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Изображение, name: image, widget: image }
+              - { label: Описание изображения, name: imageAlt, widget: string }
+          - label: Финальный призыв
+            name: cta
+            widget: object
+            fields:
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Кнопка, name: button, widget: string }
+
+      - name: plot
+        label: Bon Plot
+        icon: auto_stories
+        file: src/content/site/plot.json
+        preview_path: /plot
+        fields:
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - { label: Заголовок вкладки, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Изображение для соцсетей, name: image, widget: image }
+          - label: Первый экран
+            name: hero
+            widget: object
+            fields:
+              - { label: Логотип, name: logo, widget: image }
+              - { label: Статус, name: status, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Первая строка, name: title, widget: string }
+              - { label: Акцентная строка, name: accent, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Основная кнопка, name: primaryButton, widget: string }
+              - { label: Вторая кнопка, name: secondaryButton, widget: string }
+              - { label: Служебная строка, name: meta, widget: string }
+              - { label: Главный скриншот, name: image, widget: image }
+              - { label: Описание скриншота, name: imageAlt, widget: string }
+              - { label: Фоновое изображение, name: backgroundImage, widget: image }
+          - label: Книга
+            name: book
+            widget: object
+            fields:
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Главное изображение, name: primaryImage, widget: image }
+              - { label: Описание главного изображения, name: primaryAlt, widget: string }
+              - { label: Подпись главного изображения, name: primaryCaption, widget: string }
+              - { label: Второе изображение, name: secondaryImage, widget: image }
+              - { label: Описание второго изображения, name: secondaryAlt, widget: string }
+              - { label: Подпись второго изображения, name: secondaryCaption, widget: string }
+          - label: Персонажи
+            name: characters
+            widget: object
+            fields: *feature_fields
+          - label: Связи
+            name: relations
+            widget: object
+            fields:
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Изображение, name: image, widget: image }
+              - { label: Описание изображения, name: imageAlt, widget: string }
+          - label: Сюжет
+            name: story
+            widget: object
+            fields: &gallery_fields
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - label: Изображения
+                name: images
+                widget: list
+                fields:
+                  - { label: Изображение, name: image, widget: image }
+                  - { label: Описание изображения, name: alt, widget: string }
+                  - { label: Подпись, name: caption, widget: string }
+          - label: Мир истории
+            name: world
+            widget: object
+            fields: *gallery_fields
+          - label: AI-помощник
+            name: assistant
+            widget: object
+            fields:
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Заголовок примечания, name: noteTitle, widget: string }
+              - { label: Примечание, name: note, widget: text }
+              - { label: Изображение, name: image, widget: image }
+              - { label: Описание изображения, name: imageAlt, widget: string }
+              - { label: Подпись, name: caption, widget: string }
+          - label: Импорт
+            name: import
+            widget: object
+            fields:
+              - { label: Маркер, name: kicker, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+              - { label: Цитата, name: quote, widget: text }
+              - { label: Изображение, name: image, widget: image }
+              - { label: Описание изображения, name: imageAlt, widget: string }
+          - label: Локальная работа
+            name: local
+            widget: object
+            fields:
+              - { label: Метка, name: mark, widget: string }
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Описание, name: description, widget: text }
+          - label: Финальный призыв
+            name: cta
+            widget: object
+            fields:
+              - { label: Надзаголовок, name: eyebrow, widget: string }
+              - { label: Заголовок, name: title, widget: string }
+              - { label: Кнопка, name: button, widget: string }
+
+  - divider: true
+
   - name: blog
     label: Блог
     label_singular: Статья
+    icon: article
     folder: src/content/blog
     create: true
     extension: md

@@ -1,18 +1,19 @@
 ---
+import settings from '../content/site/settings.json';
 const year = new Date().getFullYear();
 ---
 <footer class="footer" id="footer">
   <div class="container footer-top">
     <div class="footer-brand">
-      <a href="/">BON</a>
-      <p>Инструменты для авторов миров и историй.</p>
+      <a href="/">{settings.brand}</a>
+      <p>{settings.tagline}</p>
     </div>
-    <div class="footer-links"><p>Продукты</p><a href="/atlas">Bon Atlas</a><a href="/plot">Bon Plot</a></div>
-    <div class="footer-links"><p>Материалы</p><a href="/blog">Блог</a><a href="/admin/" rel="nofollow">Редакция</a></div>
-    <div class="footer-links"><p>Статус</p><span>Atlas — в разработке</span><span>Plot — готовится тестирование</span></div>
+    <div class="footer-links"><p>{settings.footerProductsTitle}</p><a href="/atlas">Bon Atlas</a><a href="/plot">Bon Plot</a></div>
+    <div class="footer-links"><p>{settings.footerMaterialsTitle}</p><a href="/blog">Блог</a><a href="/admin" rel="nofollow">Редакция</a></div>
+    <div class="footer-links"><p>{settings.footerStatusTitle}</p><span>{settings.atlasStatus}</span><span>{settings.plotStatus}</span></div>
   </div>
   <div class="container footer-bottom">
-    <span>© {year} BON</span><span>bonatlas.ru</span><span>Продукты развиваются независимо и работают локально.</span>
+    <span>© {year} {settings.brand}</span><span>{settings.domainLabel}</span><span>{settings.footerNote}</span>
   </div>
 </footer>
 

@@ -1,24 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import content from '../content/site/atlas.json';
 ---
 <BaseLayout
-  title="Bon Atlas — редактор и генератор фэнтези-карт"
-  description="Генерируйте основу карты, редактируйте рельеф и объекты вручную, собирайте мир из ассетов и экспортируйте результат в PNG."
-  image="/images/atlas/01-editor-overview.png"
+  title={content.seo.title}
+  description={content.seo.description}
+  image={content.seo.image}
 >
   <section class="product-hero atlas-hero">
-    <div class="atlas-backdrop" aria-hidden="true"></div>
+    <div class="atlas-backdrop" style={`--backdrop-image: url('${content.hero.backgroundImage}')`} aria-hidden="true"></div>
     <div class="container product-hero__grid">
       <div class="product-hero__copy">
-        <img class="brand-logo" src="/images/brand/bon-atlas-logo.png" alt="Логотип Bon Atlas" />
-        <span class="status">В разработке</span>
-        <p class="eyebrow">Карты и миры</p>
-        <h1>Карта, которую<br/><em>вы создаёте сами.</em></h1>
-        <p class="lede">Сгенерируйте основу, настройте рельеф и соберите собственный мир из деталей. Каждый объект остаётся редактируемым.</p>
-        <div class="actions"><a class="button" href="#generator">Посмотреть возможности</a><a class="button button--ghost" href="#result">Готовая карта</a></div>
-        <p class="meta">Локальное приложение · Windows · Экспорт PNG</p>
+        <img class="brand-logo" src={content.hero.logo} alt="Логотип Bon Atlas" />
+        <span class="status">{content.hero.status}</span>
+        <p class="eyebrow">{content.hero.eyebrow}</p>
+        <h1>{content.hero.title}<br/><em>{content.hero.accent}</em></h1>
+        <p class="lede">{content.hero.description}</p>
+        <div class="actions"><a class="button" href="#generator">{content.hero.primaryButton}</a><a class="button button--ghost" href="#result">{content.hero.secondaryButton}</a></div>
+        <p class="meta">{content.hero.meta}</p>
       </div>
-      <div class="screen screen--atlas hero-screen"><img src="/images/atlas/01-editor-overview.png" alt="Обзор редактора Bon Atlas" width="1800" height="1125" /></div>
+      <div class="screen screen--atlas hero-screen"><img src={content.hero.image} alt={content.hero.imageAlt} width="1800" height="1125" /></div>
     </div>
   </section>
 
@@ -26,49 +27,49 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="section feature" id="generator">
     <div class="container feature-grid">
-      <div class="feature-copy"><span class="kicker-number">01 / Генерация</span><p class="eyebrow">Быстрый старт</p><h2>Задайте характер мира до первого штриха.</h2><p class="lede">Выберите масштаб, тип карты, профиль побережья, плотность природы и цивилизации. Каждый запуск создаёт новый вариант, который можно продолжить вручную.</p><ul><li>Мир, регион или локальная карта</li><li>Несколько профилей побережья</li><li>Настраиваемая плотность наполнения</li></ul></div>
-      <figure class="screen screen--atlas"><img src="/images/atlas/02-generator-settings.png" alt="Параметры генерации карты" loading="lazy" /><figcaption>Заготовка генерации поверх редактора</figcaption></figure>
+      <div class="feature-copy"><span class="kicker-number">{content.generator.kicker}</span><p class="eyebrow">{content.generator.eyebrow}</p><h2>{content.generator.title}</h2><p class="lede">{content.generator.description}</p><ul>{content.generator.bullets.map((item) => <li>{item}</li>)}</ul></div>
+      <figure class="screen screen--atlas"><img src={content.generator.image} alt={content.generator.imageAlt} loading="lazy" /><figcaption>{content.generator.caption}</figcaption></figure>
     </div>
   </section>
 
   <section class="section feature feature--reverse" id="editing">
     <div class="container feature-grid">
-      <div class="feature-copy"><span class="kicker-number">02 / Ручная работа</span><p class="eyebrow">Редактор объектов</p><h2>Генерация даёт основу. Решения остаются за вами.</h2><p class="lede">Перемещайте поселения, меняйте порядок слоёв, поворачивайте и дублируйте объекты. Карта остаётся рабочим документом, а не финальной картинкой.</p><ul><li>Выбор и групповое перемещение</li><li>Копирование стиля и дублирование</li><li>Блокировка и порядок объектов</li></ul></div>
-      <figure class="screen screen--atlas"><img src="/images/atlas/03-object-editing.png" alt="Редактирование объекта на карте" loading="lazy" /><figcaption>Выбранный объект и его параметры</figcaption></figure>
+      <div class="feature-copy"><span class="kicker-number">{content.editing.kicker}</span><p class="eyebrow">{content.editing.eyebrow}</p><h2>{content.editing.title}</h2><p class="lede">{content.editing.description}</p><ul>{content.editing.bullets.map((item) => <li>{item}</li>)}</ul></div>
+      <figure class="screen screen--atlas"><img src={content.editing.image} alt={content.editing.imageAlt} loading="lazy" /><figcaption>{content.editing.caption}</figcaption></figure>
     </div>
   </section>
 
   <section class="section twin" id="assets">
     <div class="container">
-      <div class="section-head"><div><span class="kicker-number">03 / Детали мира</span><p class="eyebrow">Библиотека ассетов</p><h2>Собирайте карту из отдельных элементов.</h2></div><p class="lede">Горы, леса, поселения и декоративные детали выбираются из библиотеки. Размер и поворот настраиваются после размещения.</p></div>
-      <div class="twin-grid"><figure class="screen screen--atlas"><img src="/images/atlas/04-asset-library.png" alt="Библиотека ассетов Bon Atlas" loading="lazy" /><figcaption>Фильтры и визуальная библиотека</figcaption></figure><div class="twin-notes"><article><span>01</span><h3>Категории</h3><p>Рельеф, лес, вода, постройки и декор не смешиваются в одной длинной ленте.</p></article><article><span>02</span><h3>Биомы</h3><p>Ассеты можно отбирать под климат и характер конкретной части мира.</p></article><article><span>03</span><h3>Кисть и модель</h3><p>Ставьте один объект точно или быстро заполняйте область повторяющимися деталями.</p></article></div></div>
+      <div class="section-head"><div><span class="kicker-number">{content.assets.kicker}</span><p class="eyebrow">{content.assets.eyebrow}</p><h2>{content.assets.title}</h2></div><p class="lede">{content.assets.description}</p></div>
+      <div class="twin-grid"><figure class="screen screen--atlas"><img src={content.assets.image} alt={content.assets.imageAlt} loading="lazy" /><figcaption>{content.assets.caption}</figcaption></figure><div class="twin-notes">{content.assets.notes.map((item) => <article><span>{item.number}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}</div></div>
     </div>
   </section>
 
   <section class="section styling" id="styling">
     <div class="container feature-grid">
-      <div class="feature-copy"><span class="kicker-number">04 / Финальный штрих</span><p class="eyebrow">Оформление карты</p><h2>Добавьте рамку, компас и масштаб.</h2><p class="lede">Декоративные элементы располагаются на карте как обычные объекты. Их можно перемещать и поворачивать, не меняя сам мир.</p></div>
-      <figure class="screen screen--atlas"><img src="/images/atlas/05-map-styling.png" alt="Оформление карты в Bon Atlas" loading="lazy" /><figcaption>Компас, картуш и масштабная линейка</figcaption></figure>
+      <div class="feature-copy"><span class="kicker-number">{content.styling.kicker}</span><p class="eyebrow">{content.styling.eyebrow}</p><h2>{content.styling.title}</h2><p class="lede">{content.styling.description}</p></div>
+      <figure class="screen screen--atlas"><img src={content.styling.image} alt={content.styling.imageAlt} loading="lazy" /><figcaption>{content.styling.caption}</figcaption></figure>
     </div>
   </section>
 
   <section class="section library" id="library">
     <div class="container library-grid">
-      <div><span class="kicker-number">05 / Проекты</span><p class="eyebrow">Локальная библиотека</p><h2>Карты хранятся на диске и в браузере.</h2><p class="lede">Открывайте проекты из общей библиотеки, создавайте резервные копии и восстанавливайте их при следующем запуске.</p></div>
-      <figure class="screen screen--atlas"><img src="/images/atlas/06-local-library.png" alt="Локальная библиотека карт" loading="lazy" /></figure>
+      <div><span class="kicker-number">{content.library.kicker}</span><p class="eyebrow">{content.library.eyebrow}</p><h2>{content.library.title}</h2><p class="lede">{content.library.description}</p></div>
+      <figure class="screen screen--atlas"><img src={content.library.image} alt={content.library.imageAlt} loading="lazy" /></figure>
     </div>
   </section>
 
   <section class="section result" id="result">
-    <div class="container"><div class="result-copy"><span class="kicker-number">06 / Результат</span><p class="eyebrow">Экспорт PNG</p><h2>Готовая карта — без интерфейса редактора.</h2><p class="lede">Скачайте итоговое изображение и используйте его в книге, настольной игре, кампании или собственной базе мира.</p></div><figure class="result-map"><img src="/images/atlas/07-map-result.png" alt="Экспортированная карта Земли Вейра" loading="lazy" /></figure></div>
+    <div class="container"><div class="result-copy"><span class="kicker-number">{content.result.kicker}</span><p class="eyebrow">{content.result.eyebrow}</p><h2>{content.result.title}</h2><p class="lede">{content.result.description}</p></div><figure class="result-map"><img src={content.result.image} alt={content.result.imageAlt} loading="lazy" /></figure></div>
   </section>
 
-  <section class="section product-cta"><div class="container"><img src="/images/brand/bon-atlas-logo.png" alt="Bon Atlas" /><p class="eyebrow">Первый публичный выпуск готовится</p><h2>Основа — быстро.<br/>Каждая деталь — под вашим контролем.</h2><a class="button" href="/#products">Вернуться к продуктам</a></div></section>
+  <section class="section product-cta"><div class="container"><img src={content.hero.logo} alt="Bon Atlas" /><p class="eyebrow">{content.cta.eyebrow}</p><h2>{content.cta.title}</h2><a class="button" href="/#products">{content.cta.button}</a></div></section>
 </BaseLayout>
 
 <style>
   .product-hero { position: relative; min-height: calc(100svh - 68px); display: grid; align-items: center; padding: clamp(72px, 8vw, 125px) 0; overflow: hidden; border-bottom: 1px solid var(--line); }
-  .atlas-backdrop { position: absolute; inset: 0; opacity: .24; background: linear-gradient(90deg, #061018 18%, transparent 70%), url('/images/atlas/07-map-result.png') center/cover; filter: brightness(.65) saturate(.75); }
+  .atlas-backdrop { position: absolute; inset: 0; opacity: .24; background: linear-gradient(90deg, #061018 18%, transparent 70%), var(--backdrop-image) center/cover; filter: brightness(.65) saturate(.75); }
   .atlas-backdrop::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 72% 48%, transparent, #061018 78%); }
   .product-hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: .72fr 1.28fr; align-items: center; gap: clamp(46px, 6vw, 92px); }
   .product-hero__copy { position: relative; }

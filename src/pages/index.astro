@@ -1,31 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import content from '../content/site/home.json';
 ---
 <BaseLayout
-  title="BON — инструменты для авторов миров и историй"
-  description="Bon Atlas помогает создавать карты вымышленных миров, Bon Plot — работать с книгой, персонажами и логикой истории."
-  image="/images/atlas/01-editor-overview.png"
+  title={content.seo.title}
+  description={content.seo.description}
+  image={content.seo.image}
 >
   <section class="hero">
     <div class="hero-sky" aria-hidden="true"></div>
     <div class="container hero-inner">
-      <p class="eyebrow">Мастерская автора</p>
-      <h1><span>Создавайте миры.</span><em>Рассказывайте их истории.</em></h1>
-      <p class="lede">Два локальных инструмента — для пространства истории и для самой истории. Работают отдельно, развиваются вместе.</p>
+      <p class="eyebrow">{content.hero.eyebrow}</p>
+      <h1><span>{content.hero.title}</span><em>{content.hero.accent}</em></h1>
+      <p class="lede">{content.hero.description}</p>
       <div class="hero-stage">
         <a class="product-window product-window--atlas screen screen--atlas" href="/atlas">
           <span class="window-label">Bon Atlas</span>
-          <img src="/images/atlas/01-editor-overview.png" alt="Редактор карты Bon Atlas" width="1800" height="1125" />
+          <img src={content.hero.atlasImage} alt="Редактор карты Bon Atlas" width="1800" height="1125" />
         </a>
         <span class="story-route" aria-hidden="true"></span>
         <a class="product-window product-window--plot screen screen--plot" href="/plot">
           <span class="window-label">Bon Plot</span>
-          <img src="/images/plot/00-hero-fantasy-book.png" alt="Книжный режим Bon Plot" width="1600" height="1000" />
+          <img src={content.hero.plotImage} alt="Книжный режим Bon Plot" width="1600" height="1000" />
         </a>
       </div>
       <div class="hero-actions">
-        <a class="button" href="/atlas">Открыть Atlas <span>→</span></a>
-        <a class="button button--plot" href="/plot">Открыть Plot <span>→</span></a>
+        <a class="button" href="/atlas">{content.hero.atlasButton} <span>→</span></a>
+        <a class="button button--plot" href="/plot">{content.hero.plotButton} <span>→</span></a>
       </div>
     </div>
   </section>
@@ -33,25 +34,25 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="section products" id="products">
     <div class="container">
       <div class="section-head">
-        <div><p class="eyebrow">Одна экосистема</p><h2>Два пространства<br/>для одной работы.</h2></div>
-        <p class="lede">Начните с карты или с текста. Каждый продукт решает свою задачу и не требует второго для полноценной работы.</p>
+        <div><p class="eyebrow">{content.products.eyebrow}</p><h2>{content.products.title}</h2></div>
+        <p class="lede">{content.products.description}</p>
       </div>
       <div class="product-cards">
         <article class="product-card product-card--atlas">
           <div class="product-card__top">
-            <img class="product-logo product-logo--atlas" src="/images/brand/bon-atlas-logo.png" alt="Логотип Bon Atlas" />
-            <span class="status">В разработке</span>
+            <img class="product-logo product-logo--atlas" src={content.products.atlas.logo} alt="Логотип Bon Atlas" />
+            <span class="status">{content.products.atlas.status}</span>
           </div>
-          <div class="product-card__copy"><p>Карты и миры</p><h3>Создайте основу мира и продолжайте вручную.</h3><a href="/atlas">Исследовать Atlas <span>↗</span></a></div>
-          <div class="product-card__shot"><img src="/images/atlas/07-map-result.png" alt="Готовая карта в Bon Atlas" loading="lazy" /></div>
+          <div class="product-card__copy"><p>{content.products.atlas.eyebrow}</p><h3>{content.products.atlas.title}</h3><a href="/atlas">{content.products.atlas.action} <span>↗</span></a></div>
+          <div class="product-card__shot"><img src={content.products.atlas.image} alt="Готовая карта в Bon Atlas" loading="lazy" /></div>
         </article>
         <article class="product-card product-card--plot">
           <div class="product-card__top">
-            <img class="product-logo product-logo--plot" src="/images/brand/bon-plot-logo.png" alt="Логотип Bon Plot" />
-            <span class="status">Готовится тестирование</span>
+            <img class="product-logo product-logo--plot" src={content.products.plot.logo} alt="Логотип Bon Plot" />
+            <span class="status">{content.products.plot.status}</span>
           </div>
-          <div class="product-card__copy"><p>Рукописи и истории</p><h3>Соберите книгу, персонажей и логику сюжета.</h3><a href="/plot">Исследовать Plot <span>↗</span></a></div>
-          <div class="product-card__shot"><img src="/images/plot/01-characters-overview.png" alt="Персонажи в Bon Plot" loading="lazy" /></div>
+          <div class="product-card__copy"><p>{content.products.plot.eyebrow}</p><h3>{content.products.plot.title}</h3><a href="/plot">{content.products.plot.action} <span>↗</span></a></div>
+          <div class="product-card__shot"><img src={content.products.plot.image} alt="Персонажи в Bon Plot" loading="lazy" /></div>
         </article>
       </div>
     </div>
@@ -59,39 +60,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="section connection">
     <div class="container connection-grid">
-      <div class="connection-copy"><span class="kicker-number">01 / От карты к истории</span><h2>Место становится сценой. Сцена — частью пути.</h2><p class="lede">В Atlas вы собираете пространство: рельеф, дороги, поселения и детали. В Plot удерживаете персонажей, главы, знания и последствия их решений.</p></div>
+      <div class="connection-copy"><span class="kicker-number">{content.connection.kicker}</span><h2>{content.connection.title}</h2><p class="lede">{content.connection.description}</p></div>
       <div class="connection-list">
-        <article><span>Мир</span><strong>Карта, рельеф и важные места</strong><i>Bon Atlas</i></article>
-        <article><span>Действие</span><strong>Сцены, цели и конфликты</strong><i>Bon Plot</i></article>
-        <article><span>Причина</span><strong>Связи, знания и логика</strong><i>Bon Plot</i></article>
+        {content.connection.items.map((item) => <article><span>{item.label}</span><strong>{item.title}</strong><i>{item.product}</i></article>)}
       </div>
     </div>
   </section>
 
   <section class="section proof">
     <div class="container">
-      <div class="section-head"><div><p class="eyebrow">Не концепт, а рабочие продукты</p><h2>Каждый экран показывает настоящую функцию.</h2></div><p class="lede">На сайте используются актуальные скриншоты приложений. Визуальная оболочка помогает их раскрыть, но не подменяет возможности продукта.</p></div>
+      <div class="section-head"><div><p class="eyebrow">{content.proof.eyebrow}</p><h2>{content.proof.title}</h2></div><p class="lede">{content.proof.description}</p></div>
       <div class="proof-grid">
-        <figure class="screen"><img src="/images/atlas/02-generator-settings.png" alt="Настройки генерации Bon Atlas" loading="lazy" /><figcaption>Генерация основы карты</figcaption></figure>
-        <figure class="screen"><img src="/images/plot/02-relationship-map.png" alt="Карта отношений Bon Plot" loading="lazy" /><figcaption>Связи между персонажами</figcaption></figure>
-        <figure class="screen"><img src="/images/plot/09-ai-assistant.png" alt="AI-проверки Bon Plot" loading="lazy" /><figcaption>Проверка согласованности</figcaption></figure>
+        {content.proof.items.map((item) => <figure class="screen"><img src={item.image} alt={item.alt} loading="lazy" /><figcaption>{item.caption}</figcaption></figure>)}
       </div>
     </div>
   </section>
 
   <section class="section principles">
     <div class="container principles-grid">
-      <div><p class="eyebrow">Подход BON</p><h2>Инструменты поддерживают автора, а не заменяют его.</h2></div>
+      <div><p class="eyebrow">{content.principles.eyebrow}</p><h2>{content.principles.title}</h2></div>
       <div class="principle-list">
-        <article><span>01</span><h3>Локальная работа</h3><p>Проекты остаются на компьютере и не требуют постоянного облачного аккаунта.</p></article>
-        <article><span>02</span><h3>Ручной контроль</h3><p>После генерации и автоматического разбора каждую деталь можно проверить и изменить.</p></article>
-        <article><span>03</span><h3>Честная помощь</h3><p>AI используется по желанию и объясняет замечания вместо незаметной переписи текста.</p></article>
+        {content.principles.items.map((item) => <article><span>{item.number}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}
       </div>
     </div>
   </section>
 
   <section class="section closing">
-    <div class="container closing-inner"><p class="eyebrow">BON / bonatlas.ru</p><h2>Выберите, с чего начнётся следующая история.</h2><div><a class="button" href="/atlas">Создать карту</a><a class="button button--plot" href="/plot">Работать над книгой</a></div></div>
+    <div class="container closing-inner"><p class="eyebrow">{content.closing.eyebrow}</p><h2>{content.closing.title}</h2><div><a class="button" href="/atlas">{content.closing.atlasButton}</a><a class="button button--plot" href="/plot">{content.closing.plotButton}</a></div></div>
   </section>
 </BaseLayout>
 

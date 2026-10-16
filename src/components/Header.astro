@@ -1,21 +1,21 @@
 ---
-import { nav } from '../data/site';
+import settings from '../content/site/settings.json';
 const pathname = Astro.url.pathname;
 const isActive = (href: string) => href !== '/#products' && pathname.startsWith(href);
 ---
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label="BON — на главную">BON</a>
+    <a class="brand" href="/" aria-label={`${settings.brand} — на главную`}>{settings.brand}</a>
     <nav class="desktop-nav" aria-label="Основная навигация">
-      {nav.filter((item) => item.href !== '/#products').map((item) => (
+      {settings.navigation.map((item) => (
         <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
       ))}
     </nav>
-    <div class="header-side"><span>bonatlas.ru</span><a href="#footer">Контакты</a></div>
+    <div class="header-side"><span>{settings.domainLabel}</span><a href="#footer">{settings.contactLabel}</a></div>
     <details class="mobile-nav">
       <summary aria-label="Открыть меню"><span></span><span></span></summary>
       <nav aria-label="Мобильная навигация">
-        {nav.filter((item) => item.href !== '/#products').map((item) => (
+        {settings.navigation.map((item) => (
           <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
         ))}
       </nav>
