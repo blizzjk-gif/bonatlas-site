@@ -5,12 +5,16 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 SCRIPTS = Path(__file__).resolve().parents[1] / 'scripts'
 sys.path.insert(0, str(SCRIPTS))
 spec = importlib.util.spec_from_file_location('deployment', SCRIPTS / 'deploy-reg.py')
 deployment = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(deployment)
+prepare_spec = importlib.util.spec_from_file_location('prepare', SCRIPTS / 'prepare-site.py')
+prepare_module = importlib.util.module_from_spec(prepare_spec)
+prepare_spec.loader.exec_module(prepare_module)
 
 
 class MemoryRemote:
@@ -100,6 +104,34 @@ class DeploymentTests(unittest.TestCase):
         for name in ('../index.html', '/index.html', 'uploads/file.jpg', 'images/map.png', '.well-known/token'):
             with self.subTest(name=name), self.assertRaises(ValueError):
                 deployment.safe_path(name)
+
+
+class MediaPreparationTests(unittest.TestCase):
+    def test_urls_follow_environment_and_registered_media_stays_separate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'dist'
+            source.mkdir()
+            record = {'path': '/uploads/hash/image.png', 'sha256': 'hash', 'size': 1}
+            (root / 'media-manifest.json').write_text(json.dumps({'/images/image.png': record}))
+            (source / 'index.html').write_text('<head></head><img src="https://dev.bonatlas.ru/uploads/hash/image.png"><img src="/images/image.png">')
+            with patch.object(prepare_module, 'ROOT', root):
+                prepare_module.prepare(source, 'prod', 'test0000')
+            html = (source / 'index.html').read_text()
+            self.assertEqual(html.count('https://bonatlas.ru/uploads/hash/image.png'), 2)
+            self.assertNotIn('dev.bonatlas.ru', html)
+            metadata = json.loads((source / 'release.json').read_text())
+            self.assertIn(record['path'], metadata['media'])
+
+    def test_unregistered_image_is_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'dist'
+            source.mkdir()
+            (root / 'media-manifest.json').write_text('{}')
+            (source / 'index.html').write_text('<img src="/images/missing.png">')
+            with patch.object(prepare_module, 'ROOT', root), self.assertRaisesRegex(ValueError, 'Unregistered'):
+                prepare_module.prepare(source, 'dev', 'test0000')
 
 
 if __name__ == '__main__':

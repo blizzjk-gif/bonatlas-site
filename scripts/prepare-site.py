@@ -23,12 +23,11 @@ def prepare(source, environment, release):
         text = file.read_text("utf-8")
         # Process full canonical/OG URLs before root-relative references.
         for original, record in sorted(manifest.items(), key=lambda item: -len(item[0])):
-            if original not in text:
-                continue
-            required[record["path"]] = record
-            for previous_origin in ("https://bonatlas.ru", "https://dev.bonatlas.ru"):
-                text = text.replace(previous_origin + original, origin + record["path"])
-            text = text.replace(original, origin + record["path"])
+            for candidate in set((original, record['path'])):
+                pattern = r'(?<![A-Za-z0-9_/:.\-])(?:https://(?:dev\.)?bonatlas\.ru)?' + re.escape(candidate)
+                if re.search(pattern, text):
+                    required[record["path"]] = record
+                    text = re.sub(pattern, lambda _: origin + record['path'], text)
         missing = re.findall(r'''(?<=["'(=\s])/(?:images|uploads)/[^"'<>\s)]+\.[a-zA-Z0-9]{2,8}''', text)
         if missing:
             raise ValueError(f"Unregistered media in {file}: {missing}")
