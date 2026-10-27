@@ -15,7 +15,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/admin') && !page.endsWith('/404'),
+      filter: (page) => !page.includes('/admin') && !page.includes('/cms') && !page.endsWith('/404'),
     }),
   ],
 });
