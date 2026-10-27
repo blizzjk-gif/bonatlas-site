@@ -9,7 +9,10 @@ export function GET() {
     .replace(/^app_title: .*$/m, `app_title: BON — ${isDev ? 'DEV / проверочная версия' : 'PROD / основной сайт'}`)
     .replace(/^\s*(media_folder|public_folder):.*\r?\n/gm, '\n')
     .replace(/widget: image/g, 'widget: string');
-  return new Response(environmentConfig, {
+  // Sveltia validates media_folder even when all media widgets are URL fields.
+  // Keep the required declaration but disable its internal Git media provider.
+  const configured = `media_folder: public/uploads\nmedia_libraries:\n  default: false\n${environmentConfig}`;
+  return new Response(configured, {
     headers: { 'Content-Type': 'application/yaml; charset=utf-8' },
   });
 }
