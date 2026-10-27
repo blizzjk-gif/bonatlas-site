@@ -4,3 +4,6 @@ dist/
 .vercel/
 .DS_Store
 *.log
+__pycache__/
+public/images/
+public/uploads/

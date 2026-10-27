@@ -1,0 +1,102 @@
+{
+  "/images/atlas/01-editor-overview.png": {
+    "path": "/uploads/faf3324f1a283428c3bd60497bb65e7ec07f0360e52ac47a559d3382515a08b9/01-editor-overview.png",
+    "sha256": "faf3324f1a283428c3bd60497bb65e7ec07f0360e52ac47a559d3382515a08b9",
+    "size": 1299858
+  },
+  "/images/atlas/02-generator-settings.png": {
+    "path": "/uploads/b2c11176ef8ff85ebd29ff9929a6be6e359d42794f080def6adfea447d265262/02-generator-settings.png",
+    "sha256": "b2c11176ef8ff85ebd29ff9929a6be6e359d42794f080def6adfea447d265262",
+    "size": 458681
+  },
+  "/images/atlas/03-object-editing.png": {
+    "path": "/uploads/28d3a7d5cbf3d8eee3b937089179f1f91c8ddc0bd21dbf06517e74d598e586b8/03-object-editing.png",
+    "sha256": "28d3a7d5cbf3d8eee3b937089179f1f91c8ddc0bd21dbf06517e74d598e586b8",
+    "size": 1348685
+  },
+  "/images/atlas/04-asset-library.png": {
+    "path": "/uploads/f26a5e7259ce0c25ef6e4aaa30c739d5f8ee27ab9d562d9ba1bc2274ee698288/04-asset-library.png",
+    "sha256": "f26a5e7259ce0c25ef6e4aaa30c739d5f8ee27ab9d562d9ba1bc2274ee698288",
+    "size": 1375350
+  },
+  "/images/atlas/05-map-styling.png": {
+    "path": "/uploads/72951a88bcf64ccafbbfeef1b3d3f7a1e98ea019e0235ebb54f90815cdb14d66/05-map-styling.png",
+    "sha256": "72951a88bcf64ccafbbfeef1b3d3f7a1e98ea019e0235ebb54f90815cdb14d66",
+    "size": 1359618
+  },
+  "/images/atlas/06-local-library.png": {
+    "path": "/uploads/aea91a0a2377598f8ec24593d5d1d0d33cedd5df233691463c95691677c89440/06-local-library.png",
+    "sha256": "aea91a0a2377598f8ec24593d5d1d0d33cedd5df233691463c95691677c89440",
+    "size": 277048
+  },
+  "/images/atlas/07-map-result.png": {
+    "path": "/uploads/5161337e531158b83583cd84ab26a42a7ff2fc2ed7f44d76b6195edefa185206/07-map-result.png",
+    "sha256": "5161337e531158b83583cd84ab26a42a7ff2fc2ed7f44d76b6195edefa185206",
+    "size": 7745754
+  },
+  "/images/plot/00-hero-fantasy-book.png": {
+    "path": "/uploads/3ec750294583e6aec732ee2412e6ea5071c5262960dd564068d5fd90d145fb63/00-hero-fantasy-book.png",
+    "sha256": "3ec750294583e6aec732ee2412e6ea5071c5262960dd564068d5fd90d145fb63",
+    "size": 729108
+  },
+  "/images/plot/01-characters-overview.png": {
+    "path": "/uploads/5f81c5ff85e9cd886233b40691d94a9ec618069d93fb20c8bb15a1984c6dea8f/01-characters-overview.png",
+    "sha256": "5f81c5ff85e9cd886233b40691d94a9ec618069d93fb20c8bb15a1984c6dea8f",
+    "size": 157922
+  },
+  "/images/plot/02-relationship-map.png": {
+    "path": "/uploads/41a411fba6e91975d0020e248677a6581acd2a8c941f83e0074a30f0817f8491/02-relationship-map.png",
+    "sha256": "41a411fba6e91975d0020e248677a6581acd2a8c941f83e0074a30f0817f8491",
+    "size": 147692
+  },
+  "/images/plot/03-book-editor.png": {
+    "path": "/uploads/9ee1ad59344f76f1594cab7e8cdc0667d123ec991bc75601b01ef317629db8d2/03-book-editor.png",
+    "sha256": "9ee1ad59344f76f1594cab7e8cdc0667d123ec991bc75601b01ef317629db8d2",
+    "size": 126098
+  },
+  "/images/plot/04-scenes.png": {
+    "path": "/uploads/7a44bcee0ea15b854eee7a8226d8012ee31dc3645d0727afc5560e1edab3642c/04-scenes.png",
+    "sha256": "7a44bcee0ea15b854eee7a8226d8012ee31dc3645d0727afc5560e1edab3642c",
+    "size": 100255
+  },
+  "/images/plot/05-plot-structure.png": {
+    "path": "/uploads/c2807137a7bffa95dbe49fc0dfba06c1d8f2e21e04e64423e41ed7c42f74518b/05-plot-structure.png",
+    "sha256": "c2807137a7bffa95dbe49fc0dfba06c1d8f2e21e04e64423e41ed7c42f74518b",
+    "size": 97737
+  },
+  "/images/plot/06-plot-thread-matrix.png": {
+    "path": "/uploads/699a776bf019e4868b138765cf0bba56ac99fdae719ebf3fd0476195e731e1c8/06-plot-thread-matrix.png",
+    "sha256": "699a776bf019e4868b138765cf0bba56ac99fdae719ebf3fd0476195e731e1c8",
+    "size": 95531
+  },
+  "/images/plot/07-world-bible.png": {
+    "path": "/uploads/ea2e4ba54608c686ed56f560cf9d1a59fea55f0f8c4de17b3128e41477631c51/07-world-bible.png",
+    "sha256": "ea2e4ba54608c686ed56f560cf9d1a59fea55f0f8c4de17b3128e41477631c51",
+    "size": 110493
+  },
+  "/images/plot/08-knowledge-map.png": {
+    "path": "/uploads/fc47fa20d8c18d3720fc62c59e068609da46b09df26d2b2270a3a3547ceee4c6/08-knowledge-map.png",
+    "sha256": "fc47fa20d8c18d3720fc62c59e068609da46b09df26d2b2270a3a3547ceee4c6",
+    "size": 95935
+  },
+  "/images/plot/09-ai-assistant.png": {
+    "path": "/uploads/60f9933c755e6b1be2e9e24f4618d314334f579936e161471ce5c5cd7e7d97ae/09-ai-assistant.png",
+    "sha256": "60f9933c755e6b1be2e9e24f4618d314334f579936e161471ce5c5cd7e7d97ae",
+    "size": 110648
+  },
+  "/images/plot/10-import-preview.png": {
+    "path": "/uploads/8d6817bce62b5e962f03a8098a28bda0f5a3b339dde0f355845af2dfcdf84b60/10-import-preview.png",
+    "sha256": "8d6817bce62b5e962f03a8098a28bda0f5a3b339dde0f355845af2dfcdf84b60",
+    "size": 106774
+  },
+  "/images/brand/bon-atlas-logo.png": {
+    "path": "/uploads/949d45c241ff50de537a520a59691b57b8f2b39560e96918ece67d0e27cddd6c/bon-atlas-logo.png",
+    "sha256": "949d45c241ff50de537a520a59691b57b8f2b39560e96918ece67d0e27cddd6c",
+    "size": 2718421
+  },
+  "/images/brand/bon-plot-logo.png": {
+    "path": "/uploads/a119b4a06a10750d7cf1584d38fb17d853b27adf52ec242398de266ca844b115/bon-plot-logo.png",
+    "sha256": "a119b4a06a10750d7cf1584d38fb17d853b27adf52ec242398de266ca844b115",
+    "size": 2377930
+  }
+}

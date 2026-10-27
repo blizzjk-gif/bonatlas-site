@@ -1,34 +1,69 @@
-name: Publish to REG.RU
+name: Build and publish BON
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   workflow_dispatch:
+    inputs:
+      action:
+        description: Action (production actions must run from main)
+        type: choice
+        options: [deploy-prod, rollback-prod, list-prod]
+        required: true
+      backup:
+        description: Backup ID for rollback, or previous
+        default: previous
+        type: string
 
 permissions:
   contents: read
 
 concurrency:
-  group: reg-ru-production
+  group: bon-reg-${{ github.ref_name }}
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    env:
+      SITE_ENV: ${{ github.ref_name == 'develop' && 'dev' || 'prod' }}
+      REG_FTP_PASSWORD: ${{ secrets.REG_FTP_PASSWORD }}
+      PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22.22.0'
-          cache: npm
       - run: npm ci --no-audit --no-fund
+      - run: python3 -m unittest discover -s tests -v
+      - run: npm run check
       - run: npm run build
-      - name: Upload built pages over FTPS
-        env:
-          REG_FTP_HOST: server209.hosting.reg.ru
-          REG_FTP_USER: u3698579
-          REG_FTP_DIR: /www/bonatlas.ru
-          REG_FTP_PASSWORD: ${{ secrets.REG_FTP_PASSWORD }}
+      - run: python3 scripts/prepare-site.py --environment "$SITE_ENV" --release "$GITHUB_SHA"
+      - name: Dev deploy / production build staging only
         run: |
-          test -n "$REG_FTP_PASSWORD" || { echo 'REG_FTP_PASSWORD secret is missing'; exit 1; }
-          python3 scripts/deploy-reg.py --source dist
+          test -n "$REG_FTP_PASSWORD"
+          if [ "$SITE_ENV" = dev ]; then
+            python3 scripts/deploy-reg.py deploy --environment dev --release "$GITHUB_SHA"
+          else
+            python3 scripts/deploy-reg.py stage --environment prod --release "$GITHUB_SHA"
+          fi
+
+  production:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      REG_FTP_PASSWORD: ${{ secrets.REG_FTP_PASSWORD }}
+      ACTION: ${{ inputs.action }}
+      BACKUP: ${{ inputs.backup }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Manually activate the already built main release or roll back
+        run: |
+          test -n "$REG_FTP_PASSWORD"
+          case "$ACTION" in
+            deploy-prod) python3 scripts/deploy-reg.py activate --environment prod --release "$GITHUB_SHA" ;;
+            rollback-prod) python3 scripts/deploy-reg.py rollback --environment prod --backup "$BACKUP" ;;
+            list-prod) python3 scripts/deploy-reg.py list --environment prod ;;
+            *) exit 1 ;;
+          esac

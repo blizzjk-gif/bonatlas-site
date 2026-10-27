@@ -10,6 +10,7 @@ type Props = {
   noindex?: boolean;
 };
 const { title, description, image = '/favicon.svg', noindex = false } = Astro.props;
+const isPreview = process.env.SITE_ENV === 'dev';
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
@@ -21,7 +22,7 @@ const ogImage = new URL(image, Astro.site);
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#071019" />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {(noindex || isPreview) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -38,6 +39,7 @@ const ogImage = new URL(image, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#content">К содержанию</a>
+    {isPreview && <aside class="preview-notice">Проверочная версия · DEV · Изменения ещё не опубликованы на основном сайте. <a href="https://bonatlas.ru/">Основной сайт →</a></aside>}
     <Header />
     <main id="content"><slot /></main>
     <Footer />
@@ -45,6 +47,8 @@ const ogImage = new URL(image, Astro.site);
 </html>
 
 <style>
+  .preview-notice { padding: 8px 20px; background: #593414; color: #fff4e5; text-align: center; font-size: 13px; }
+  .preview-notice a { margin-left: 12px; }
   .skip-link { position: fixed; top: 12px; left: 12px; z-index: 100; padding: 9px 14px; border-radius: 10px; background: var(--ink); color: white; transform: translateY(-160%); }
   .skip-link:focus { transform: translateY(0); }
 </style>

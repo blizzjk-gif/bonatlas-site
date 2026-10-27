@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://bonatlas.ru',
+  site: process.env.SITE_ENV === 'dev' ? 'https://dev.bonatlas.ru' : 'https://bonatlas.ru',
   output: 'static',
   trailingSlash: 'never',
   server: {
