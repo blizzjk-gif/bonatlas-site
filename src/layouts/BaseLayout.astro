@@ -11,6 +11,7 @@ type Props = {
 };
 const { title, description, image = '/favicon.svg', noindex = false } = Astro.props;
 const isPreview = process.env.SITE_ENV === 'dev';
+const enableMetrika = process.env.SITE_ENV === 'prod' && !noindex;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
@@ -22,6 +23,7 @@ const ogImage = new URL(image, Astro.site);
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#071019" />
+    {process.env.SITE_ENV === 'prod' && <meta name="yandex-verification" content="df310553ded2b1ed" />}
     {(noindex || isPreview) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -36,8 +38,22 @@ const ogImage = new URL(image, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <title>{title}</title>
+    {enableMetrika && <script is:inline type="text/javascript">
+      (function () {
+        // Keep production statistics clean on local and preview copies.
+        if (!['bonatlas.ru', 'www.bonatlas.ru'].includes(location.hostname)) return;
+        (function(m,e,t,r,i,k,a){
+          m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+          m[i].l=1*new Date();
+          for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+          k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113828649', 'ym');
+        ym(113828649, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+      })();
+    </script>}
   </head>
   <body>
+    {enableMetrika && <noscript><div><img src="https://mc.yandex.ru/watch/113828649" style="position:absolute; left:-9999px;" alt="" /></div></noscript>}
     <a class="skip-link" href="#content">К содержанию</a>
     {isPreview && <aside class="preview-notice">Проверочная версия · DEV · Изменения ещё не опубликованы на основном сайте. <a href="https://bonatlas.ru/">Основной сайт →</a></aside>}
     <Header />
