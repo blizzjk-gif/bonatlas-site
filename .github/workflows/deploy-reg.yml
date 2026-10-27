@@ -1,0 +1,34 @@
+name: Publish to REG.RU
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reg-ru-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.0'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: Upload built pages over FTPS
+        env:
+          REG_FTP_HOST: server209.hosting.reg.ru
+          REG_FTP_USER: u3698579
+          REG_FTP_DIR: /www/bonatlas.ru
+          REG_FTP_PASSWORD: ${{ secrets.REG_FTP_PASSWORD }}
+        run: |
+          test -n "$REG_FTP_PASSWORD" || { echo 'REG_FTP_PASSWORD secret is missing'; exit 1; }
+          python3 scripts/deploy-reg.py --source dist
