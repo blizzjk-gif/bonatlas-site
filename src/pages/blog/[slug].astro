@@ -14,7 +14,7 @@ const { Content, headings } = await render(post);
 const sections = headings.filter(({ depth }) => depth === 2);
 const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(post.data.publishedAt);
 ---
-<BaseLayout title={`${post.data.title} — Bon Atlas`} description={post.data.description} noindex={post.data.draft}>
+<BaseLayout title={`${post.data.title} — Bon Atlas`} description={post.data.description} image={post.data.image} noindex={post.data.draft}>
   <article>
     <header class="article-hero">
       <div class="container article-hero__inner">
@@ -27,6 +27,7 @@ const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'lon
           {post.data.draft ? <span class="draft-label">Черновик для редакционного чтения</span> : <time datetime={post.data.publishedAt.toISOString()}>{published}</time>}
           {post.data.demo && <span>Демонстрационный материал</span>}
         </div>
+        {post.data.image && <figure class="article-cover"><img src={post.data.image} alt={post.data.imageAlt ?? ''} width="1672" height="941" fetchpriority="high" decoding="async" /></figure>}
       </div>
     </header>
     <div class="container article-layout">
@@ -53,6 +54,8 @@ const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'lon
   .back { display: inline-block; margin-bottom: 60px; color: var(--muted); font-size: .82rem; text-decoration: none; }
   .article-hero h1 { font-size: clamp(2.4rem,5.3vw,4.5rem); }
   .article-hero .lede { margin-top: 28px; }
+  .article-cover { margin: 40px 0 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+  .article-cover img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
   .meta { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 34px; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
   .article-layout { display: grid; grid-template-columns: 230px minmax(0, 700px); justify-content: center; gap: clamp(50px,8vw,110px); padding-block: clamp(65px,9vw,110px); }
   .article-layout aside { align-self: start; position: sticky; top: 92px; padding-top: 15px; border-top: 1px solid var(--ink); color: var(--muted); font-size: .78rem; }

@@ -6,6 +6,8 @@ category: "Писательская работа"
 author: "Редакция Bon Atlas"
 publishedAt: 2026-10-27
 draft: true
+image: "/uploads/blog/kak-pisat-dialogi-cover.webp"
+imageAlt: "Двое собеседников в мастерской: между ними на столе лежат заявление и ручка."
 showSolutions: true
 solutionsContext: writing
 ---
