@@ -29,12 +29,26 @@ def prepare(source, environment, release):
             for previous_origin in ("https://bonatlas.ru", "https://dev.bonatlas.ru"):
                 text = text.replace(previous_origin + original, origin + record["path"])
             text = text.replace(original, origin + record["path"])
-        missing = re.findall(r'''(?<=["'(=\s])/(?:images|uploads)/[^"'<>\s)]+''', text)
+        missing = re.findall(r'''(?<=["'(=\s])/(?:images|uploads)/[^"'<>\s)]+\.[a-zA-Z0-9]{2,8}''', text)
         if missing:
             raise ValueError(f"Unregistered media in {file}: {missing}")
         if environment == "dev" and file.suffix == ".html":
             text = text.replace('<head>', '<head><meta name="robots" content="noindex, nofollow">', 1)
         file.write_text(text, "utf-8")
+    # Vite's original CSS hash predates media URL rewriting. Give rewritten CSS
+    # a content hash too, so a newly registered image cannot leave cached styles.
+    replacements = {}
+    for css in (source / '_astro').glob('*.css'):
+        digest = hashlib.sha256(css.read_bytes()).hexdigest()[:12]
+        name = css.stem.rsplit('.', 1)[0] + '.' + digest + '.css'
+        replacements[css.name] = name
+        css.rename(css.with_name(name))
+    for file in source.rglob('*'):
+        if file.is_file() and file.suffix in ('.html', '.js', '.css'):
+            text = file.read_text('utf-8')
+            for original, rewritten in replacements.items():
+                text = text.replace(original, rewritten)
+            file.write_text(text, 'utf-8')
     for directory in ("images", "uploads"):
         target = (source / directory).resolve()
         if target.is_relative_to(source.resolve()) and target.is_dir():
