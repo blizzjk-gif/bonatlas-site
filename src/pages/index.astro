@@ -17,11 +17,13 @@ import content from '../content/site/home.json';
         <a class="product-window product-window--atlas screen screen--atlas" href="/atlas">
           <span class="window-label">Bon Atlas</span>
           <img src={content.hero.atlasImage} alt="Редактор карты Bon Atlas" width="1800" height="1125" />
+          <span class="route-anchor route-anchor--atlas" aria-hidden="true"></span>
         </a>
         <span class="story-route" aria-hidden="true"></span>
         <a class="product-window product-window--plot screen screen--plot" href="/plot">
           <span class="window-label">Bon Plot</span>
           <img src={content.hero.plotImage} alt="Книжный режим Bon Plot" width="1600" height="1000" />
+          <span class="route-anchor route-anchor--plot" aria-hidden="true"></span>
         </a>
       </div>
       <div class="hero-actions">
@@ -90,6 +92,57 @@ import content from '../content/site/home.json';
   </section>
 </BaseLayout>
 
+<script>
+  const stage = document.querySelector<HTMLElement>('.hero-stage');
+  const route = stage?.querySelector<HTMLElement>('.story-route');
+  const start = stage?.querySelector<HTMLElement>('.route-anchor--atlas');
+  const end = stage?.querySelector<HTMLElement>('.route-anchor--plot');
+
+  if (stage && route && start && end) {
+    const moving = new Set<EventTarget>();
+    let frame = 0;
+
+    const updateRoute = () => {
+      const origin = stage.getBoundingClientRect();
+      // Zero-size anchors inherit the windows' complete perspective transforms.
+      const a = start.getBoundingClientRect();
+      const b = end.getBoundingClientRect();
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      route.style.left = `${a.x - origin.x}px`;
+      route.style.top = `${a.y - origin.y}px`;
+      route.style.width = `${Math.hypot(dx, dy)}px`;
+      route.style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
+      route.style.visibility = 'visible';
+      frame = moving.size ? requestAnimationFrame(updateRoute) : 0;
+    };
+
+    const scheduleUpdate = () => {
+      if (!frame) frame = requestAnimationFrame(updateRoute);
+    };
+
+    stage.querySelectorAll('.product-window').forEach((window) => {
+      window.addEventListener('transitionrun', (event) => {
+        if ((event as TransitionEvent).propertyName !== 'transform' || event.target !== window) return;
+        moving.add(window);
+        scheduleUpdate();
+      });
+      const finish = (event: Event) => {
+        if ((event as TransitionEvent).propertyName !== 'transform' || event.target !== window) return;
+        moving.delete(window);
+        scheduleUpdate();
+      };
+      window.addEventListener('transitionend', finish);
+      window.addEventListener('transitioncancel', finish);
+    });
+
+    const observer = new ResizeObserver(scheduleUpdate);
+    observer.observe(stage);
+    stage.querySelectorAll('.product-window').forEach((window) => observer.observe(window));
+    scheduleUpdate();
+  }
+</script>
+
 <style>
   .hero { position: relative; min-height: calc(100svh - 68px); padding: clamp(58px, 7vw, 104px) 0 70px; overflow: hidden; border-bottom: 1px solid var(--line); }
   .hero-sky { position: absolute; inset: 0; background: radial-gradient(circle at 50% 38%, rgba(31,82,104,.58), transparent 31%), linear-gradient(180deg, rgba(4,10,16,.05), #071019 92%); }
@@ -105,8 +158,11 @@ import content from '../content/site/home.json';
   .product-window--plot { right: 0; bottom: 0; transform: perspective(1400px) rotateY(-4deg) rotate(1deg); }
   .product-window img { object-position: top left; }
   .window-label { position: absolute; top: 16px; left: 16px; z-index: 3; padding: 7px 11px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(4,10,16,.78); font-size: .72rem; font-weight: 800; backdrop-filter: blur(8px); }
-  .story-route { position: absolute; top: 51%; left: 47%; z-index: 5; width: 11%; height: 2px; background: linear-gradient(90deg, var(--atlas), var(--plot)); box-shadow: 0 0 16px rgba(255,255,255,.45); transform: rotate(7deg); }
-  .story-route::before, .story-route::after { content: ''; position: absolute; top: 50%; width: 9px; height: 9px; border: 2px solid currentColor; border-radius: 50%; background: var(--bg); transform: translateY(-50%); } .story-route::before { left: -4px; color: var(--atlas); } .story-route::after { right: -4px; color: var(--plot); }
+  .route-anchor { position: absolute; width: 0; height: 0; pointer-events: none; }
+  .route-anchor--atlas { left: 75%; top: 62%; }
+  .route-anchor--plot { left: 22%; top: 35%; }
+  .story-route { position: absolute; visibility: hidden; z-index: 5; height: 2px; pointer-events: none; transform-origin: 0 0; background: linear-gradient(90deg, var(--atlas), var(--plot)); box-shadow: 0 0 16px rgba(255,255,255,.45); }
+  .story-route::before, .story-route::after { content: ''; position: absolute; top: 0; width: 9px; height: 9px; border: 2px solid currentColor; border-radius: 50%; background: var(--bg); transform: translate(-50%, -50%); } .story-route::before { left: 0; color: var(--atlas); } .story-route::after { left: 100%; color: var(--plot); }
   .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
   .products { background: #08121a; }
   .product-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }

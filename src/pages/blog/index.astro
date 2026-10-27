@@ -3,19 +3,20 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 
-const posts = (await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft))
+const posts = (await getCollection('blog', ({ data }) => import.meta.env.DEV || process.env.SITE_ENV === 'dev' || !data.draft))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const hasDemoPosts = posts.some(({ data }) => data.demo);
 ---
 <BaseLayout title="Блог — Bon Atlas" description="Заметки о создании миров, фэнтези-картах, рукописях, персонажах и сюжете.">
   <header class="blog-hero">
     <div class="container blog-hero__grid">
       <div><p class="eyebrow">Полевые заметки</p><h1>О мирах,<br/>картах и <em>историях.</em></h1></div>
-      <p class="lede">Практические материалы о работе над вымышленными мирами и длинными историями. Пока здесь размещён демонстрационный контент для проверки структуры.</p>
+      <p class="lede">Практические материалы о работе над вымышленными мирами и длинными историями.</p>
     </div>
   </header>
   <section class="section--tight">
     <div class="container">
-      <div class="demo-note"><strong>Демо-раздел</strong><span>Материалы ниже — тестовые заглушки и не являются опубликованными редакционными статьями.</span></div>
+        {hasDemoPosts && <div class="demo-note"><strong>Проверка блога</strong><span>Тестовые заглушки помечены как демонстрационные материалы. Черновики доступны на dev и в локальном просмотре.</span></div>}
       <div class="articles">
         {posts.map((post) => <ArticleCard {...post.data} />)}
       </div>

@@ -5,8 +5,10 @@ type Props = {
   slug: string;
   category: string;
   publishedAt: Date;
+  draft?: boolean;
+  demo?: boolean;
 };
-const { title, description, slug, category, publishedAt } = Astro.props;
+const { title, description, slug, category, publishedAt, draft = false, demo = false } = Astro.props;
 const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(publishedAt);
 ---
 <article class="article-card">
@@ -15,7 +17,8 @@ const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', y
     <i></i><i></i><i></i>
   </a>
   <div class="article-card__copy">
-    <div class="article-card__meta"><span>{category}</span><time datetime={publishedAt.toISOString()}>{date}</time></div>
+    <div class="article-card__meta"><span>{category}</span>{draft ? <span>Черновик</span> : <time datetime={publishedAt.toISOString()}>{date}</time>}</div>
+    {demo && <p class="article-card__demo">Демонстрационный материал</p>}
     <h2><a href={`/blog/${slug}`}>{title}</a></h2>
     <p>{description}</p>
     <a class="article-card__link" href={`/blog/${slug}`}>Читать заметку <span aria-hidden="true">→</span></a>
@@ -35,4 +38,5 @@ const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', y
   .article-card h2 a { text-decoration: none; }
   .article-card p { color: var(--muted); font-size: .92rem; }
   .article-card__link { display: inline-flex; gap: 8px; margin-top: 22px; font-size: .82rem; font-weight: 800; text-decoration: none; }
+  .article-card .article-card__demo { margin-top: 12px; font-size: .7rem; }
 </style>

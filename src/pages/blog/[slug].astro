@@ -1,18 +1,20 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleBody from '../../components/ArticleBody.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft);
+  const posts = await getCollection('blog', ({ data }) => import.meta.env.DEV || process.env.SITE_ENV === 'dev' || !data.draft);
   return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }));
 }
 
 type Props = { post: CollectionEntry<'blog'> };
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+const sections = headings.filter(({ depth }) => depth === 2);
 const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(post.data.publishedAt);
 ---
-<BaseLayout title={`${post.data.title} — Bon Atlas`} description={post.data.description}>
+<BaseLayout title={`${post.data.title} — Bon Atlas`} description={post.data.description} noindex={post.data.draft}>
   <article>
     <header class="article-hero">
       <div class="container article-hero__inner">
@@ -20,12 +22,27 @@ const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'lon
         <p class="eyebrow">{post.data.category}</p>
         <h1>{post.data.title}</h1>
         <p class="lede">{post.data.description}</p>
-        <div class="meta"><span>{post.data.author}</span><time datetime={post.data.publishedAt.toISOString()}>{published}</time><span>Демонстрационный материал</span></div>
+        <div class="meta">
+          <span>{post.data.author}</span>
+          {post.data.draft ? <span class="draft-label">Черновик для редакционного чтения</span> : <time datetime={post.data.publishedAt.toISOString()}>{published}</time>}
+          {post.data.demo && <span>Демонстрационный материал</span>}
+        </div>
       </div>
     </header>
     <div class="container article-layout">
-      <aside><span>В этой заметке</span><p>Тестовая структура статьи для проверки Markdown и редакции через Sveltia CMS.</p></aside>
-      <div class="prose"><Content /></div>
+      {sections.length > 0 && (
+        <aside class="article-toc">
+          <nav aria-label="Содержание статьи">
+            <span>В статье</span>
+            <ol>{sections.map(({ slug, text }) => <li><a href={`#${slug}`}>{text}</a></li>)}</ol>
+          </nav>
+        </aside>
+      )}
+      <div class="article-main">
+        <ArticleBody showSolutions={post.data.showSolutions} category={post.data.category} context={post.data.solutionsContext} articleSlug={post.data.slug}>
+          <Content />
+        </ArticleBody>
+      </div>
     </div>
   </article>
 </BaseLayout>
@@ -34,15 +51,21 @@ const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'lon
   .article-hero { padding: 70px 0 78px; border-bottom: 1px solid var(--line); }
   .article-hero__inner { max-width: 900px; }
   .back { display: inline-block; margin-bottom: 60px; color: var(--muted); font-size: .82rem; text-decoration: none; }
-  .article-hero h1 { font-size: clamp(3rem,7vw,6rem); }
+  .article-hero h1 { font-size: clamp(2.4rem,5.3vw,4.5rem); }
   .article-hero .lede { margin-top: 28px; }
   .meta { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 34px; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
   .article-layout { display: grid; grid-template-columns: 230px minmax(0, 700px); justify-content: center; gap: clamp(50px,8vw,110px); padding-block: clamp(65px,9vw,110px); }
-  .article-layout aside { align-self: start; position: sticky; top: 30px; padding-top: 15px; border-top: 1px solid var(--ink); color: var(--muted); font-size: .78rem; }
+  .article-layout aside { align-self: start; position: sticky; top: 92px; padding-top: 15px; border-top: 1px solid var(--ink); color: var(--muted); font-size: .78rem; }
   .article-layout aside span { color: var(--ink); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
   .article-layout aside p { margin-top: 12px; }
+  .article-toc ol { margin: 18px 0 0; padding-left: 18px; }
+  .article-toc li { margin: 0 0 12px; padding-left: 3px; }
+  .article-toc a { color: var(--muted); text-decoration: none; }
+  .article-toc a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .draft-label { color: var(--plot); }
   .prose { font-size: 1.06rem; }
-  .prose h2 { margin: 2.4em 0 .65em; font-size: clamp(2rem,4vw,3rem); }
+  .article-main { min-width: 0; }
+  .prose h2 { margin: 2.4em 0 .65em; font-size: clamp(1.6rem,2.7vw,2.2rem); scroll-margin-top: 100px; }
   .prose h3 { margin: 2em 0 .6em; font-size: 1.6rem; }
   .prose p, .prose ul, .prose ol { margin: 1.15em 0; }
   .prose li { margin: .55em 0; }
