@@ -98,5 +98,10 @@
     "path": "/uploads/a119b4a06a10750d7cf1584d38fb17d853b27adf52ec242398de266ca844b115/bon-plot-logo.png",
     "sha256": "a119b4a06a10750d7cf1584d38fb17d853b27adf52ec242398de266ca844b115",
     "size": 2377930
+  },
+  "/uploads/blog/kak-pisat-dialogi-cover.webp": {
+    "path": "/uploads/30510692977e3c5a75700c13765439333be5706247976faf99f8af8cfc502e3c/kak-pisat-dialogi-cover.webp",
+    "sha256": "30510692977e3c5a75700c13765439333be5706247976faf99f8af8cfc502e3c",
+    "size": 154586
   }
 }

@@ -3,19 +3,18 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 
-const posts = (await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft))
+const posts = (await getCollection('blog', ({ data }) => import.meta.env.DEV || process.env.SITE_ENV === 'dev' || !data.draft))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 <BaseLayout title="Блог — Bon Atlas" description="Заметки о создании миров, фэнтези-картах, рукописях, персонажах и сюжете.">
   <header class="blog-hero">
     <div class="container blog-hero__grid">
       <div><p class="eyebrow">Полевые заметки</p><h1>О мирах,<br/>картах и <em>историях.</em></h1></div>
-      <p class="lede">Практические материалы о работе над вымышленными мирами и длинными историями. Пока здесь размещён демонстрационный контент для проверки структуры.</p>
+      <p class="lede">Практические материалы о работе над вымышленными мирами и длинными историями.</p>
     </div>
   </header>
   <section class="section--tight">
     <div class="container">
-      <div class="demo-note"><strong>Демо-раздел</strong><span>Материалы ниже — тестовые заглушки и не являются опубликованными редакционными статьями.</span></div>
       <div class="articles">
         {posts.map((post) => <ArticleCard {...post.data} />)}
       </div>
@@ -27,9 +26,7 @@ const posts = (await getCollection('blog', ({ data }) => import.meta.env.DEV || 
   .blog-hero { padding: clamp(70px,10vw,130px) 0 70px; border-bottom: 1px solid var(--line); }
   .blog-hero__grid { display: grid; grid-template-columns: 1.15fr .85fr; align-items: end; gap: 60px; }
   .blog-hero h1 em { color: var(--rust); font-weight: 400; }
-  .demo-note { display: flex; align-items: center; gap: 18px; margin-bottom: 30px; padding: 14px 18px; border: 1px solid #d7b9a8; border-radius: 12px; background: var(--rust-soft); color: #6f4939; font-size: .8rem; }
-  .demo-note strong { text-transform: uppercase; letter-spacing: .08em; }
-  .articles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  @media (max-width: 900px) { .blog-hero__grid { grid-template-columns: 1fr; } .articles { grid-template-columns: repeat(2,1fr); } }
-  @media (max-width: 620px) { .articles { grid-template-columns: 1fr; } .demo-note { align-items: flex-start; flex-direction: column; gap: 5px; } }
+  .articles { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 28px; }
+  @media (max-width: 900px) { .blog-hero__grid { grid-template-columns: 1fr; gap: 30px; } }
+  @media (max-width: 760px) { .articles { grid-template-columns: 1fr; } }
 </style>

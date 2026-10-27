@@ -5,34 +5,47 @@ type Props = {
   slug: string;
   category: string;
   publishedAt: Date;
+  draft?: boolean;
+  demo?: boolean;
+  image?: string;
+  imageAlt?: string;
 };
-const { title, description, slug, category, publishedAt } = Astro.props;
+const { title, description, slug, category, publishedAt, draft = false, demo = false, image, imageAlt = '' } = Astro.props;
 const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(publishedAt);
 ---
 <article class="article-card">
   <a class="article-card__art" href={`/blog/${slug}`} aria-label={`Читать: ${title}`}>
-    <span>{category}</span>
-    <i></i><i></i><i></i>
+    {image ? <img src={image} alt={imageAlt} width="1672" height="941" loading="lazy" decoding="async" /> : <span>{category}</span>}
   </a>
   <div class="article-card__copy">
-    <div class="article-card__meta"><span>{category}</span><time datetime={publishedAt.toISOString()}>{date}</time></div>
+    <div class="article-card__meta"><span>{category}</span>{draft ? <span>Черновик</span> : <time datetime={publishedAt.toISOString()}>{date}</time>}</div>
+    {demo && <p class="article-card__demo">Демонстрационный материал</p>}
     <h2><a href={`/blog/${slug}`}>{title}</a></h2>
     <p>{description}</p>
-    <a class="article-card__link" href={`/blog/${slug}`}>Читать заметку <span aria-hidden="true">→</span></a>
+    <a class="article-card__link" href={`/blog/${slug}`}>Читать статью <span aria-hidden="true">→</span></a>
   </div>
 </article>
 
 <style>
-  .article-card { overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,253,248,.72); }
-  .article-card__art { position: relative; height: 205px; display: block; overflow: hidden; background: var(--forest-soft); text-decoration: none; }
-  .article-card:nth-child(even) .article-card__art { background: var(--rust-soft); }
-  .article-card__art > span { position: absolute; top: 18px; left: 18px; z-index: 1; font-family: var(--display); font-size: 1.15rem; }
-  .article-card__art i { position: absolute; inset: auto -8% -55% 8%; height: 135%; border: 1px solid rgba(23,60,53,.25); border-radius: 50%; transform: rotate(-9deg); }
-  .article-card__art i:nth-of-type(2) { inset: auto 8% -66% -12%; } .article-card__art i:nth-of-type(3) { inset: 55% -10% auto 25%; }
-  .article-card__copy { padding: 26px; }
-  .article-card__meta { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
-  .article-card h2 { margin: 18px 0 12px; font-size: 1.75rem; }
-  .article-card h2 a { text-decoration: none; }
-  .article-card p { color: var(--muted); font-size: .92rem; }
-  .article-card__link { display: inline-flex; gap: 8px; margin-top: 22px; font-size: .82rem; font-weight: 800; text-decoration: none; }
+  .article-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); color: var(--ink); }
+  .article-card__art { position: relative; aspect-ratio: 16 / 9; display: block; overflow: hidden; background: var(--surface-2); text-decoration: none; }
+  .article-card__art img { width: 100%; height: 100%; object-fit: cover; }
+  .article-card__art > span { display: grid; height: 100%; place-items: center; padding: 24px; color: var(--soft); font-family: var(--display); font-size: 1.4rem; }
+  .article-card__copy { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: clamp(24px,3vw,40px); }
+  .article-card__meta { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--soft); font-size: .73rem; line-height: 1.5; text-transform: uppercase; letter-spacing: .07em; }
+  .article-card__meta > span:first-child { color: var(--plot); }
+  .article-card h2 { margin: 20px 0 16px; font-size: clamp(1.65rem,2.5vw,2.5rem); line-height: 1.18; letter-spacing: -.03em; }
+  .article-card h2 a { color: var(--ink); text-decoration: none; }
+  .article-card h2 a:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .article-card p { color: var(--soft); font-size: 1rem; line-height: 1.75; }
+  .article-card__link { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; margin-top: 24px; color: var(--plot); font-size: .9rem; font-weight: 750; text-decoration: none; }
+  .article-card__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .article-card .article-card__demo { margin-top: 12px; font-size: .7rem; }
+  .article-card:only-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1.15fr 1fr; }
+  .article-card:only-child .article-card__art { aspect-ratio: auto; min-height: 380px; }
+  .article-card:only-child .article-card__copy { align-self: center; }
+  @media (max-width: 760px) {
+    .article-card:only-child { display: flex; }
+    .article-card:only-child .article-card__art { aspect-ratio: 16 / 9; min-height: 0; }
+  }
 </style>

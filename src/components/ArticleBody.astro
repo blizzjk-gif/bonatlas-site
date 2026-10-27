@@ -1,0 +1,20 @@
+---
+import ArticleSolutions from './ArticleSolutions.astro';
+
+type Props = {
+  category: string;
+  context?: 'auto' | 'writing' | 'maps' | 'worldbuilding';
+  articleSlug: string;
+  showSolutions: boolean;
+};
+
+const { showSolutions, ...solutionsProps } = Astro.props;
+const html = await Astro.slots.render('default');
+const marker = '<!-- article-solutions -->';
+const markerIndex = html.indexOf(marker);
+const before = markerIndex >= 0 ? html.slice(0, markerIndex) : html;
+const after = markerIndex >= 0 ? html.slice(markerIndex + marker.length).split(marker).join('') : '';
+---
+<div class="prose"><Fragment set:html={before} /></div>
+{showSolutions && <ArticleSolutions {...solutionsProps} />}
+{after && <div class="prose"><Fragment set:html={after} /></div>}

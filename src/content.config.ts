@@ -13,9 +13,12 @@ const blog = defineCollection({
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     draft: z.boolean().default(true),
+    demo: z.boolean().default(false),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
     related: z.array(z.string()).optional(),
+    showSolutions: z.boolean().default(true),
+    solutionsContext: z.enum(['auto', 'writing', 'maps', 'worldbuilding']).default('auto'),
   }),
 });
 

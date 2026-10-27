@@ -400,7 +400,19 @@ collections:
       - { label: Дата публикации, name: publishedAt, widget: datetime, date_format: "DD.MM.YYYY", time_format: false }
       - { label: Дата обновления, name: updatedAt, widget: datetime, date_format: "DD.MM.YYYY", time_format: false, required: false }
       - { label: Черновик, name: draft, widget: boolean, default: true }
+      - { label: Демонстрационный материал, name: demo, widget: boolean, default: false, hint: "Только для тестовых заглушек, не для редакционных статей." }
       - { label: Обложка, name: image, widget: image, required: false }
       - { label: Описание обложки, name: imageAlt, widget: string, required: false }
       - { label: Связанные статьи, name: related, widget: list, required: false }
+      - { label: Показывать блок инструментов, name: showSolutions, widget: boolean, default: true, hint: "Две карточки продуктов после основного текста статьи." }
+      - label: Контекст блока инструментов
+        name: solutionsContext
+        widget: select
+        default: auto
+        hint: "Меняет тексты карточек. В режиме Автоматически контекст определяется рубрикой; в статьях о картах Bon Atlas показывается первым."
+        options:
+          - { label: Автоматически по рубрике, value: auto }
+          - { label: Писательская работа, value: writing }
+          - { label: Карты, value: maps }
+          - { label: Создание миров, value: worldbuilding }
       - { label: Текст, name: body, widget: markdown }

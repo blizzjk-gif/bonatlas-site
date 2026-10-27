@@ -1,0 +1,126 @@
+---
+import plot from '../content/site/plot.json';
+import atlas from '../content/site/atlas.json';
+
+type Props = {
+  category: string;
+  context?: 'auto' | 'writing' | 'maps' | 'worldbuilding';
+  articleSlug: string;
+};
+
+const { category, context = 'auto', articleSlug } = Astro.props;
+const resolvedContext = context !== 'auto' ? context
+  : category === 'Карты' ? 'maps'
+  : category === 'Создание миров' ? 'worldbuilding'
+  : 'writing';
+
+const messages = {
+  writing: {
+    intro: 'Когда захочется перейти от приёма к работе над своей книгой, выберите подходящий инструмент.',
+    plot: {
+      title: 'Соберите историю в одном проекте',
+      description: 'Программа для писателей: текст книги, персонажи, сюжет и заметки — в одном месте. AI поможет найти возможные противоречия.',
+    },
+    atlas: {
+      title: 'Дайте своему миру очертания',
+      description: 'Если истории нужна карта, создайте её в Bon Atlas. Начните с чистого холста или сгенерированной основы и добавьте свои детали.',
+    },
+  },
+  maps: {
+    intro: 'От наброска карты можно перейти к своему миру — и к историям, которые в нём происходят.',
+    plot: {
+      title: 'Поселите на карте свою историю',
+      description: 'Собирайте места, персонажей и события в Bon Plot. Связывайте детали мира со сценами и рукописью в одном проекте.',
+    },
+    atlas: {
+      title: 'Превратите замысел в карту',
+      description: 'Создавайте и редактируйте фэнтези-карты в Bon Atlas: рельеф, реки, дороги, поселения и подписи. Сохраните готовую карту в PNG.',
+    },
+  },
+  worldbuilding: {
+    intro: 'Географию мира и материалы истории удобно развивать с инструментом под каждую задачу.',
+    plot: {
+      title: 'Сохраните правила своего мира',
+      description: 'Места, организации, предметы и правила мира — рядом с персонажами и сценами. Собирайте материалы книги в Bon Plot.',
+    },
+    atlas: {
+      title: 'Покажите мир на карте',
+      description: 'Придайте миру форму в Bon Atlas: от береговой линии и гор до дорог и поселений. Генерируйте основу и редактируйте её вручную.',
+    },
+  },
+};
+
+const message = messages[resolvedContext];
+const cards = {
+  plot: {
+    name: 'Bon Plot', label: 'Приложение для писателя', href: '/plot',
+    image: '/images/plot/03-book-editor.png', width: 1600, height: 1000,
+    alt: 'Редактор рукописи с главами и сценами в Bon Plot',
+    status: plot.hero.status, action: 'Посмотреть Bon Plot', ...message.plot,
+  },
+  atlas: {
+    name: 'Bon Atlas', label: 'Приложение для фэнтези-карт', href: '/atlas',
+    image: '/images/atlas/07-map-result.png', width: 2400, height: 1400,
+    alt: 'Фэнтезийная карта с островами, горами и поселениями в Bon Atlas',
+    status: atlas.hero.status, action: 'Посмотреть Bon Atlas', ...message.atlas,
+  },
+};
+const order: Array<keyof typeof cards> = resolvedContext === 'maps' ? ['atlas', 'plot'] : ['plot', 'atlas'];
+---
+
+<section class="article-solutions" aria-labelledby="article-solutions-title" data-solutions-context={resolvedContext}>
+  <header class="article-solutions__header">
+    <span class="article-solutions__eyebrow">Инструменты Bon Atlas</span>
+    <h2 id="article-solutions-title">Инструменты для вашей истории</h2>
+    <p>{message.intro}</p>
+  </header>
+  <div class="article-solutions__grid">
+    {order.map((kind) => {
+      const card = cards[kind];
+      return (
+        <a
+          class:list={['solution-card', `solution-card--${kind}`]}
+          href={card.href}
+          data-article-product={kind}
+          data-article-slug={articleSlug}
+          data-placement="article-solutions"
+        >
+          <div class="solution-card__image">
+            <img src={card.image} alt={card.alt} width={card.width} height={card.height} loading="lazy" decoding="async" />
+            <span class="solution-card__brand">{card.name}</span>
+          </div>
+          <div class="solution-card__body">
+            <span class="solution-card__label">{card.label}</span>
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+            <span class="solution-card__status">Windows · {card.status}</span>
+            <span class="solution-card__action">{card.action}<span aria-hidden="true">↗</span></span>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+</section>
+
+<style>
+  .article-solutions { margin-top: 56px; padding: clamp(18px, 3vw, 28px); border: 1px solid var(--line); border-radius: 22px; background: var(--surface); }
+  .article-solutions__header { margin-bottom: 24px; }
+  .article-solutions__eyebrow { display: block; margin-bottom: 12px; color: var(--muted); font-size: .65rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+  .article-solutions__header h2 { margin: 0; font-family: var(--display); font-size: clamp(1.7rem, 3vw, 2.2rem); font-weight: 400; line-height: 1.15; }
+  .article-solutions__header p { margin: 12px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.6; }
+  .article-solutions__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .solution-card { --accent: var(--plot); display: flex; min-width: 0; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); color: var(--ink); text-decoration: none; transition: border-color .2s ease; }
+  .solution-card--atlas { --accent: var(--atlas); }
+  .solution-card:hover { border-color: var(--accent); }
+  .solution-card__image { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface-2); }
+  .solution-card__image img { width: 100%; height: 100%; object-fit: cover; }
+  .solution-card__brand { position: absolute; left: 12px; bottom: 12px; border: 1px solid var(--line-strong); border-radius: 7px; padding: 4px 9px; background: #071019; color: var(--accent); font-size: .76rem; font-weight: 800; }
+  .solution-card__body { display: flex; flex: 1; flex-direction: column; padding: 20px; }
+  .solution-card__label { margin-bottom: 12px; color: var(--accent); font-size: .66rem; font-weight: 750; line-height: 1.5; }
+  .solution-card__body h3 { margin: 0; font-size: 1.35rem; line-height: 1.18; letter-spacing: -.025em; }
+  .solution-card__body p { margin: 14px 0 20px; color: var(--soft); font-size: .82rem; line-height: 1.65; }
+  .solution-card__status { margin-top: auto; margin-bottom: 18px; color: var(--muted); font-size: .66rem; }
+  .solution-card__action { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; border-top: 1px solid var(--line); padding-top: 14px; color: var(--accent); font-size: .8rem; font-weight: 750; }
+  .solution-card:hover .solution-card__action { text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 580px) { .article-solutions__grid { grid-template-columns: 1fr; } }
+</style>
