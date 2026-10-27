@@ -6,6 +6,7 @@ import getpass
 import os
 from pathlib import Path
 import ssl
+import time
 
 
 def main():
@@ -20,32 +21,62 @@ def main():
     user = os.environ.get("REG_FTP_USER", "u3698579")
     password = os.environ.get("REG_FTP_PASSWORD") or getpass.getpass("FTPS password: ")
     destination = os.environ.get("REG_FTP_DIR", "/www/bonatlas.ru")
-    with ftplib.FTP_TLS(context=ssl.create_default_context(), timeout=40) as ftp:
+    def connect():
+        ftp = ftplib.FTP_TLS(context=ssl.create_default_context(), timeout=60)
         ftp.connect(host)
         ftp.login(user, password)
         ftp.prot_p()
         ftp.cwd(destination)
-        print(f"Connected to {host}; destination {ftp.pwd()}", flush=True)
-        if args.check:
+        return ftp
+
+    if args.check:
+        with connect() as ftp:
+            print(f"Connected to {host}; destination {ftp.pwd()}", flush=True)
             print("Existing files: " + ", ".join(ftp.nlst()), flush=True)
-            return
-        files = sorted(p for p in source.rglob("*") if p.is_file())
-        # Put the home page last, after its styles and images are available.
-        files.sort(key=lambda p: p == source / "index.html")
-        for path in files:
+        return
+    files = sorted(p for p in source.rglob("*") if p.is_file())
+    # Put the home page last, after its styles and images are available.
+    files.sort(key=lambda p: p == source / "index.html")
+    ftp = None
+    try:
+        for number, path in enumerate(files):
             relative = path.relative_to(source)
-            ftp.cwd(destination)
-            for part in relative.parts[:-1]:
+            # Short sessions avoid shared-hosting connection lifetime limits.
+            if ftp is not None and number % 10 == 0:
+                ftp.close()
+                ftp = None
+            for attempt in range(3):
                 try:
-                    ftp.mkd(part)
-                except ftplib.error_perm as exc:
-                    if not str(exc).startswith("550"):
+                    if ftp is None:
+                        ftp = connect()
+                    ftp.cwd(destination)
+                    for part in relative.parts[:-1]:
+                        try:
+                            ftp.mkd(part)
+                        except ftplib.error_perm as exc:
+                            if not str(exc).startswith("550"):
+                                raise
+                        ftp.cwd(part)
+                    temporary = f".deploy-{path.name}"
+                    with path.open("rb") as stream:
+                        ftp.storbinary(f"STOR {temporary}", stream)
+                    if ftp.size(temporary) != path.stat().st_size:
+                        raise OSError(f"Upload size mismatch: {relative}")
+                    ftp.rename(temporary, path.name)
+                    break
+                except (OSError, EOFError, ftplib.error_temp, ftplib.error_proto):
+                    if ftp is not None:
+                        ftp.close()
+                        ftp = None
+                    if attempt == 2:
                         raise
-                ftp.cwd(part)
-            with path.open("rb") as stream:
-                ftp.storbinary(f"STOR {path.name}", stream)
+                    print(f"Retrying {relative.as_posix()} after connection error", flush=True)
+                    time.sleep(2 * (attempt + 1))
             print(f"Uploaded {relative.as_posix()}", flush=True)
         print(f"Uploaded {len(files)} files. No remote files deleted.", flush=True)
+    finally:
+        if ftp is not None:
+            ftp.close()
 
 
 if __name__ == "__main__":
