@@ -40,14 +40,10 @@ jobs:
       - run: npm run check
       - run: npm run build
       - run: python3 scripts/prepare-site.py --environment "$SITE_ENV" --release "$GITHUB_SHA"
-      - name: Dev deploy / production build staging only
+      - name: Publish the checked build to its environment
         run: |
           test -n "$REG_FTP_PASSWORD"
-          if [ "$SITE_ENV" = dev ]; then
-            python3 scripts/deploy-reg.py deploy --environment dev --release "$GITHUB_SHA"
-          else
-            python3 scripts/deploy-reg.py stage --environment prod --release "$GITHUB_SHA"
-          fi
+          python3 scripts/deploy-reg.py deploy --environment "$SITE_ENV" --release "$GITHUB_SHA"
 
   production:
     if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
