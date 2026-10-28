@@ -10,7 +10,7 @@ public_folder: /uploads
 app_title: BON — редакция сайта
 display_url: /
 logo:
-  src: /favicon.svg
+  src: /images/brand/bon-master-icon.png
   show_in_header: true
 
 slug:

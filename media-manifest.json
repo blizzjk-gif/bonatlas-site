@@ -90,9 +90,9 @@
     "size": 106774
   },
   "/images/brand/bon-atlas-logo.png": {
-    "path": "/uploads/949d45c241ff50de537a520a59691b57b8f2b39560e96918ece67d0e27cddd6c/bon-atlas-logo.png",
-    "sha256": "949d45c241ff50de537a520a59691b57b8f2b39560e96918ece67d0e27cddd6c",
-    "size": 2718421
+    "path": "/uploads/a0ae010902042629784b04d66fdf337799e25a8b068154fd3a3271eb5888bf79/bon-atlas-logo.png",
+    "sha256": "a0ae010902042629784b04d66fdf337799e25a8b068154fd3a3271eb5888bf79",
+    "size": 663422
   },
   "/images/brand/bon-plot-logo.png": {
     "path": "/uploads/a119b4a06a10750d7cf1584d38fb17d853b27adf52ec242398de266ca844b115/bon-plot-logo.png",
@@ -103,5 +103,15 @@
     "path": "/uploads/30510692977e3c5a75700c13765439333be5706247976faf99f8af8cfc502e3c/kak-pisat-dialogi-cover.webp",
     "sha256": "30510692977e3c5a75700c13765439333be5706247976faf99f8af8cfc502e3c",
     "size": 154586
+  },
+  "/images/brand/bon-master-icon.png": {
+    "path": "/uploads/8a1190140b24f659c45d9f6765ed200f290f607080d544c2988ff9ff0cf87565/bon-master-icon.png",
+    "sha256": "8a1190140b24f659c45d9f6765ed200f290f607080d544c2988ff9ff0cf87565",
+    "size": 308454
+  },
+  "/images/brand/bon-master-logo.png": {
+    "path": "/uploads/7faf0d7c40f64395da6847c64d2cced5eb997ab6a2689398d4e6c8e1985b7500/bon-master-logo.png",
+    "sha256": "7faf0d7c40f64395da6847c64d2cced5eb997ab6a2689398d4e6c8e1985b7500",
+    "size": 618946
   }
 }

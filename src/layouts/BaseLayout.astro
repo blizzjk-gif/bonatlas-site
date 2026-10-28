@@ -9,7 +9,7 @@ type Props = {
   image?: string;
   noindex?: boolean;
 };
-const { title, description, image = '/favicon.svg', noindex = false } = Astro.props;
+const { title, description, image = '/images/brand/bon-master-icon.png', noindex = false } = Astro.props;
 const isPreview = process.env.SITE_ENV === 'dev';
 const enableAnalytics = process.env.SITE_ENV === 'prod' && !noindex;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -26,7 +26,9 @@ const ogImage = new URL(image, Astro.site);
     {process.env.SITE_ENV === 'prod' && <meta name="yandex-verification" content="df310553ded2b1ed" />}
     {(noindex || isPreview) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=bon-b2" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon-b.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
