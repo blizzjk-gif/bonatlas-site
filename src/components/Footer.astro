@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 <footer class="footer" id="footer">
   <div class="container footer-top">
     <div class="footer-brand">
-      <a href="/">{settings.brand}</a>
+      <a href="/" aria-label={`${settings.brand} — на главную`}><img src="/images/brand/bon-master-logo.png" alt="" width="74" height="74" /><span>{settings.brand}</span></a>
       <p>{settings.tagline}</p>
     </div>
     <div class="footer-links"><p>{settings.footerProductsTitle}</p><a href="/atlas">Bon Atlas</a><a href="/plot">Bon Plot</a></div>
@@ -20,7 +20,9 @@ const year = new Date().getFullYear();
 <style>
   .footer { padding: 78px 0 30px; border-top: 1px solid var(--line); background: #050c12; }
   .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 50px; }
-  .footer-brand a { display: inline-block; margin-bottom: 16px; font-size: 1.7rem; font-weight: 650; letter-spacing: .22em; text-decoration: none; }
+  .footer-brand a { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 16px; text-decoration: none; }
+  .footer-brand img { width: 74px; height: 74px; object-fit: contain; }
+  .footer-brand a span { font-size: 1.7rem; font-weight: 650; letter-spacing: .22em; }
   .footer-brand p { max-width: 340px; color: var(--muted); }
   .footer-links { display: grid; align-content: start; gap: 8px; }
   .footer-links p { margin-bottom: 8px; color: var(--ink); font-size: .68rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
