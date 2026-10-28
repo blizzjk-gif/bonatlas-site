@@ -1,0 +1,98 @@
+---
+type Props = {
+  id: string; eyebrow: string; title: string; description: string;
+  tabs: { label: string; image: string; alt: string }[];
+  points?: { title: string; description: string }[]; reverse?: boolean;
+};
+const { id, eyebrow, title, description, tabs, points = [], reverse = false } = Astro.props;
+---
+<section class:list={['plot-feature', { 'plot-feature--reverse': reverse, 'plot-feature--checks': points.length > 0 }]} id={id} aria-labelledby={`${id}-title`} data-plot-tabs>
+  <div class="plot-feature__copy">
+    <p class="plot-eyebrow">{eyebrow}</p><h2 id={`${id}-title`}>{title}</h2><p class="plot-description">{description}</p>
+    {points.length > 0 && <dl class="plot-support">{points.map(point => <div><dt>{point.title}</dt><dd>{point.description}</dd></div>)}</dl>}
+    <div class="plot-tabs" role="tablist" aria-label={eyebrow} hidden>
+      {tabs.map((tab, index) => <button type="button" role="tab" id={`${id}-tab-${index}`} aria-controls={`${id}-panel-${index}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1}>{tab.label}</button>)}
+    </div>
+  </div>
+  <div class="plot-feature__screens">
+    {tabs.map((tab, index) => <div class="plot-panel" role="tabpanel" id={`${id}-panel-${index}`} aria-labelledby={`${id}-tab-${index}`} tabindex="0">
+      <figure><img src={tab.image} alt={tab.alt} width="1600" height="1000" loading="lazy" decoding="async" /><figcaption>{tab.label}</figcaption></figure>
+    </div>)}
+  </div>
+</section>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-plot-tabs]').forEach(root => {
+    const list = root.querySelector<HTMLElement>('[role="tablist"]');
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+    if (!list || !buttons.length || buttons.length !== panels.length) return;
+    const select = (index: number, focus = false) => {
+      buttons.forEach((button, i) => {
+        button.setAttribute('aria-selected', String(i === index));
+        button.tabIndex = i === index ? 0 : -1;
+        panels[i].hidden = i !== index;
+      });
+      if (focus) buttons[index].focus();
+    };
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => select(index));
+      button.addEventListener('keydown', event => {
+        let next: number;
+        if (event.key === 'ArrowRight') next = (index + 1) % buttons.length;
+        else if (event.key === 'ArrowLeft') next = (index - 1 + buttons.length) % buttons.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = buttons.length - 1;
+        else return;
+        event.preventDefault(); select(next, true);
+      });
+    });
+    select(0); list.hidden = false; root.dataset.enhanced = 'true';
+    const warmImages = () => root.querySelectorAll<HTMLImageElement>('img').forEach(img => { img.loading = 'eager'; });
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) { warmImages(); observer.disconnect(); }
+      }, { rootMargin: '600px' });
+      observer.observe(root);
+    } else warmImages();
+  });
+</script>
+<style>
+  .plot-feature { display:grid; grid-template-columns:.8fr 1.2fr; align-items:center; gap:clamp(40px,6vw,90px); min-height:720px; padding-block:120px; scroll-margin-top:90px; }
+  .plot-feature--reverse { grid-template-columns:1.2fr .8fr; }
+  .plot-feature--reverse .plot-feature__copy { grid-column:2; grid-row:1; }
+  .plot-feature--reverse .plot-feature__screens { grid-column:1; grid-row:1; }
+  .plot-feature--checks { grid-template-columns:1fr 1fr; gap:clamp(40px,5vw,76px); min-height:800px; padding-block:128px; }
+  .plot-feature--checks h2 { font-size:clamp(38px,3.3vw,48px); }
+  .plot-feature__copy,.plot-feature__screens { min-width:0; }
+  .plot-feature h2 { max-width:580px; margin:0; color:#f5f2eb; font-family:var(--display); font-weight:400; font-size:clamp(38px,3.6vw,52px); line-height:1.08; letter-spacing:-.035em; }
+  .plot-eyebrow { margin:0 0 18px; color:#aab7c0; font-size:11px; font-weight:750; letter-spacing:.17em; text-transform:uppercase; }
+  .plot-description { max-width:600px; margin:24px 0 0; color:#aab7c0; font-size:16px; line-height:1.75; }
+  .plot-tabs { display:flex; flex-wrap:wrap; gap:8px 26px; margin-top:32px; }
+  .plot-tabs[hidden],.plot-panel[hidden] { display:none; }
+  .plot-tabs button { position:relative; border:0; padding:12px 0 14px; background:transparent; color:#aab7c0; font-size:13px; cursor:pointer; }
+  .plot-tabs button[aria-selected='true'] { color:#f5f2eb; }
+  .plot-tabs button[aria-selected='true']::after { position:absolute; bottom:0; left:0; width:24px; height:2px; background:#ff7a45; content:''; }
+  .plot-panel { min-width:0; margin-top:16px; }
+  [data-enhanced] .plot-panel { margin-top:0; }
+  .plot-panel figure { overflow:hidden; margin:0; border:1px solid rgba(220,232,237,.18); border-radius:16px; background:#0c1c25; box-shadow:0 24px 65px rgba(0,0,0,.22); }
+  .plot-panel img { display:block; width:100%; height:auto; aspect-ratio:16 / 10; object-fit:contain; background:#f5f6f7; }
+  .plot-panel figcaption { padding:12px 16px; color:#aab7c0; font-size:13px; }
+  [data-enhanced] .plot-panel figcaption { display:none; }
+  .plot-support { display:grid; margin:28px 0 0; }
+  .plot-support > div { display:grid; grid-template-columns:.9fr 1.1fr; gap:22px; padding-block:18px; border-top:1px solid rgba(220,232,237,.13); }
+  .plot-support dt { color:#f5f2eb; font-size:12px; font-weight:650; line-height:1.6; }
+  .plot-support dd { margin:0; color:#aab7c0; font-size:12px; line-height:1.7; }
+  @media(max-width:1000px) {
+    .plot-feature,.plot-feature--reverse { min-height:0; grid-template-columns:1fr; gap:42px; padding-block:80px; }
+    .plot-feature--reverse .plot-feature__copy,.plot-feature--reverse .plot-feature__screens { grid-column:auto; grid-row:auto; }
+    .plot-feature h2 { max-width:650px; }
+  }
+  @media(max-width:620px) {
+    .plot-feature { gap:32px; padding-block:64px; }
+    .plot-feature h2 { font-size:clamp(30px,9vw,36px); }
+    .plot-tabs { gap:4px 22px; margin-top:24px; }
+    .plot-support > div { grid-template-columns:1fr; gap:6px; }
+    .plot-support dt,.plot-support dd { font-size:13px; }
+    .plot-panel figure { border-radius:10px; }
+  }
+</style>

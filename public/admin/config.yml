@@ -261,115 +261,228 @@ collections:
         file: src/content/site/plot.json
         preview_path: /plot
         fields:
-          - label: SEO
+          - label: "SEO"
             name: seo
             widget: object
             fields:
-              - { label: Заголовок вкладки, name: title, widget: string }
-              - { label: Описание, name: description, widget: text }
-              - { label: Изображение для соцсетей, name: image, widget: image }
-          - label: Первый экран
+              - label: "Заголовок"
+                name: title
+                widget: string
+              - label: "Описание"
+                name: description
+                widget: text
+              - label: "Изображение"
+                name: image
+                widget: image
+          - label: "Первый экран"
             name: hero
             widget: object
             fields:
-              - { label: Логотип, name: logo, widget: image }
-              - { label: Статус, name: status, widget: string }
-              - { label: Надзаголовок, name: eyebrow, widget: string }
-              - { label: Первая строка, name: title, widget: string }
-              - { label: Акцентная строка, name: accent, widget: string }
-              - { label: Описание, name: description, widget: text }
-              - { label: Основная кнопка, name: primaryButton, widget: string }
-              - { label: Вторая кнопка, name: secondaryButton, widget: string }
-              - { label: Служебная строка, name: meta, widget: string }
-              - { label: Главный скриншот, name: image, widget: image }
-              - { label: Описание скриншота, name: imageAlt, widget: string }
-              - { label: Фоновое изображение, name: backgroundImage, widget: image }
-          - label: Книга
-            name: book
+              - label: "Логотип"
+                name: logo
+                widget: image
+              - label: "Статус"
+                name: status
+                widget: string
+              - label: "Надзаголовок"
+                name: eyebrow
+                widget: string
+              - label: "Заголовок"
+                name: title
+                widget: string
+              - label: "Описание"
+                name: description
+                widget: text
+              - label: "Основная кнопка"
+                name: primaryButton
+                widget: string
+              - label: "Вторая ссылка"
+                name: secondaryButton
+                widget: string
+              - label: "Служебная строка"
+                name: meta
+                widget: string
+              - label: "Изображение"
+                name: image
+                widget: image
+              - label: "Описание изображения"
+                name: imageAlt
+                widget: string
+          - label: "Проблема автора"
+            name: problem
             widget: object
             fields:
-              - { label: Маркер, name: kicker, widget: string }
-              - { label: Надзаголовок, name: eyebrow, widget: string }
-              - { label: Заголовок, name: title, widget: string }
-              - { label: Описание, name: description, widget: text }
-              - { label: Главное изображение, name: primaryImage, widget: image }
-              - { label: Описание главного изображения, name: primaryAlt, widget: string }
-              - { label: Подпись главного изображения, name: primaryCaption, widget: string }
-              - { label: Второе изображение, name: secondaryImage, widget: image }
-              - { label: Описание второго изображения, name: secondaryAlt, widget: string }
-              - { label: Подпись второго изображения, name: secondaryCaption, widget: string }
-          - label: Персонажи
-            name: characters
-            widget: object
-            fields: *feature_fields
-          - label: Связи
-            name: relations
-            widget: object
-            fields:
-              - { label: Маркер, name: kicker, widget: string }
-              - { label: Надзаголовок, name: eyebrow, widget: string }
-              - { label: Заголовок, name: title, widget: string }
-              - { label: Описание, name: description, widget: text }
-              - { label: Изображение, name: image, widget: image }
-              - { label: Описание изображения, name: imageAlt, widget: string }
-          - label: Сюжет
+              - label: "Надзаголовок"
+                name: eyebrow
+                widget: string
+              - label: "Заголовок"
+                name: title
+                widget: string
+              - label: "Описание"
+                name: description
+                widget: text
+              - label: "Тезисы"
+                name: points
+                widget: list
+                min: 1
+                field: { label: Тезис, name: value, widget: string }
+          - label: "Матрица сюжета"
             name: story
             widget: object
-            fields: &gallery_fields
-              - { label: Маркер, name: kicker, widget: string }
-              - { label: Надзаголовок, name: eyebrow, widget: string }
-              - { label: Заголовок, name: title, widget: string }
-              - { label: Описание, name: description, widget: text }
-              - label: Изображения
-                name: images
+            fields:
+              - label: "Надзаголовок"
+                name: eyebrow
+                widget: string
+              - label: "Заголовок"
+                name: title
+                widget: string
+              - label: "Описание"
+                name: description
+                widget: text
+              - label: "Изображение"
+                name: image
+                widget: image
+              - label: "Описание изображения"
+                name: imageAlt
+                widget: string
+          - label: "Рукопись"
+            name: manuscript
+            widget: object
+            fields:
+              - label: "Надзаголовок"
+                name: eyebrow
+                widget: string
+              - label: "Заголовок"
+                name: title
+                widget: string
+              - label: "Описание"
+                name: description
+                widget: text
+              - label: "Вкладки"
+                name: tabs
                 widget: list
+                min: 1
                 fields:
-                  - { label: Изображение, name: image, widget: image }
-                  - { label: Описание изображения, name: alt, widget: string }
-                  - { label: Подпись, name: caption, widget: string }
-          - label: Мир истории
+                  - label: "Название вкладки"
+                    name: label
+                    widget: string
+                  - label: "Изображение"
+                    name: image
+                    widget: image
+                  - label: "Описание изображения"
+                    name: alt
+                    widget: string
+          - label: "Персонажи и мир"
             name: world
             widget: object
-            fields: *gallery_fields
-          - label: AI-помощник
-            name: assistant
+            fields:
+              - label: "Надзаголовок"
+                name: eyebrow
+                widget: string
+              - label: "Заголовок"
+                name: title
+                widget: string
+              - label: "Описание"
+                name: description
+                widget: text
+              - label: "Вкладки"
+                name: tabs
+                widget: list
+                min: 1
+                fields:
+                  - label: "Название вкладки"
+                    name: label
+                    widget: string
+                  - label: "Изображение"
+                    name: image
+                    widget: image
+                  - label: "Описание изображения"
+                    name: alt
+                    widget: string
+          - label: "Проверка и импорт"
+            name: checks
             widget: object
             fields:
-              - { label: Маркер, name: kicker, widget: string }
-              - { label: Надзаголовок, name: eyebrow, widget: string }
-              - { label: Заголовок, name: title, widget: string }
-              - { label: Описание, name: description, widget: text }
-              - { label: Заголовок примечания, name: noteTitle, widget: string }
-              - { label: Примечание, name: note, widget: text }
-              - { label: Изображение, name: image, widget: image }
-              - { label: Описание изображения, name: imageAlt, widget: string }
-              - { label: Подпись, name: caption, widget: string }
-          - label: Импорт
-            name: import
-            widget: object
-            fields:
-              - { label: Маркер, name: kicker, widget: string }
-              - { label: Надзаголовок, name: eyebrow, widget: string }
-              - { label: Заголовок, name: title, widget: string }
-              - { label: Описание, name: description, widget: text }
-              - { label: Цитата, name: quote, widget: text }
-              - { label: Изображение, name: image, widget: image }
-              - { label: Описание изображения, name: imageAlt, widget: string }
-          - label: Локальная работа
-            name: local
-            widget: object
-            fields:
-              - { label: Метка, name: mark, widget: string }
-              - { label: Надзаголовок, name: eyebrow, widget: string }
-              - { label: Заголовок, name: title, widget: string }
-              - { label: Описание, name: description, widget: text }
-          - label: Финальный призыв
+              - label: "Надзаголовок"
+                name: eyebrow
+                widget: string
+              - label: "Заголовок"
+                name: title
+                widget: string
+              - label: "Описание"
+                name: description
+                widget: text
+              - label: "Тезисы"
+                name: points
+                widget: list
+                min: 1
+                fields:
+                  - label: "Заголовок"
+                    name: title
+                    widget: string
+                  - label: "Описание"
+                    name: description
+                    widget: text
+              - label: "Вкладки"
+                name: tabs
+                widget: list
+                min: 1
+                fields:
+                  - label: "Название вкладки"
+                    name: label
+                    widget: string
+                  - label: "Изображение"
+                    name: image
+                    widget: image
+                  - label: "Описание изображения"
+                    name: alt
+                    widget: string
+          - label: "Финальный блок"
             name: cta
             widget: object
             fields:
-              - { label: Надзаголовок, name: eyebrow, widget: string }
-              - { label: Заголовок, name: title, widget: string }
-              - { label: Кнопка, name: button, widget: string }
+              - label: "Надзаголовок"
+                name: eyebrow
+                widget: string
+              - label: "Заголовок"
+                name: title
+                widget: string
+              - label: "Описание"
+                name: description
+                widget: text
+              - label: "Статус"
+                name: status
+                widget: string
+              - label: "Пояснение"
+                name: note
+                widget: text
+              - label: "Кнопка"
+                name: button
+                widget: string
+              - label: "Служебная строка"
+                name: meta
+                widget: string
+          - label: "Вопросы и ответы"
+            name: faq
+            widget: object
+            fields:
+              - label: "Надзаголовок"
+                name: eyebrow
+                widget: string
+              - label: "Заголовок"
+                name: title
+                widget: string
+              - label: "Вопросы"
+                name: items
+                widget: list
+                min: 1
+                fields:
+                  - label: "Вопрос"
+                    name: question
+                    widget: string
+                  - label: "Ответ"
+                    name: answer
+                    widget: text
 
   - divider: true
 
