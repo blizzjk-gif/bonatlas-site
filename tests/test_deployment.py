@@ -39,6 +39,18 @@ class MemoryRemote:
     def upload(self, local, name):
         self.files[name] = local.read_bytes()
 
+    def list_files(self, directory):
+        prefix = directory.rstrip('/') + '/'
+        children = {}
+        for name in self.files:
+            if name.startswith(prefix):
+                child, separator, _ = name[len(prefix):].partition('/')
+                children[child] = {'type': 'dir' if separator else 'file'}
+        return sorted(children.items())
+
+    def list_dirs(self, directory):
+        return [name for name, info in self.list_files(directory) if info['type'] == 'dir']
+
 
 def metadata(identifier, files, environment='dev', media=None):
     return {'id': identifier, 'environment': environment, 'media': media or {},
@@ -105,8 +117,107 @@ class DeploymentTests(unittest.TestCase):
             with self.subTest(name=name), self.assertRaises(ValueError):
                 deployment.safe_path(name)
 
+    def editor_files(self):
+        return {name: value for name, value in self.remote.files.items()
+                if '/atlas/app/' in name}
+
+    def add_editor(self, legacy_manifest=False):
+        files = {'atlas/app/index.html': b'editor', 'atlas/app/assets/editor.js': b'app code'}
+        for name, value in files.items():
+            self.remote.write(self.root + '/' + name, value)
+        if legacy_manifest:
+            self.remote.write(self.root + '/release.json',
+                              json.dumps(metadata('old0000', {**self.old, **files})).encode())
+
+    def test_deploy_preserves_editor_even_if_old_manifest_owned_it(self):
+        for legacy in (False, True):
+            with self.subTest(legacy=legacy):
+                self.setUp()
+                self.add_editor(legacy)
+                editor = self.editor_files()
+                deployment.activate(self.remote, 'dev', 'new0000', lambda *_: None)
+                self.assertEqual(self.editor_files(), editor)
+                snapshots = [json.loads(value)['files'] for name, value in self.remote.files.items()
+                             if name.endswith('/snapshot.json')]
+                self.assertTrue(snapshots)
+                self.assertTrue(all(not any(name.startswith('atlas/app/') for name in files)
+                                    for files in snapshots))
+
+    def test_fallback_scan_does_not_back_up_or_remove_editor(self):
+        self.add_editor()
+        self.remote.delete(self.root + '/release.json')
+        self.remote.write(self.root + '/atlas/index.html', b'old landing')
+        editor = self.editor_files()
+        deployment.activate(self.remote, 'dev', 'new0000', lambda *_: None)
+        self.assertEqual(self.editor_files(), editor)
+        self.assertIsNone(self.remote.size(self.root + '/atlas/index.html'))
+
+    def test_failed_deploy_preserves_editor(self):
+        self.add_editor(True)
+        editor = self.editor_files()
+        def failed(*_):
+            raise RuntimeError('unhealthy')
+        with self.assertRaisesRegex(RuntimeError, 'unhealthy'):
+            deployment.activate(self.remote, 'dev', 'new0000', failed)
+        self.assertEqual(self.editor_files(), editor)
+
+    def test_rollback_ignores_editor_in_legacy_snapshot(self):
+        self.add_editor(True)
+        identifier = '20260101T010101000000Z'
+        saved = '/bonatlas-releases/dev/backups/' + identifier
+        self.remote.write(saved + '/index.html', b'older site')
+        self.remote.write(saved + '/atlas/app/index.html', b'outdated editor')
+        self.remote.write(saved + '/snapshot.json',
+                          json.dumps({'files': ['index.html', 'atlas/app/index.html']}).encode())
+        editor = self.editor_files()
+        deployment.rollback(self.remote, 'dev', identifier)
+        self.assertEqual(self.remote.read(self.root + '/index.html'), b'older site')
+        self.assertEqual(self.editor_files(), editor)
+
+    def test_site_cannot_stage_editor_or_php_feedback(self):
+        for name in ('atlas/app/index.html', 'atlas/app/assets/code.js', 'atlas/api/feedback.php'):
+            with self.subTest(path=name), tempfile.TemporaryDirectory() as directory:
+                source = Path(directory)
+                (source / 'release.json').write_text(json.dumps(metadata('new0000', {name: b'code'})))
+                before = dict(self.remote.files)
+                with self.assertRaisesRegex(ValueError, 'not managed'):
+                    deployment.stage(self.remote, source, 'dev', 'new0000')
+                self.assertEqual(self.remote.files, before)
+
+    def test_rejected_editor_stage_cannot_activate(self):
+        staged = '/bonatlas-releases/dev/staged/new0000'
+        self.remote.write(staged + '/release.json',
+                          json.dumps(metadata('new0000', {'atlas/app/index.html': b'editor'})).encode())
+        before = dict(self.remote.files)
+        with self.assertRaisesRegex(ValueError, 'not managed'):
+            deployment.activate(self.remote, 'dev', 'new0000', lambda *_: None)
+        self.assertEqual(self.remote.files, before)
+
 
 class MediaPreparationTests(unittest.TestCase):
+    def test_editor_cannot_be_included_in_site_build(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)
+            (source / 'atlas/app').mkdir(parents=True)
+            (source / 'atlas/app/index.html').write_text('editor')
+            with self.assertRaisesRegex(ValueError, 'separately deployed'):
+                prepare_module.prepare(source, 'dev', 'test0000')
+
+    def test_php_feedback_is_excluded_from_release(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'dist'
+            (source / 'atlas/api').mkdir(parents=True)
+            (source / 'atlas/api/feedback.php').write_text('<?php echo "draft";')
+            (source / 'atlas/index.html').write_text('<head></head>Atlas')
+            (root / 'media-manifest.json').write_text('{}')
+            with patch.object(prepare_module, 'ROOT', root):
+                prepare_module.prepare(source, 'prod', 'test0000')
+            self.assertFalse((source / 'atlas/api/feedback.php').exists())
+            files = json.loads((source / 'release.json').read_text())['files']
+            self.assertIn('atlas/index.html', files)
+            self.assertNotIn('atlas/api/feedback.php', files)
+
     def test_urls_follow_environment_and_registered_media_stays_separate(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -8,16 +8,19 @@ import re
 import time
 import urllib.request
 from reg_transport import Transport
+from site_paths import is_unmanaged_path
 
 DOMAINS = {"dev": "dev.bonatlas.ru", "prod": "bonatlas.ru"}
 
 
 def safe_path(path):
     parsed = PurePosixPath(path)
-    if parsed.is_absolute() or '..' in parsed.parts or not parsed.parts:
+    if parsed.is_absolute() or '..' in parsed.parts or not parsed.parts or '\\' in path:
         raise ValueError(f"Unsafe release path: {path}")
     if parsed.parts[0] in ("images", "uploads", ".well-known"):
         raise ValueError(f"Media and validation files cannot be deployed as code: {path}")
+    if is_unmanaged_path(path):
+        raise ValueError(f"Path is not managed by the site deployment: {path}")
     return path
 
 
@@ -37,6 +40,8 @@ def stage(remote, source, environment, release):
     metadata = json.loads((source / 'release.json').read_text('utf-8'))
     if metadata['environment'] != environment or metadata['id'] != release:
         raise ValueError("Build environment/release does not match deployment")
+    for name in metadata['files']:
+        safe_path(name)
     root = f"/www/{DOMAINS[environment]}"
     check_media(remote, root, metadata)
     destination = f"/bonatlas-releases/{environment}/staged/{release}"
@@ -52,13 +57,16 @@ def stage(remote, source, environment, release):
 
 def current_files(remote, root):
     if remote.size(root + '/release.json') is not None:
-        return list(read_json(remote, root + '/release.json')['files']) + ['release.json']
+        return [name for name in read_json(remote, root + '/release.json')['files']
+                if not is_unmanaged_path(name)] + ['release.json']
     found = []
     def walk(relative=''):
         for name, info in remote.list_files(root + '/' + relative):
             if name.startswith('.') or name in ('images', 'uploads'):
                 continue
             path = relative + name
+            if is_unmanaged_path(path):
+                continue
             if info.get('type') == 'dir':
                 walk(path + '/')
             elif info.get('type') == 'file':
@@ -80,10 +88,13 @@ def backup(remote, root, environment):
 
 
 def restore(remote, root, saved, current):
-    files = read_json(remote, saved + '/snapshot.json')['files']
+    files = [safe_path(name) for name in read_json(remote, saved + '/snapshot.json')['files']
+             if not is_unmanaged_path(name)]
     for name in files:
         remote.copy(saved + '/' + safe_path(name), root + '/' + name)
     for name in set(current) - set(files):
+        if is_unmanaged_path(name):
+            continue
         remote.delete(root + '/' + safe_path(name))
 
 

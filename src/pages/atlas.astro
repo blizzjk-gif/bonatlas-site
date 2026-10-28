@@ -16,7 +16,7 @@ import content from '../content/site/atlas.json';
         <p class="eyebrow">{content.hero.eyebrow}</p>
         <h1>{content.hero.title}<br/><em>{content.hero.accent}</em></h1>
         <p class="lede">{content.hero.description}</p>
-        <div class="actions"><a class="button" href="#generator">{content.hero.primaryButton}</a><a class="button button--ghost" href="#result">{content.hero.secondaryButton}</a></div>
+        <div class="actions"><a class="button" href="/atlas/app/">{content.hero.primaryButton}</a><a class="button button--ghost" href="#generator">{content.hero.secondaryButton}</a></div>
         <p class="meta">{content.hero.meta}</p>
       </div>
       <div class="screen screen--atlas hero-screen"><img src={content.hero.image} alt={content.hero.imageAlt} width="1800" height="1125" /></div>
@@ -64,7 +64,7 @@ import content from '../content/site/atlas.json';
     <div class="container"><div class="result-copy"><span class="kicker-number">{content.result.kicker}</span><p class="eyebrow">{content.result.eyebrow}</p><h2>{content.result.title}</h2><p class="lede">{content.result.description}</p></div><figure class="result-map"><img src={content.result.image} alt={content.result.imageAlt} loading="lazy" /></figure></div>
   </section>
 
-  <section class="section product-cta"><div class="container"><img src={content.hero.logo} alt="Bon Atlas" /><p class="eyebrow">{content.cta.eyebrow}</p><h2>{content.cta.title}</h2><a class="button" href="/#products">{content.cta.button}</a></div></section>
+  <section class="section product-cta"><div class="container"><img src={content.hero.logo} alt="Bon Atlas" /><p class="eyebrow">{content.cta.eyebrow}</p><h2>{content.cta.title}</h2><a class="button" href="/atlas/app/">{content.cta.button}</a></div></section>
 </BaseLayout>
 
 <style>
