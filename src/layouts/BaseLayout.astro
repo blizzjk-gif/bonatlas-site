@@ -11,7 +11,7 @@ type Props = {
 };
 const { title, description, image = '/favicon.svg', noindex = false } = Astro.props;
 const isPreview = process.env.SITE_ENV === 'dev';
-const enableMetrika = process.env.SITE_ENV === 'prod' && !noindex;
+const enableAnalytics = process.env.SITE_ENV === 'prod' && !noindex;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
@@ -38,7 +38,23 @@ const ogImage = new URL(image, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <title>{title}</title>
-    {enableMetrika && <script is:inline type="text/javascript">
+    {enableAnalytics && <script is:inline>
+      (function () {
+        if (!['bonatlas.ru', 'www.bonatlas.ru'].includes(location.hostname)) return;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+        window.gtag('js', new Date());
+        window.gtag('config', 'G-K4NHBSP9SR', {
+          allow_google_signals: false,
+          allow_ad_personalization_signals: false
+        });
+        var tag = document.createElement('script');
+        tag.async = true;
+        tag.src = 'https://www.googletagmanager.com/gtag/js?id=G-K4NHBSP9SR';
+        document.head.appendChild(tag);
+      })();
+    </script>}
+    {enableAnalytics && <script is:inline type="text/javascript">
       (function () {
         // Keep production statistics clean on local and preview copies.
         if (!['bonatlas.ru', 'www.bonatlas.ru'].includes(location.hostname)) return;
@@ -53,7 +69,7 @@ const ogImage = new URL(image, Astro.site);
     </script>}
   </head>
   <body>
-    {enableMetrika && <noscript><div><img src="https://mc.yandex.ru/watch/113828649" style="position:absolute; left:-9999px;" alt="" /></div></noscript>}
+    {enableAnalytics && <noscript><div><img src="https://mc.yandex.ru/watch/113828649" style="position:absolute; left:-9999px;" alt="" /></div></noscript>}
     <a class="skip-link" href="#content">К содержанию</a>
     {isPreview && <aside class="preview-notice">Проверочная версия · DEV · Изменения ещё не опубликованы на основном сайте. <a href="https://bonatlas.ru/">Основной сайт →</a></aside>}
     <Header />
