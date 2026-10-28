@@ -11,7 +11,7 @@
   "footerProductsTitle": "Продукты",
   "footerMaterialsTitle": "Материалы",
   "footerStatusTitle": "Статус",
-  "atlasStatus": "Atlas — в разработке",
+  "atlasStatus": "Atlas — доступен в браузере",
   "plotStatus": "Plot — готовится тестирование",
-  "footerNote": "Продукты развиваются независимо и работают локально."
+  "footerNote": "Продукты развиваются независимо. Данные проектов остаются у пользователя."
 }

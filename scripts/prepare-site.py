@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 import shutil
+from site_paths import is_external_path, is_disabled_path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -12,6 +13,13 @@ ROOT = Path(__file__).resolve().parents[1]
 def prepare(source, environment, release):
     if environment not in ("dev", "prod") or not re.fullmatch(r"[a-zA-Z0-9_-]{7,80}", release):
         raise ValueError("Invalid environment or release ID")
+    # Reject accidentally bundled editor sources before preparing any release.
+    for file in source.rglob('*'):
+        if is_external_path(file.relative_to(source).as_posix()):
+            raise ValueError('atlas/app belongs to the separately deployed editor')
+    for file in source.rglob('*'):
+        if file.is_file() and is_disabled_path(file.relative_to(source).as_posix()):
+            file.unlink()
     manifest = json.loads((ROOT / "media-manifest.json").read_text("utf-8"))
     origin = 'https://dev.bonatlas.ru' if environment == 'dev' else 'https://bonatlas.ru'
     required = {}
