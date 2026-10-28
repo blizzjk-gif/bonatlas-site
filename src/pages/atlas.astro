@@ -2,117 +2,229 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import content from '../content/site/atlas.json';
 ---
-<BaseLayout
-  title={content.seo.title}
-  description={content.seo.description}
-  image={content.seo.image}
->
-  <section class="product-hero atlas-hero">
-    <div class="atlas-backdrop" style={`--backdrop-image: url('${content.hero.backgroundImage}')`} aria-hidden="true"></div>
-    <div class="container product-hero__grid">
-      <div class="product-hero__copy">
-        <img class="brand-logo" src={content.hero.logo} alt="Логотип Bon Atlas" />
-        <span class="status">{content.hero.status}</span>
-        <p class="eyebrow">{content.hero.eyebrow}</p>
-        <h1>{content.hero.title}<br/><em>{content.hero.accent}</em></h1>
-        <p class="lede">{content.hero.description}</p>
-        <div class="actions"><a class="button" href="/atlas/app/">{content.hero.primaryButton}</a><a class="button button--ghost" href="#generator">{content.hero.secondaryButton}</a></div>
-        <p class="meta">{content.hero.meta}</p>
+<BaseLayout title={content.seo.title} description={content.seo.description} image={content.seo.image}>
+  <div class="atlas-landing">
+    <section class="atlas-hero atlas-shell" aria-labelledby="atlas-title">
+      <div class="atlas-hero__copy">
+        <div class="atlas-identity">
+          <img src={content.hero.logo} alt="Логотип Bon Atlas" width="54" height="54" />
+          <span>{content.hero.status}</span>
+        </div>
+        <p class="atlas-eyebrow">{content.hero.eyebrow}</p>
+        <h1 id="atlas-title">{content.hero.title}</h1>
+        <p class="atlas-lead">{content.hero.description}</p>
+        <div class="atlas-actions">
+          <a class="atlas-button" href="/atlas/app/">{content.hero.primaryButton}</a>
+          <a class="atlas-text-link" href="#how-it-works">{content.hero.secondaryButton}<span aria-hidden="true">→</span></a>
+        </div>
+        <p class="atlas-microcopy">{content.hero.meta}</p>
       </div>
-      <div class="screen screen--atlas hero-screen"><img src={content.hero.image} alt={content.hero.imageAlt} width="1800" height="1125" /></div>
-    </div>
-  </section>
+      <figure class="atlas-frame atlas-hero__image">
+        <img src={content.hero.image} alt={content.hero.imageAlt} width="1800" height="1125" fetchpriority="high" />
+      </figure>
+    </section>
 
-  <nav class="feature-nav" aria-label="Возможности Bon Atlas"><div class="container"><a href="#generator"><span>01</span>Генерация</a><a href="#editing"><span>02</span>Редактор</a><a href="#assets"><span>03</span>Ассеты</a><a href="#styling"><span>04</span>Оформление</a><a href="#library"><span>05</span>Библиотека</a><a href="#result"><span>06</span>Экспорт</a></div></nav>
+    <section class="atlas-process atlas-shell" id="how-it-works" aria-labelledby="process-title">
+      <div class="atlas-process__intro">
+        <div>
+          <p class="atlas-eyebrow">{content.process.eyebrow}</p>
+          <h2 id="process-title">{content.process.title}</h2>
+        </div>
+        <p class="atlas-description">{content.process.description}</p>
+      </div>
+      <ol class="atlas-steps">
+        {content.process.steps.map((step, index) => (
+          <li>
+            <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
 
-  <section class="section feature" id="generator">
-    <div class="container feature-grid">
-      <div class="feature-copy"><span class="kicker-number">{content.generator.kicker}</span><p class="eyebrow">{content.generator.eyebrow}</p><h2>{content.generator.title}</h2><p class="lede">{content.generator.description}</p><ul>{content.generator.bullets.map((item) => <li>{item}</li>)}</ul></div>
-      <figure class="screen screen--atlas"><img src={content.generator.image} alt={content.generator.imageAlt} loading="lazy" /><figcaption>{content.generator.caption}</figcaption></figure>
-    </div>
-  </section>
+    <section class="atlas-editor" id="editor" aria-labelledby="editor-title">
+      <div class="atlas-shell">
+        <div class="atlas-editor__intro">
+          <div>
+            <p class="atlas-eyebrow">{content.editor.eyebrow}</p>
+            <h2 id="editor-title">{content.editor.title}</h2>
+          </div>
+          <div>
+            <p class="atlas-description">{content.editor.description}</p>
+            <ul class="atlas-points">{content.editor.points.map((point) => <li>{point}</li>)}</ul>
+          </div>
+        </div>
+        <div class="atlas-editor__media">
+          <figure class="atlas-frame atlas-frame--primary">
+            <img src={content.editor.primaryImage} alt={content.editor.primaryImageAlt} width="1800" height="1125" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="atlas-frame atlas-frame--secondary">
+            <img src={content.editor.secondaryImage} alt={content.editor.secondaryImageAlt} width="1800" height="1125" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
 
-  <section class="section feature feature--reverse" id="editing">
-    <div class="container feature-grid">
-      <div class="feature-copy"><span class="kicker-number">{content.editing.kicker}</span><p class="eyebrow">{content.editing.eyebrow}</p><h2>{content.editing.title}</h2><p class="lede">{content.editing.description}</p><ul>{content.editing.bullets.map((item) => <li>{item}</li>)}</ul></div>
-      <figure class="screen screen--atlas"><img src={content.editing.image} alt={content.editing.imageAlt} loading="lazy" /><figcaption>{content.editing.caption}</figcaption></figure>
-    </div>
-  </section>
+    <section class="atlas-storage atlas-shell" id="storage" aria-labelledby="storage-title">
+      <div class="atlas-storage__copy">
+        <p class="atlas-eyebrow">{content.storage.eyebrow}</p>
+        <h2 id="storage-title">{content.storage.title}</h2>
+        <p class="atlas-description">{content.storage.description}</p>
+        <ul class="atlas-notes">{content.storage.notes.map((note) => <li>{note}</li>)}</ul>
+      </div>
+      <figure class="atlas-frame">
+        <img src={content.storage.image} alt={content.storage.imageAlt} width="1800" height="1125" loading="lazy" decoding="async" />
+      </figure>
+    </section>
 
-  <section class="section twin" id="assets">
-    <div class="container">
-      <div class="section-head"><div><span class="kicker-number">{content.assets.kicker}</span><p class="eyebrow">{content.assets.eyebrow}</p><h2>{content.assets.title}</h2></div><p class="lede">{content.assets.description}</p></div>
-      <div class="twin-grid"><figure class="screen screen--atlas"><img src={content.assets.image} alt={content.assets.imageAlt} loading="lazy" /><figcaption>{content.assets.caption}</figcaption></figure><div class="twin-notes">{content.assets.notes.map((item) => <article><span>{item.number}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}</div></div>
-    </div>
-  </section>
+    <section class="atlas-result" id="result" aria-labelledby="result-title">
+      <div class="atlas-shell">
+        <div class="atlas-result__copy">
+          <p class="atlas-eyebrow">{content.result.eyebrow}</p>
+          <h2 id="result-title">{content.result.title}</h2>
+          <p class="atlas-description">{content.result.description}</p>
+        </div>
+        <figure class="atlas-map">
+          <img src={content.result.image} alt={content.result.imageAlt} width="2400" height="1400" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
 
-  <section class="section styling" id="styling">
-    <div class="container feature-grid">
-      <div class="feature-copy"><span class="kicker-number">{content.styling.kicker}</span><p class="eyebrow">{content.styling.eyebrow}</p><h2>{content.styling.title}</h2><p class="lede">{content.styling.description}</p></div>
-      <figure class="screen screen--atlas"><img src={content.styling.image} alt={content.styling.imageAlt} loading="lazy" /><figcaption>{content.styling.caption}</figcaption></figure>
-    </div>
-  </section>
+    <section class="atlas-faq atlas-shell" id="faq" aria-labelledby="faq-title">
+      <p class="atlas-eyebrow">{content.faq.eyebrow}</p>
+      <h2 id="faq-title">{content.faq.title}</h2>
+      <div class="atlas-faq__items">
+        {content.faq.items.map((item) => (
+          <details>
+            <summary>{item.question}<span aria-hidden="true">+</span></summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
 
-  <section class="section library" id="library">
-    <div class="container library-grid">
-      <div><span class="kicker-number">{content.library.kicker}</span><p class="eyebrow">{content.library.eyebrow}</p><h2>{content.library.title}</h2><p class="lede">{content.library.description}</p></div>
-      <figure class="screen screen--atlas"><img src={content.library.image} alt={content.library.imageAlt} loading="lazy" /></figure>
-    </div>
-  </section>
-
-  <section class="section result" id="result">
-    <div class="container"><div class="result-copy"><span class="kicker-number">{content.result.kicker}</span><p class="eyebrow">{content.result.eyebrow}</p><h2>{content.result.title}</h2><p class="lede">{content.result.description}</p></div><figure class="result-map"><img src={content.result.image} alt={content.result.imageAlt} loading="lazy" /></figure></div>
-  </section>
-
-  <section class="section product-cta"><div class="container"><img src={content.hero.logo} alt="Bon Atlas" /><p class="eyebrow">{content.cta.eyebrow}</p><h2>{content.cta.title}</h2><a class="button" href="/atlas/app/">{content.cta.button}</a></div></section>
+    <section class="atlas-cta atlas-shell" aria-labelledby="cta-title">
+      <img src={content.hero.logo} alt="" width="72" height="72" loading="lazy" />
+      <p class="atlas-eyebrow">{content.cta.eyebrow}</p>
+      <h2 id="cta-title">{content.cta.title}</h2>
+      <p class="atlas-description">{content.cta.description}</p>
+      <a class="atlas-button" href="/atlas/app/">{content.cta.button}</a>
+      <p class="atlas-microcopy">{content.cta.meta}</p>
+    </section>
+  </div>
 </BaseLayout>
 
 <style>
-  .product-hero { position: relative; min-height: calc(100svh - 68px); display: grid; align-items: center; padding: clamp(72px, 8vw, 125px) 0; overflow: hidden; border-bottom: 1px solid var(--line); }
-  .atlas-backdrop { position: absolute; inset: 0; opacity: .24; background: linear-gradient(90deg, #061018 18%, transparent 70%), var(--backdrop-image) center/cover; filter: brightness(.65) saturate(.75); }
-  .atlas-backdrop::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 72% 48%, transparent, #061018 78%); }
-  .product-hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: .72fr 1.28fr; align-items: center; gap: clamp(46px, 6vw, 92px); }
-  .product-hero__copy { position: relative; }
-  .brand-logo { width: 112px; height: 112px; margin-bottom: 24px; border-radius: 24px; object-fit: contain; background: #f9f4e8; }
-  .product-hero .status { position: absolute; top: 4px; left: 130px; }
-  .product-hero .eyebrow { color: var(--atlas); }
-  .product-hero h1 { font-size: clamp(3.25rem, 6vw, 6.9rem); }
-  .product-hero h1 em { color: var(--atlas); font-family: var(--display); font-weight: 400; font-style: normal; }
-  .product-hero .lede { margin-top: 28px; }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-  .meta { margin-top: 24px; color: var(--muted); font-size: .74rem; }
-  .hero-screen { aspect-ratio: 16/10; transform: perspective(1500px) rotateY(-3deg); }
-  .hero-screen img { object-position: top; }
-  .feature-nav { position: sticky; top: 68px; z-index: 30; border-bottom: 1px solid var(--line); background: rgba(7,16,25,.9); backdrop-filter: blur(16px); }
-  .feature-nav .container { display: grid; grid-template-columns: repeat(6,1fr); }
-  .feature-nav a { display: flex; gap: 9px; justify-content: center; padding: 18px 10px; color: var(--soft); font-size: .76rem; text-decoration: none; } .feature-nav a:hover { background: rgba(114,222,239,.07); color: var(--atlas); } .feature-nav span { color: #60717b; }
-  .feature:nth-of-type(even) { background: #050d13; }
-  .feature-grid { display: grid; grid-template-columns: .76fr 1.24fr; align-items: center; gap: clamp(54px, 8vw, 120px); }
-  .feature--reverse .feature-copy { order: 2; }
-  .feature-copy h2 { max-width: 690px; }
-  .feature-copy .lede { margin-top: 28px; }
-  .feature-copy ul { display: grid; gap: 12px; margin: 32px 0 0; padding: 24px 0 0; border-top: 1px solid var(--line); color: var(--muted); list-style: none; }
-  .feature-copy li::before { content: '＋'; margin-right: 10px; color: var(--atlas); }
-  figure { margin: 0; }
-  figure img { aspect-ratio: 16/10; object-position: top; }
-  figcaption { padding: 15px 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .74rem; }
-  .twin { background: linear-gradient(135deg, rgba(35,116,137,.13), transparent 58%); }
-  .twin-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(40px, 7vw, 100px); align-items: center; }
-  .twin-notes article { padding: 24px 0; border-top: 1px solid var(--line); }
-  .twin-notes span { color: var(--atlas); font-size: .7rem; } .twin-notes h3 { margin-top: 8px; font-size: 1.35rem; } .twin-notes p { margin-top: 8px; color: var(--muted); }
-  .styling { background: #050c12; }
-  .library { border-block: 1px solid var(--line); }
-  .library-grid { display: grid; grid-template-columns: .62fr 1.38fr; align-items: center; gap: clamp(52px, 8vw, 120px); }
-  .library-grid .lede { margin-top: 28px; }
-  .result { padding-bottom: 0; text-align: center; background: linear-gradient(180deg, #071019, #02070b); }
-  .result-copy { display: grid; justify-items: center; margin-bottom: 54px; } .result-copy .lede { margin-top: 24px; }
-  .result-map { overflow: hidden; border: 1px solid var(--line); border-bottom: 0; border-radius: 30px 30px 0 0; box-shadow: 0 -30px 110px rgba(47,151,177,.15); }
-  .result-map img { width: 100%; aspect-ratio: auto; }
-  .product-cta { text-align: center; }
-  .product-cta .container { display: grid; justify-items: center; }
-  .product-cta img { width: 112px; height: 112px; margin-bottom: 26px; border-radius: 24px; object-fit: contain; background: #f9f4e8; }
-  .product-cta h2 { max-width: 930px; }
-  .product-cta .button { margin-top: 34px; }
-  @media (max-width: 1000px) { .product-hero__grid, .feature-grid, .twin-grid, .library-grid { grid-template-columns: 1fr; } .feature--reverse .feature-copy { order: 0; } .hero-screen { transform: none; } .feature-nav { overflow-x: auto; } .feature-nav .container { min-width: 720px; } }
-  @media (max-width: 620px) { .brand-logo { width: 90px; height: 90px; } .product-hero .status { position: static; margin-bottom: 28px; } .product-hero h1 br { display: none; } }
+  .atlas-landing { background:#07141c; color:#f5f2eb; }
+  .atlas-shell { width:min(1240px,calc(100% - 96px)); margin-inline:auto; }
+  .atlas-landing section { scroll-margin-top:90px; }
+  .atlas-landing h1,.atlas-landing h2,.atlas-landing h3 { color:#f5f2eb; font-family:var(--display); font-weight:400; letter-spacing:-.035em; }
+  .atlas-landing h1 { max-width:680px; font-size:clamp(54px,5.2vw,74px); line-height:1.02; }
+  .atlas-landing h2 { max-width:700px; font-size:clamp(38px,3.8vw,54px); line-height:1.06; }
+  .atlas-landing h3 { font-size:26px; line-height:1.2; }
+  .atlas-eyebrow { margin:0 0 18px; color:#72deef; font-size:11px; font-weight:750; letter-spacing:.17em; text-transform:uppercase; }
+  .atlas-lead { max-width:640px; margin-top:26px; color:#aab7c0; font-size:17px; line-height:1.72; }
+  .atlas-description { max-width:630px; margin-top:24px; color:#aab7c0; font-size:16px; line-height:1.75; }
+  .atlas-microcopy { margin-top:18px; color:#91a1aa; font-size:12px; line-height:1.6; }
+  .atlas-button { display:inline-flex; min-height:52px; align-items:center; justify-content:center; padding:14px 24px; border:1px solid #72deef; border-radius:6px; background:#72deef; color:#061018; font-size:13px; font-weight:750; line-height:1.4; text-align:center; text-decoration:none; transition:background .2s ease,border-color .2s ease; }
+  .atlas-button:hover { border-color:#a4eff8; background:#a4eff8; }
+  .atlas-button:focus-visible,.atlas-text-link:focus-visible,.atlas-faq summary:focus-visible { outline:3px solid rgba(114,222,239,.55); outline-offset:5px; }
+  .atlas-text-link { display:inline-flex; min-height:44px; align-items:center; gap:10px; color:#c8d4d9; font-size:13px; text-decoration:none; }
+  .atlas-text-link:hover { color:#fff; text-decoration:underline; text-underline-offset:5px; }
+  .atlas-frame { overflow:hidden; margin:0; border:1px solid rgba(220,232,237,.18); border-radius:16px; background:#0c1c25; box-shadow:0 28px 70px rgba(0,0,0,.24); }
+  .atlas-frame img { display:block; width:100%; height:auto; aspect-ratio:16 / 10; object-fit:contain; }
+
+  .atlas-hero { display:grid; grid-template-columns:.9fr 1.1fr; align-items:center; gap:clamp(42px,5.5vw,82px); min-height:660px; padding-block:78px 100px; }
+  .atlas-hero__copy { min-width:0; }
+  .atlas-identity { display:flex; align-items:center; gap:16px; margin-bottom:26px; }
+  .atlas-identity img { width:54px; height:54px; border-radius:13px; background:#f9f4e8; object-fit:contain; }
+  .atlas-identity span { color:#aab7c0; font-size:12px; }
+  .atlas-actions { display:flex; flex-wrap:wrap; align-items:center; gap:14px 24px; margin-top:30px; }
+  .atlas-hero__image img { object-position:top; }
+
+  .atlas-process { padding-block:108px; }
+  .atlas-process__intro { display:grid; grid-template-columns:.9fr 1.1fr; align-items:end; gap:clamp(48px,8vw,112px); }
+  .atlas-process__intro .atlas-description { margin-top:0; }
+  .atlas-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin:64px 0 0; padding:0; border-top:1px solid rgba(220,232,237,.14); list-style:none; }
+  .atlas-steps li { min-width:0; padding:32px clamp(22px,3vw,42px) 0 0; }
+  .atlas-steps li+li { padding-left:clamp(22px,3vw,42px); border-left:1px solid rgba(220,232,237,.14); }
+  .atlas-steps span { color:#72deef; font-size:10px; font-weight:750; letter-spacing:.1em; }
+  .atlas-steps h3 { margin-top:20px; }
+  .atlas-steps p { margin-top:14px; color:#aab7c0; font-size:14px; line-height:1.7; }
+
+  .atlas-editor { padding-block:112px; background:#051018; }
+  .atlas-editor__intro { display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(48px,8vw,112px); align-items:start; }
+  .atlas-editor__intro .atlas-description { margin-top:0; }
+  .atlas-points,.atlas-notes { margin:28px 0 0; padding:22px 0 0; border-top:1px solid rgba(220,232,237,.14); color:#c0cbd0; list-style:none; }
+  .atlas-points li,.atlas-notes li { position:relative; padding:8px 0 8px 22px; font-size:14px; line-height:1.6; }
+  .atlas-points li::before,.atlas-notes li::before { content:'+'; position:absolute; left:0; color:#72deef; }
+  .atlas-editor__media { display:grid; grid-template-columns:1.22fr .78fr; gap:24px; margin-top:58px; align-items:start; }
+  .atlas-frame--secondary { margin-top:64px; }
+
+  .atlas-storage { display:grid; grid-template-columns:.8fr 1.2fr; align-items:center; gap:clamp(50px,8vw,112px); padding-block:112px; }
+  .atlas-storage__copy { min-width:0; }
+
+  .atlas-result { padding-top:112px; background:linear-gradient(180deg,#07141c,#030a0f); }
+  .atlas-result__copy { display:grid; justify-items:center; text-align:center; }
+  .atlas-result__copy .atlas-description { max-width:700px; }
+  .atlas-map { overflow:hidden; margin:54px 0 0; border:1px solid rgba(220,232,237,.18); border-bottom:0; border-radius:24px 24px 0 0; box-shadow:0 -24px 100px rgba(31,162,187,.12); }
+  .atlas-map img { display:block; width:100%; height:auto; }
+
+  .atlas-faq { padding-block:96px 112px; }
+  .atlas-faq h2 { margin-bottom:40px; }
+  .atlas-faq__items { max-width:900px; }
+  .atlas-faq details { border-top:1px solid rgba(220,232,237,.14); }
+  .atlas-faq details:last-child { border-bottom:1px solid rgba(220,232,237,.14); }
+  .atlas-faq summary { display:flex; align-items:center; justify-content:space-between; gap:24px; padding-block:24px; color:#f5f2eb; font-size:15px; cursor:pointer; list-style:none; }
+  .atlas-faq summary::-webkit-details-marker { display:none; }
+  .atlas-faq summary span { flex:0 0 20px; color:#72deef; font-size:24px; text-align:center; transition:transform .2s ease; }
+  .atlas-faq details[open] summary span { transform:rotate(45deg); }
+  .atlas-faq details p { max-width:760px; padding:0 36px 26px 0; color:#aab7c0; font-size:15px; line-height:1.75; }
+
+  .atlas-cta { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:540px; padding-block:112px; text-align:center; }
+  .atlas-cta>img { width:72px; height:72px; margin-bottom:28px; border-radius:17px; background:#f9f4e8; object-fit:contain; }
+  .atlas-cta h2 { max-width:820px; }
+  .atlas-cta .atlas-description { max-width:650px; }
+  .atlas-cta .atlas-button { margin-top:28px; }
+
+  @media(max-width:1000px) {
+    .atlas-shell { width:min(760px,calc(100% - 48px)); }
+    .atlas-hero,.atlas-process__intro,.atlas-editor__intro,.atlas-storage { grid-template-columns:1fr; }
+    .atlas-hero { min-height:0; gap:42px; padding-block:72px 88px; }
+    .atlas-landing h1 { max-width:740px; font-size:clamp(48px,7vw,66px); }
+    .atlas-process,.atlas-editor,.atlas-storage { padding-block:88px; }
+    .atlas-process__intro,.atlas-editor__intro { gap:28px; }
+    .atlas-process__intro .atlas-description,.atlas-editor__intro .atlas-description { margin-top:0; }
+    .atlas-editor__media { grid-template-columns:1fr; }
+    .atlas-frame--secondary { width:78%; margin:0 0 0 auto; }
+    .atlas-storage { gap:44px; }
+    .atlas-result { padding-top:88px; }
+    .atlas-faq { padding-block:78px 92px; }
+    .atlas-cta { min-height:0; padding-block:96px; }
+  }
+
+  @media(max-width:620px) {
+    .atlas-shell { width:calc(100% - 32px); }
+    .atlas-landing h1 { font-size:clamp(36px,10vw,44px); }
+    .atlas-landing h2 { font-size:clamp(30px,9vw,37px); }
+    .atlas-landing h3 { font-size:23px; }
+    .atlas-lead { font-size:16px; }
+    .atlas-hero { padding-block:48px 64px; gap:36px; }
+    .atlas-identity { margin-bottom:22px; }
+    .atlas-actions { gap:12px 20px; }
+    .atlas-process,.atlas-editor,.atlas-storage { padding-block:72px; }
+    .atlas-steps { grid-template-columns:1fr; margin-top:44px; }
+    .atlas-steps li { padding:28px 0; }
+    .atlas-steps li+li { padding-left:0; border-top:1px solid rgba(220,232,237,.14); border-left:0; }
+    .atlas-editor__media { margin-top:42px; }
+    .atlas-frame--secondary { width:100%; }
+    .atlas-frame { border-radius:10px; }
+    .atlas-result { padding-top:72px; }
+    .atlas-result__copy { justify-items:start; text-align:left; }
+    .atlas-map { margin-top:40px; border-radius:14px 14px 0 0; }
+    .atlas-faq { padding-block:68px 80px; }
+    .atlas-faq summary { padding-block:21px; }
+    .atlas-cta { padding-block:80px; }
+  }
 </style>
