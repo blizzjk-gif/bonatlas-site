@@ -11,7 +11,7 @@ const isActive = (href: string) => href !== '/#products' && pathname.startsWith(
         <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
       ))}
     </nav>
-    <div class="header-side"><span>{settings.domainLabel}</span><a href="#footer">{settings.contactLabel}</a></div>
+    <div class="header-side"><span>{settings.domainLabel}</span></div>
     <details class="mobile-nav">
       <summary aria-label="Открыть меню"><span></span><span></span></summary>
       <nav aria-label="Мобильная навигация">
@@ -28,8 +28,8 @@ const isActive = (href: string) => href !== '/#products' && pathname.startsWith(
   .header-inner { min-height: 68px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: clamp(28px, 5vw, 80px); }
   .brand { color: var(--ink); font-size: 1.42rem; font-weight: 650; letter-spacing: .23em; text-decoration: none; }
   .desktop-nav { display: flex; align-items: center; gap: clamp(24px, 3vw, 42px); }
-  .desktop-nav a, .header-side a { position: relative; color: #c0c9ce; font-size: .82rem; font-weight: 600; text-decoration: none; }
-  .desktop-nav a:hover, .desktop-nav a[aria-current='page'], .header-side a:hover { color: var(--ink); }
+  .desktop-nav a { position: relative; color: #c0c9ce; font-size: .82rem; font-weight: 600; text-decoration: none; }
+  .desktop-nav a:hover, .desktop-nav a[aria-current='page'] { color: var(--ink); }
   .desktop-nav a[aria-current='page']::after { content: ''; position: absolute; right: 0; bottom: -25px; left: 0; height: 2px; background: currentColor; }
   .header-side { display: flex; align-items: center; gap: 24px; }
   .header-side span { color: #65747d; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
