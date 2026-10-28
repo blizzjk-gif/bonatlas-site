@@ -26,7 +26,8 @@ const ogImage = new URL(image, Astro.site);
     {process.env.SITE_ENV === 'prod' && <meta name="yandex-verification" content="df310553ded2b1ed" />}
     {(noindex || isPreview) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=bon-b2" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon-b.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:type" content="website" />
