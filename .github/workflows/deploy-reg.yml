@@ -23,7 +23,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  media:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: bon-site-media
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 -m unittest discover -s tests -v
+      - run: python3 scripts/media.py verify
+      - name: Upload missing website media to DEV and PROD
+        run: python3 -u scripts/media.py upload --environment both
+        env:
+          REG_FTP_PASSWORD: ${{ secrets.REG_FTP_PASSWORD }}
+
   build:
+    needs: media
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     env:
