@@ -113,5 +113,11 @@
     "path": "/uploads/7faf0d7c40f64395da6847c64d2cced5eb997ab6a2689398d4e6c8e1985b7500/bon-master-logo.png",
     "sha256": "7faf0d7c40f64395da6847c64d2cced5eb997ab6a2689398d4e6c8e1985b7500",
     "size": 618946
+  },
+  "/uploads/blog/kak-postroit-scenu-cover.png": {
+    "path": "/uploads/930ab47ae196d5fcc3aa9f22486ce82ddc3e35b25f58d0a6a6aad34c3446efa3/kak-postroit-scenu-cover.png",
+    "sha256": "930ab47ae196d5fcc3aa9f22486ce82ddc3e35b25f58d0a6a6aad34c3446efa3",
+    "size": 2308744,
+    "repository": "media/objects/930ab47ae196d5fcc3aa9f22486ce82ddc3e35b25f58d0a6a6aad34c3446efa3/kak-postroit-scenu-cover.png"
   }
 }

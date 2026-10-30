@@ -6,6 +6,8 @@ category: "Сюжет"
 author: "Редакция Bon Atlas"
 publishedAt: 2026-10-30
 draft: false
+image: "/uploads/blog/kak-postroit-scenu-cover.png"
+imageAlt: "Надя и Павел вместе переносят деревянный верстак через дверь мастерской; на подоконнике стоит игрушечная лодочка."
 showSolutions: true
 solutionsContext: writing
 ---
