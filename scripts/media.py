@@ -95,6 +95,7 @@ def upload(remote, entries, source, environments):
             check_file(local, record)
             remote.upload(local, target)
             if hashlib.sha256(remote.read(target)).hexdigest() != record['sha256']:
+                remote.delete(target)
                 raise RuntimeError(f'Uploaded media checksum mismatch: {target}')
             sent += 1
             print(f'Uploaded https://{domain}' + record['path'], flush=True)

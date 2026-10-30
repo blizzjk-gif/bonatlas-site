@@ -30,6 +30,9 @@ class Remote:
     def read(self, path):
         return self.files[path]
 
+    def delete(self, path):
+        self.files.pop(path, None)
+
 
 class MediaTests(unittest.TestCase):
     def setUp(self):
@@ -120,6 +123,9 @@ class MediaTests(unittest.TestCase):
         entries = self.register()
         with patch.object(self.remote, 'read', return_value=b'bad'), self.assertRaisesRegex(RuntimeError, 'checksum mismatch'):
             media.upload(self.remote, entries, self.public, ('dev',))
+        self.assertEqual(self.remote.files, {})
+        media.upload(self.remote, entries, self.public, ('dev',))
+        self.assertEqual(len(self.remote.files), 1)
 
     def test_new_version_keeps_previous_object(self):
         old = next(iter(self.register().values()))
