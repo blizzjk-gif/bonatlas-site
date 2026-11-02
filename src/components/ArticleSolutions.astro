@@ -59,10 +59,10 @@ const cards = {
     status: plot.hero.status, action: 'Посмотреть Bon Plot', ...message.plot,
   },
   atlas: {
-    name: 'Bon Atlas', label: 'Приложение для фэнтези-карт', href: '/atlas',
+    name: 'Bon Atlas', label: 'Приложение для фэнтези-карт', href: 'https://bonatlas.ru/atlas/app/',
     image: '/images/atlas/07-map-result.png', width: 2400, height: 1400,
     alt: 'Фэнтезийная карта с островами, горами и поселениями в Bon Atlas',
-    status: atlas.hero.status, action: 'Посмотреть Bon Atlas', ...message.atlas,
+    status: atlas.hero.status, action: 'Открыть редактор карт', ...message.atlas,
   },
 };
 const order: Array<keyof typeof cards> = resolvedContext === 'maps' ? ['atlas', 'plot'] : ['plot', 'atlas'];
@@ -93,7 +93,7 @@ const order: Array<keyof typeof cards> = resolvedContext === 'maps' ? ['atlas', 
             <span class="solution-card__label">{card.label}</span>
             <h3>{card.title}</h3>
             <p>{card.description}</p>
-            <span class="solution-card__status">Windows · {card.status}</span>
+            <span class="solution-card__status">{kind === 'plot' && 'Windows · '}{card.status}</span>
             <span class="solution-card__action">{card.action}<span aria-hidden="true">↗</span></span>
           </div>
         </a>

@@ -119,5 +119,77 @@
     "sha256": "930ab47ae196d5fcc3aa9f22486ce82ddc3e35b25f58d0a6a6aad34c3446efa3",
     "size": 2308744,
     "repository": "media/objects/930ab47ae196d5fcc3aa9f22486ce82ddc3e35b25f58d0a6a6aad34c3446efa3/kak-postroit-scenu-cover.png"
+  },
+  "/uploads/blog/fentezi-karta-online/01-generation.webp": {
+    "path": "/uploads/124b65bd82c07c797eb38da44227cb24b4c482f334dd3541e7d5ea9aa97b8638/01-generation.webp",
+    "sha256": "124b65bd82c07c797eb38da44227cb24b4c482f334dd3541e7d5ea9aa97b8638",
+    "size": 44396,
+    "repository": "media/objects/124b65bd82c07c797eb38da44227cb24b4c482f334dd3541e7d5ea9aa97b8638/01-generation.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/02-editor-overview.webp": {
+    "path": "/uploads/c32741c6c3a1362e82bfd1b41db793eeefa899f6e58062f626e948ab5d0b34e7/02-editor-overview.webp",
+    "sha256": "c32741c6c3a1362e82bfd1b41db793eeefa899f6e58062f626e948ab5d0b34e7",
+    "size": 216148,
+    "repository": "media/objects/c32741c6c3a1362e82bfd1b41db793eeefa899f6e58062f626e948ab5d0b34e7/02-editor-overview.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/03-forest-editing.webp": {
+    "path": "/uploads/db83c027727f752a287b48ebc80b6b2c1618ca2b0eeeb208e6d7bec29185a438/03-forest-editing.webp",
+    "sha256": "db83c027727f752a287b48ebc80b6b2c1618ca2b0eeeb208e6d7bec29185a438",
+    "size": 249838,
+    "repository": "media/objects/db83c027727f752a287b48ebc80b6b2c1618ca2b0eeeb208e6d7bec29185a438/03-forest-editing.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/04-project-library.webp": {
+    "path": "/uploads/79b7736d0ae0e60492c3b83bca29035bbffb26a9aeb94bed149708dd12e8cb09/04-project-library.webp",
+    "sha256": "79b7736d0ae0e60492c3b83bca29035bbffb26a9aeb94bed149708dd12e8cb09",
+    "size": 51350,
+    "repository": "media/objects/79b7736d0ae0e60492c3b83bca29035bbffb26a9aeb94bed149708dd12e8cb09/04-project-library.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/10-height-map.webp": {
+    "path": "/uploads/1e7c4921dc5f7cf42d84dc3c4e77a33c56e199db62afb06cc8c660ec5f394e83/10-height-map.webp",
+    "sha256": "1e7c4921dc5f7cf42d84dc3c4e77a33c56e199db62afb06cc8c660ec5f394e83",
+    "size": 223192,
+    "repository": "media/objects/1e7c4921dc5f7cf42d84dc3c4e77a33c56e199db62afb06cc8c660ec5f394e83/10-height-map.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/map-cover.webp": {
+    "path": "/uploads/7e464e536a97daf61d235de75c0be86eaf2d232c845a90f1643a2b2497421488/map-cover.webp",
+    "sha256": "7e464e536a97daf61d235de75c0be86eaf2d232c845a90f1643a2b2497421488",
+    "size": 778208,
+    "repository": "media/objects/7e464e536a97daf61d235de75c0be86eaf2d232c845a90f1643a2b2497421488/map-cover.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/sylvestris/02-sea-and-land.webp": {
+    "path": "/uploads/784035a8fcca281ef6d8facb073aecab7e434eff5f762e7f1b0139f647152aa2/02-sea-and-land.webp",
+    "sha256": "784035a8fcca281ef6d8facb073aecab7e434eff5f762e7f1b0139f647152aa2",
+    "size": 157502,
+    "repository": "media/objects/784035a8fcca281ef6d8facb073aecab7e434eff5f762e7f1b0139f647152aa2/02-sea-and-land.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/sylvestris/02b-exclude-title.webp": {
+    "path": "/uploads/1e82cb27d9fdbed637ffc1c761f43eb0194e70f9932854c25a5069af8936ee5e/02b-exclude-title.webp",
+    "sha256": "1e82cb27d9fdbed637ffc1c761f43eb0194e70f9932854c25a5069af8936ee5e",
+    "size": 158908,
+    "repository": "media/objects/1e82cb27d9fdbed637ffc1c761f43eb0194e70f9932854c25a5069af8936ee5e/02b-exclude-title.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/sylvestris/03-lakes.webp": {
+    "path": "/uploads/d1c85320edcefa754085ab0d7f63cba671c09ce7fde2b50c37d8a36e8ae8bf29/03-lakes.webp",
+    "sha256": "d1c85320edcefa754085ab0d7f63cba671c09ce7fde2b50c37d8a36e8ae8bf29",
+    "size": 147314,
+    "repository": "media/objects/d1c85320edcefa754085ab0d7f63cba671c09ce7fde2b50c37d8a36e8ae8bf29/03-lakes.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/sylvestris/04-river-tracing-detail.webp": {
+    "path": "/uploads/624e29b0ecfcd8e9e2cb07d5fcb67269d22ce14c85e02763974673e8ddc7176a/04-river-tracing-detail.webp",
+    "sha256": "624e29b0ecfcd8e9e2cb07d5fcb67269d22ce14c85e02763974673e8ddc7176a",
+    "size": 129728,
+    "repository": "media/objects/624e29b0ecfcd8e9e2cb07d5fcb67269d22ce14c85e02763974673e8ddc7176a/04-river-tracing-detail.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/sylvestris/07-result-editor.webp": {
+    "path": "/uploads/657c4ae81d626f26fd6827e01a401c55ec24d4ce8bc73ebbe7c6be08fe7f6df9/07-result-editor.webp",
+    "sha256": "657c4ae81d626f26fd6827e01a401c55ec24d4ce8bc73ebbe7c6be08fe7f6df9",
+    "size": 274998,
+    "repository": "media/objects/657c4ae81d626f26fd6827e01a401c55ec24d4ce8bc73ebbe7c6be08fe7f6df9/07-result-editor.webp"
+  },
+  "/uploads/blog/fentezi-karta-online/sylvestris/source.webp": {
+    "path": "/uploads/80ccd82cf11d0aae9a9845fada0adeea57248051569f6cace6b43e33c8bf7265/source.webp",
+    "sha256": "80ccd82cf11d0aae9a9845fada0adeea57248051569f6cace6b43e33c8bf7265",
+    "size": 1265696,
+    "repository": "media/objects/80ccd82cf11d0aae9a9845fada0adeea57248051569f6cace6b43e33c8bf7265/source.webp"
   }
 }
