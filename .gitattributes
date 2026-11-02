@@ -1,1 +1,3 @@
 media/objects/** -text
+public/product-info/* text eol=lf
+editorial/product-updates/bon-plot.md text eol=lf
