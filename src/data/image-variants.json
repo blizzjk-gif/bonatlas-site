@@ -1,0 +1,286 @@
+{
+  "/images/atlas/01-editor-overview.png": {
+    "width": 1800,
+    "height": 1125,
+    "variants": [
+      {
+        "src": "/uploads/responsive/01-editor-overview-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/uploads/responsive/01-editor-overview-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/uploads/responsive/01-editor-overview-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/uploads/responsive/01-editor-overview-1800.webp",
+        "width": 1800
+      }
+    ]
+  },
+  "/images/atlas/02-generator-settings.png": {
+    "width": 1800,
+    "height": 1125,
+    "variants": [
+      {
+        "src": "/uploads/responsive/02-generator-settings-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/uploads/responsive/02-generator-settings-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/uploads/responsive/02-generator-settings-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/uploads/responsive/02-generator-settings-1800.webp",
+        "width": 1800
+      }
+    ]
+  },
+  "/images/atlas/03-object-editing.png": {
+    "width": 1800,
+    "height": 1125,
+    "variants": [
+      {
+        "src": "/uploads/responsive/03-object-editing-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/uploads/responsive/03-object-editing-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/uploads/responsive/03-object-editing-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/uploads/responsive/03-object-editing-1800.webp",
+        "width": 1800
+      }
+    ]
+  },
+  "/images/atlas/04-asset-library.png": {
+    "width": 1800,
+    "height": 1125,
+    "variants": [
+      {
+        "src": "/uploads/responsive/04-asset-library-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/uploads/responsive/04-asset-library-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/uploads/responsive/04-asset-library-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/uploads/responsive/04-asset-library-1800.webp",
+        "width": 1800
+      }
+    ]
+  },
+  "/images/atlas/05-map-styling.png": {
+    "width": 1800,
+    "height": 1125,
+    "variants": [
+      {
+        "src": "/uploads/responsive/05-map-styling-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/uploads/responsive/05-map-styling-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/uploads/responsive/05-map-styling-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/uploads/responsive/05-map-styling-1800.webp",
+        "width": 1800
+      }
+    ]
+  },
+  "/images/atlas/06-local-library.png": {
+    "width": 1800,
+    "height": 1125,
+    "variants": [
+      {
+        "src": "/uploads/responsive/06-local-library-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/uploads/responsive/06-local-library-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/uploads/responsive/06-local-library-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/uploads/responsive/06-local-library-1800.webp",
+        "width": 1800
+      }
+    ]
+  },
+  "/images/atlas/07-map-result.png": {
+    "width": 2400,
+    "height": 1400,
+    "variants": [
+      {
+        "src": "/uploads/responsive/07-map-result-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/uploads/responsive/07-map-result-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/uploads/responsive/07-map-result-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/uploads/responsive/07-map-result-2400.webp",
+        "width": 2400
+      }
+    ]
+  },
+  "/images/plot/00-hero-fantasy-book.png": {
+    "width": 1600,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "/uploads/responsive/00-hero-fantasy-book-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/uploads/responsive/00-hero-fantasy-book-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/uploads/responsive/00-hero-fantasy-book-1600.webp",
+        "width": 1600
+      }
+    ]
+  },
+  "/images/plot/01-characters-overview.png": {
+    "width": 1600,
+    "height": 1000,
+    "variants": [
+      {
+        "src": "/uploads/responsive/01-characters-overview-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/uploads/responsive/01-characters-overview-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/uploads/responsive/01-characters-overview-1600.webp",
+        "width": 1600
+      }
+    ]
+  },
+  "/images/brand/bon-atlas-logo.png": {
+    "width": 640,
+    "height": 640,
+    "variants": [
+      {
+        "src": "/uploads/responsive/bon-atlas-logo-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/uploads/responsive/bon-atlas-logo-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/uploads/responsive/bon-atlas-logo-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/images/brand/bon-plot-logo.png": {
+    "width": 1254,
+    "height": 1254,
+    "variants": [
+      {
+        "src": "/uploads/responsive/bon-plot-logo-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/uploads/responsive/bon-plot-logo-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/uploads/responsive/bon-plot-logo-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/images/brand/bon-master-icon.png": {
+    "width": 512,
+    "height": 512,
+    "variants": [
+      {
+        "src": "/uploads/responsive/bon-master-icon-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/uploads/responsive/bon-master-icon-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/uploads/responsive/bon-master-icon-512.webp",
+        "width": 512
+      }
+    ]
+  },
+  "/images/brand/bon-master-logo.png": {
+    "width": 640,
+    "height": 640,
+    "variants": [
+      {
+        "src": "/uploads/responsive/bon-master-logo-160.webp",
+        "width": 160
+      },
+      {
+        "src": "/uploads/responsive/bon-master-logo-320.webp",
+        "width": 320
+      },
+      {
+        "src": "/uploads/responsive/bon-master-logo-640.webp",
+        "width": 640
+      }
+    ]
+  },
+  "/uploads/blog/kak-postroit-scenu-cover.png": {
+    "width": 1672,
+    "height": 941,
+    "variants": [
+      {
+        "src": "/uploads/responsive/kak-postroit-scenu-cover-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/uploads/responsive/kak-postroit-scenu-cover-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/uploads/responsive/kak-postroit-scenu-cover-1600.webp",
+        "width": 1600
+      },
+      {
+        "src": "/uploads/responsive/kak-postroit-scenu-cover-1672.webp",
+        "width": 1672
+      }
+    ]
+  }
+}

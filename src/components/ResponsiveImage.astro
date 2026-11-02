@@ -1,0 +1,11 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import variants from '../data/image-variants.json';
+type Props = HTMLAttributes<'img'> & { src: string; alt: string };
+const { src, alt, sizes, width, height, ...attributes } = Astro.props;
+const entry = (variants as Record<string, { width: number; height: number; variants: Array<{ src: string; width: number }> }>)[src];
+const selected = entry?.variants.find((image) => image.width >= 1600) ?? entry?.variants.at(-1);
+const srcset = entry?.variants.map((image) => `${image.src} ${image.width}w`).join(', ');
+const responsiveSizes = sizes ?? (src.includes('/brand/') ? '160px' : '(max-width: 760px) 100vw, (max-width: 1200px) 70vw, 1000px');
+---
+<img {...attributes} src={selected?.src ?? src} alt={alt} width={entry?.width ?? width} height={entry?.height ?? height} srcset={srcset} sizes={srcset ? responsiveSizes : sizes} />

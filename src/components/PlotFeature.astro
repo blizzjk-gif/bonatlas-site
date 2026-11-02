@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
 type Props = {
   id: string; eyebrow: string; title: string; description: string;
   tabs: { label: string; image: string; alt: string }[];
@@ -16,7 +17,7 @@ const { id, eyebrow, title, description, tabs, points = [], reverse = false } = 
   </div>
   <div class="plot-feature__screens">
     {tabs.map((tab, index) => <div class="plot-panel" role="tabpanel" id={`${id}-panel-${index}`} aria-labelledby={`${id}-tab-${index}`} tabindex="0">
-      <figure><img src={tab.image} alt={tab.alt} width="1600" height="1000" loading="lazy" decoding="async" /><figcaption>{tab.label}</figcaption></figure>
+      <figure><ResponsiveImage src={tab.image} alt={tab.alt} width="1600" height="1000" loading="lazy" decoding="async" /><figcaption>{tab.label}</figcaption></figure>
     </div>)}
   </div>
 </section>

@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
 import plot from '../content/site/plot.json';
 import atlas from '../content/site/atlas.json';
 
@@ -53,7 +54,7 @@ const messages = {
 const message = messages[resolvedContext];
 const cards = {
   plot: {
-    name: 'Bon Plot', label: 'Приложение для писателя', href: '/plot',
+    name: 'Bon Plot', label: 'Приложение для писателя', href: '/plot/',
     image: '/images/plot/03-book-editor.png', width: 1600, height: 1000,
     alt: 'Редактор рукописи с главами и сценами в Bon Plot',
     status: plot.hero.status, action: 'Посмотреть Bon Plot', ...message.plot,
@@ -86,7 +87,7 @@ const order: Array<keyof typeof cards> = resolvedContext === 'maps' ? ['atlas', 
           data-placement="article-solutions"
         >
           <div class="solution-card__image">
-            <img src={card.image} alt={card.alt} width={card.width} height={card.height} loading="lazy" decoding="async" />
+            <ResponsiveImage src={card.image} alt={card.alt} width={card.width} height={card.height} loading="lazy" decoding="async" sizes="(max-width: 580px) 100vw, 360px" />
             <span class="solution-card__brand">{card.name}</span>
           </div>
           <div class="solution-card__body">

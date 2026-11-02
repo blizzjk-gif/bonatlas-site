@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
 type Props = {
   title: string;
   description: string;
@@ -14,15 +15,15 @@ const { title, description, slug, category, publishedAt, draft = false, demo = f
 const date = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(publishedAt);
 ---
 <article class="article-card">
-  <a class:list={['article-card__art', { 'article-card__art--map': category === 'Карты' }]} href={`/blog/${slug}`} aria-label={`Читать: ${title}`}>
-    {image ? <img src={image} alt={imageAlt} width="1672" height="941" loading="lazy" decoding="async" /> : <span>{category}</span>}
+  <a class:list={['article-card__art', { 'article-card__art--map': category === 'Карты' }]} href={`/blog/${slug}/`} aria-label={`Читать: ${title}`}>
+    {image ? <ResponsiveImage src={image} alt={imageAlt} width="1672" height="941" loading="lazy" decoding="async" sizes="(max-width: 760px) 100vw, 700px" /> : <span>{category}</span>}
   </a>
   <div class="article-card__copy">
     <div class="article-card__meta"><span>{category}</span>{draft ? <span>Черновик</span> : <time datetime={publishedAt.toISOString()}>{date}</time>}</div>
     {demo && <p class="article-card__demo">Демонстрационный материал</p>}
-    <h2><a href={`/blog/${slug}`}>{title}</a></h2>
+    <h2><a href={`/blog/${slug}/`}>{title}</a></h2>
     <p>{description}</p>
-    <a class="article-card__link" href={`/blog/${slug}`}>Читать статью <span aria-hidden="true">→</span></a>
+    <a class="article-card__link" href={`/blog/${slug}/`}>Читать статью <span aria-hidden="true">→</span></a>
   </div>
 </article>
 

@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
 import settings from '../content/site/settings.json';
 const pathname = Astro.url.pathname;
 const isActive = (href: string) => href !== '/#products' && pathname.startsWith(href);
@@ -6,7 +7,7 @@ const isActive = (href: string) => href !== '/#products' && pathname.startsWith(
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/" aria-label={`${settings.brand} — на главную`}>
-      <img src="/images/brand/bon-master-logo.png" alt="" width="50" height="50" />
+      <ResponsiveImage src="/images/brand/bon-master-logo.png" alt="" width="50" height="50" />
       <span>{settings.brand}</span>
     </a>
     <nav class="desktop-nav" aria-label="Основная навигация">

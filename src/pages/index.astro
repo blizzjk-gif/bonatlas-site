@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from '../components/ResponsiveImage.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import content from '../content/site/home.json';
 ---
@@ -14,21 +15,21 @@ import content from '../content/site/home.json';
       <h1><span>{content.hero.title}</span><em>{content.hero.accent}</em></h1>
       <p class="lede">{content.hero.description}</p>
       <div class="hero-stage">
-        <a class="product-window product-window--atlas screen screen--atlas" href="/atlas">
+        <a class="product-window product-window--atlas screen screen--atlas" href="/atlas/">
           <span class="window-label">Bon Atlas</span>
-          <img src={content.hero.atlasImage} alt="Редактор карты Bon Atlas" width="1800" height="1125" />
+          <ResponsiveImage src={content.hero.atlasImage} alt="Редактор карты Bon Atlas" width="1800" height="1125" />
           <span class="route-anchor route-anchor--atlas" aria-hidden="true"></span>
         </a>
         <span class="story-route" aria-hidden="true"></span>
-        <a class="product-window product-window--plot screen screen--plot" href="/plot">
+        <a class="product-window product-window--plot screen screen--plot" href="/plot/">
           <span class="window-label">Bon Plot</span>
-          <img src={content.hero.plotImage} alt="Книжный режим Bon Plot" width="1600" height="1000" />
+          <ResponsiveImage src={content.hero.plotImage} alt="Книжный режим Bon Plot" width="1600" height="1000" />
           <span class="route-anchor route-anchor--plot" aria-hidden="true"></span>
         </a>
       </div>
       <div class="hero-actions">
-        <a class="button" href="/atlas">{content.hero.atlasButton} <span>→</span></a>
-        <a class="button button--plot" href="/plot">{content.hero.plotButton} <span>→</span></a>
+        <a class="button" href="/atlas/">{content.hero.atlasButton} <span>→</span></a>
+        <a class="button button--plot" href="/plot/">{content.hero.plotButton} <span>→</span></a>
       </div>
     </div>
   </section>
@@ -42,19 +43,19 @@ import content from '../content/site/home.json';
       <div class="product-cards">
         <article class="product-card product-card--atlas">
           <div class="product-card__top">
-            <img class="product-logo product-logo--atlas" src={content.products.atlas.logo} alt="Логотип Bon Atlas" />
+            <ResponsiveImage class="product-logo product-logo--atlas" src={content.products.atlas.logo} alt="Логотип Bon Atlas" />
             <span class="status">{content.products.atlas.status}</span>
           </div>
-          <div class="product-card__copy"><p>{content.products.atlas.eyebrow}</p><h3>{content.products.atlas.title}</h3><a href="/atlas">{content.products.atlas.action} <span>↗</span></a></div>
-          <div class="product-card__shot"><img src={content.products.atlas.image} alt="Готовая карта в Bon Atlas" loading="lazy" /></div>
+          <div class="product-card__copy"><p>{content.products.atlas.eyebrow}</p><h3>{content.products.atlas.title}</h3><a href="/atlas/">{content.products.atlas.action} <span>↗</span></a></div>
+          <div class="product-card__shot"><ResponsiveImage src={content.products.atlas.image} alt="Готовая карта в Bon Atlas" loading="lazy" /></div>
         </article>
         <article class="product-card product-card--plot">
           <div class="product-card__top">
-            <img class="product-logo product-logo--plot" src={content.products.plot.logo} alt="Логотип Bon Plot" />
+            <ResponsiveImage class="product-logo product-logo--plot" src={content.products.plot.logo} alt="Логотип Bon Plot" />
             <span class="status">{content.products.plot.status}</span>
           </div>
-          <div class="product-card__copy"><p>{content.products.plot.eyebrow}</p><h3>{content.products.plot.title}</h3><a href="/plot">{content.products.plot.action} <span>↗</span></a></div>
-          <div class="product-card__shot"><img src={content.products.plot.image} alt="Персонажи в Bon Plot" loading="lazy" /></div>
+          <div class="product-card__copy"><p>{content.products.plot.eyebrow}</p><h3>{content.products.plot.title}</h3><a href="/plot/">{content.products.plot.action} <span>↗</span></a></div>
+          <div class="product-card__shot"><ResponsiveImage src={content.products.plot.image} alt="Персонажи в Bon Plot" loading="lazy" /></div>
         </article>
       </div>
     </div>
@@ -73,7 +74,7 @@ import content from '../content/site/home.json';
     <div class="container">
       <div class="section-head"><div><p class="eyebrow">{content.proof.eyebrow}</p><h2>{content.proof.title}</h2></div><p class="lede">{content.proof.description}</p></div>
       <div class="proof-grid">
-        {content.proof.items.map((item) => <figure class="screen"><img src={item.image} alt={item.alt} loading="lazy" /><figcaption>{item.caption}</figcaption></figure>)}
+        {content.proof.items.map((item) => <figure class="screen"><ResponsiveImage src={item.image} alt={item.alt} loading="lazy" /><figcaption>{item.caption}</figcaption></figure>)}
       </div>
     </div>
   </section>
@@ -88,7 +89,7 @@ import content from '../content/site/home.json';
   </section>
 
   <section class="section closing">
-    <div class="container closing-inner"><p class="eyebrow">{content.closing.eyebrow}</p><h2>{content.closing.title}</h2><div><a class="button" href="/atlas">{content.closing.atlasButton}</a><a class="button button--plot" href="/plot">{content.closing.plotButton}</a></div></div>
+    <div class="container closing-inner"><p class="eyebrow">{content.closing.eyebrow}</p><h2>{content.closing.title}</h2><div><a class="button" href="/atlas/">{content.closing.atlasButton}</a><a class="button button--plot" href="/plot/">{content.closing.plotButton}</a></div></div>
   </section>
 </BaseLayout>
 
@@ -146,7 +147,7 @@ import content from '../content/site/home.json';
 <style>
   .hero { position: relative; min-height: calc(100svh - 68px); padding: clamp(58px, 7vw, 104px) 0 70px; overflow: hidden; border-bottom: 1px solid var(--line); }
   .hero-sky { position: absolute; inset: 0; background: radial-gradient(circle at 50% 38%, rgba(31,82,104,.58), transparent 31%), linear-gradient(180deg, rgba(4,10,16,.05), #071019 92%); }
-  .hero-sky::after { content: ''; position: absolute; inset: 0; opacity: .16; background-image: url('/images/atlas/07-map-result.png'); background-size: cover; background-position: center; filter: saturate(.65) brightness(.52); mask-image: linear-gradient(to bottom, black, transparent 84%); }
+  .hero-sky::after { content: ''; position: absolute; inset: 0; opacity: .16; background-image: url('/uploads/responsive/07-map-result-960.webp'); background-size: cover; background-position: center; filter: saturate(.65) brightness(.52); mask-image: linear-gradient(to bottom, black, transparent 84%); }
   .hero-inner { position: relative; z-index: 1; text-align: center; }
   .hero h1 { display: grid; font-family: var(--display); font-weight: 400; }
   .hero h1 em { color: var(--plot); font-style: normal; }

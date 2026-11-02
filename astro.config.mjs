@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: process.env.SITE_ENV === 'dev' ? 'https://dev.bonatlas.ru' : 'https://bonatlas.ru',
   output: 'static',
-  trailingSlash: 'never',
+  trailingSlash: 'always',
   server: {
     host: true,
     port: 4321,

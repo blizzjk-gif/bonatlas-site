@@ -1,4 +1,5 @@
 ---
+import ResponsiveImage from '../components/ResponsiveImage.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PlotFeature from '../components/PlotFeature.astro';
 import content from '../content/site/plot.json';
@@ -7,13 +8,13 @@ import content from '../content/site/plot.json';
   <div class="plot-landing">
     <section class="plot-hero plot-shell" aria-labelledby="plot-title">
       <div class="plot-hero__copy">
-        <div class="plot-identity"><img src={content.hero.logo} alt="Bon Plot" width="52" height="52" /><span>{content.hero.status}</span></div>
+        <div class="plot-identity"><ResponsiveImage src={content.hero.logo} alt="Bon Plot" width="52" height="52" /><span>{content.hero.status}</span></div>
         <p class="plot-eyebrow">{content.hero.eyebrow}</p><h1 id="plot-title">{content.hero.title}</h1>
         <p class="plot-lead">{content.hero.description}</p>
         <div class="plot-actions"><a class="plot-button" href="#workspace">{content.hero.primaryButton}</a><a class="plot-text-link" href="#about">{content.hero.secondaryButton} <span aria-hidden="true">→</span></a></div>
         <p class="plot-microcopy">{content.hero.meta}</p>
       </div>
-      <figure class="plot-frame plot-hero__image"><img src={content.hero.image} alt={content.hero.imageAlt} width="1600" height="1000" fetchpriority="high" /></figure>
+      <figure class="plot-frame plot-hero__image"><ResponsiveImage src={content.hero.image} alt={content.hero.imageAlt} width="1600" height="1000" fetchpriority="high" /></figure>
     </section>
     <section class="plot-problem plot-shell" id="writers" aria-labelledby="problem-title">
       <div><p class="plot-eyebrow">{content.problem.eyebrow}</p><h2 id="problem-title">{content.problem.title}</h2><p class="plot-description">{content.problem.description}</p></div>
@@ -21,7 +22,7 @@ import content from '../content/site/plot.json';
     </section>
     <section class="plot-showcase plot-shell" id="workspace" aria-labelledby="story-title">
       <div class="plot-intro"><p class="plot-eyebrow">{content.story.eyebrow}</p><h2 id="story-title">{content.story.title}</h2><p class="plot-description">{content.story.description}</p></div>
-      <figure class="plot-frame"><img src={content.story.image} alt={content.story.imageAlt} width="1600" height="1000" loading="lazy" decoding="async" /></figure>
+      <figure class="plot-frame"><ResponsiveImage src={content.story.image} alt={content.story.imageAlt} width="1600" height="1000" loading="lazy" decoding="async" /></figure>
     </section>
     <div class="plot-shell"><PlotFeature id="manuscript" {...content.manuscript} /></div>
     <div class="plot-shell"><PlotFeature id="characters-world" {...content.world} reverse /></div>

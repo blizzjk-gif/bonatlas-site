@@ -1,6 +1,8 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { canonicalPath, jsonLd } from '../lib/seo';
+import imageVariants from '../data/image-variants.json';
 import '../styles/global.css';
 
 type Props = {
@@ -8,12 +10,15 @@ type Props = {
   description: string;
   image?: string;
   noindex?: boolean;
+  article?: { published: string; modified?: string };
+  structuredData?: Record<string, unknown>[];
 };
-const { title, description, image = '/images/brand/bon-master-icon.png', noindex = false } = Astro.props;
+const { title, description, image = '/images/brand/bon-master-icon.png', noindex = false, article, structuredData = [] } = Astro.props;
 const isPreview = process.env.SITE_ENV === 'dev';
 const enableAnalytics = process.env.SITE_ENV === 'prod' && !noindex;
-const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(image, Astro.site);
+const canonical = new URL(canonicalPath(Astro.url.pathname), Astro.site);
+const imageEntry = (imageVariants as Record<string, { variants: Array<{ src: string; width: number }> }>)[image];
+const ogImage = new URL(imageEntry?.variants.at(-1)?.src ?? image, Astro.site);
 ---
 <!doctype html>
 <html lang="ru">
@@ -30,16 +35,20 @@ const ogImage = new URL(image, Astro.site);
     <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon-b.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    {article && <meta property="article:published_time" content={article.published} />}
+    {article?.modified && <meta property="article:modified_time" content={article.modified} />}
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <title>{title}</title>
+    {structuredData.map((entry) => <script is:inline type="application/ld+json" set:html={jsonLd(entry)} />)}
     {enableAnalytics && <script is:inline>
       (function () {
         if (!['bonatlas.ru', 'www.bonatlas.ru'].includes(location.hostname)) return;
@@ -68,6 +77,20 @@ const ogImage = new URL(image, Astro.site);
         })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113828649', 'ym');
         ym(113828649, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
       })();
+    </script>}
+    {enableAnalytics && <script is:inline>
+      document.addEventListener('click', function (event) {
+        if (!['bonatlas.ru', 'www.bonatlas.ru'].includes(location.hostname)) return;
+        var link = event.target instanceof Element ? event.target.closest('a[data-article-product], a[href="/atlas/app/"], a[href="https://bonatlas.ru/atlas/app/"]') : null;
+        if (!link) return;
+        var params = {
+          product: link.dataset.articleProduct || 'atlas',
+          article_slug: link.dataset.articleSlug || (location.pathname.startsWith('/blog/') ? location.pathname.split('/').filter(Boolean)[1] : ''),
+          placement: link.dataset.placement || (link.closest('.prose') ? 'article-text' : 'product-page')
+        };
+        if (typeof window.gtag === 'function') window.gtag('event', 'product_link_click', params);
+        if (typeof window.ym === 'function') window.ym(113828649, 'reachGoal', 'product_link_click', params);
+      });
     </script>}
   </head>
   <body>

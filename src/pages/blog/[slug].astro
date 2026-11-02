@@ -2,6 +2,9 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleBody from '../../components/ArticleBody.astro';
+import ResponsiveImage from '../../components/ResponsiveImage.astro';
+import { canonicalPath } from '../../lib/seo';
+import imageVariants from '../../data/image-variants.json';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => import.meta.env.DEV || process.env.SITE_ENV === 'dev' || !data.draft);
@@ -13,12 +16,34 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const sections = headings.filter(({ depth }) => depth === 2);
 const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).format(post.data.publishedAt);
+const pageUrl = new URL(canonicalPath(`/blog/${post.data.slug}`), Astro.site).href;
+const pageTitle = post.data.title.includes('Bon Atlas') ? post.data.title : `${post.data.title} — Bon Atlas`;
+const imageEntry = post.data.image ? (imageVariants as Record<string, { variants: Array<{ src: string }> }>)[post.data.image] : undefined;
+const schemaImage = imageEntry?.variants.at(-1)?.src ?? post.data.image;
+const structuredData = [{
+  '@context': 'https://schema.org', '@type': 'BlogPosting',
+  headline: post.data.title, description: post.data.description,
+  datePublished: post.data.publishedAt.toISOString(),
+  ...(post.data.updatedAt && { dateModified: post.data.updatedAt.toISOString() }),
+  ...(schemaImage && { image: new URL(schemaImage, Astro.site).href }),
+  author: { '@type': 'Organization', name: post.data.author, url: Astro.site?.href },
+  publisher: { '@type': 'Organization', name: 'Bon Atlas', url: Astro.site?.href },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+  inLanguage: 'ru',
+}, {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Главная', item: Astro.site?.href },
+    { '@type': 'ListItem', position: 2, name: 'Блог', item: new URL('/blog/', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: pageUrl },
+  ],
+}];
 ---
-<BaseLayout title={`${post.data.title} — Bon Atlas`} description={post.data.description} image={post.data.image} noindex={post.data.draft}>
+<BaseLayout title={pageTitle} description={post.data.description} image={post.data.image} noindex={post.data.draft} structuredData={structuredData} article={{ published: post.data.publishedAt.toISOString(), modified: post.data.updatedAt?.toISOString() }}>
   <article>
     <header class="article-hero">
       <div class="container article-hero__inner">
-        <a class="back" href="/blog">← Все заметки</a>
+        <nav class="back" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-hidden="true"> / </span><a href="/blog/">Блог</a></nav>
         <p class="eyebrow">{post.data.category}</p>
         <h1>{post.data.title}</h1>
         <p class="lede">{post.data.description}</p>
@@ -27,7 +52,7 @@ const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'lon
           {post.data.draft ? <span class="draft-label">Черновик для редакционного чтения</span> : <time datetime={post.data.publishedAt.toISOString()}>{published}</time>}
           {post.data.demo && <span>Демонстрационный материал</span>}
         </div>
-        {post.data.image && <figure class:list={['article-cover', { 'article-cover--map': post.data.category === 'Карты' }]}><img src={post.data.image} alt={post.data.imageAlt ?? ''} width="1672" height="941" fetchpriority="high" decoding="async" /></figure>}
+        {post.data.image && <figure class:list={['article-cover', { 'article-cover--map': post.data.category === 'Карты' }]}><ResponsiveImage src={post.data.image} alt={post.data.imageAlt ?? ''} width="1672" height="941" sizes="(max-width: 900px) 100vw, 900px" fetchpriority="high" decoding="async" /></figure>}
       </div>
     </header>
     <div class="container article-layout">
@@ -52,6 +77,8 @@ const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'lon
   .article-hero { padding: 70px 0 78px; border-bottom: 1px solid var(--line); }
   .article-hero__inner { max-width: 900px; }
   .back { display: inline-block; margin-bottom: 60px; color: var(--muted); font-size: .82rem; text-decoration: none; }
+  .back a { color: inherit; text-decoration: none; }
+  .back a:hover { text-decoration: underline; }
   .article-hero h1 { font-size: clamp(2.4rem,5.3vw,4.5rem); }
   .article-hero .lede { margin-top: 28px; }
   .article-cover { margin: 40px 0 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
