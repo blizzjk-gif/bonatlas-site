@@ -27,7 +27,7 @@ const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'lon
           {post.data.draft ? <span class="draft-label">Черновик для редакционного чтения</span> : <time datetime={post.data.publishedAt.toISOString()}>{published}</time>}
           {post.data.demo && <span>Демонстрационный материал</span>}
         </div>
-        {post.data.image && <figure class="article-cover"><img src={post.data.image} alt={post.data.imageAlt ?? ''} width="1672" height="941" fetchpriority="high" decoding="async" /></figure>}
+        {post.data.image && <figure class:list={['article-cover', { 'article-cover--map': post.data.category === 'Карты' }]}><img src={post.data.image} alt={post.data.imageAlt ?? ''} width="1672" height="941" fetchpriority="high" decoding="async" /></figure>}
       </div>
     </header>
     <div class="container article-layout">
@@ -56,6 +56,8 @@ const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'lon
   .article-hero .lede { margin-top: 28px; }
   .article-cover { margin: 40px 0 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
   .article-cover img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+  .article-cover--map { border: 0; border-radius: 0; }
+  .article-cover--map img { display: block; aspect-ratio: auto; object-fit: contain; }
   .meta { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 34px; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
   .article-layout { display: grid; grid-template-columns: 230px minmax(0, 700px); justify-content: center; gap: clamp(50px,8vw,110px); padding-block: clamp(65px,9vw,110px); }
   .article-layout aside { align-self: start; position: sticky; top: 92px; padding-top: 15px; border-top: 1px solid var(--ink); color: var(--muted); font-size: .78rem; }
@@ -69,6 +71,7 @@ const published = new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'lon
   .prose { font-size: 1.06rem; }
   .article-main { min-width: 0; }
   .prose h2 { margin: 2.4em 0 .65em; font-size: clamp(1.6rem,2.7vw,2.2rem); scroll-margin-top: 100px; }
+  .article-main > .prose:first-child > :is(h2, h3):first-child { margin-top: 0; }
   .prose h3 { margin: 2em 0 .6em; font-size: 1.6rem; }
   .prose p, .prose ul, .prose ol { margin: 1.15em 0; }
   .prose li { margin: .55em 0; }
