@@ -233,23 +233,53 @@ if (
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
   const args = process.argv.slice(2);
-  assert(
-    args[0] === "--source" && args[1] && args.length <= 3,
-    "Use --source PROJECT_DIRECTORY [--check|--review]",
-  );
-  assert(!args[2] || ["--check", "--review"].includes(args[2]));
-  const result = await syncCatalog(
-    args[1],
-    fileURLToPath(new URL("..", import.meta.url)),
-    args[2]?.slice(2) ?? "write",
-  );
-  console.log(JSON.stringify(result));
-  if (!result.approved)
-    console.log("Source catalog is a draft: public files were not changed.");
-  if (process.env.GITHUB_OUTPUT)
-    await writeFile(
-      process.env.GITHUB_OUTPUT,
-      `changed=${result.changed}\ncontent_hash=${result.contentHash}\n`,
-      { flag: "a" },
+  if (args.length === 1 && args[0] === "--verify-public") {
+    const directory = fileURLToPath(
+      new URL("../public/product-info/", import.meta.url),
     );
+    const files = {};
+    for (const name of ["bon-plot.json", "bon-plot.md"])
+      files[name] = await readFile(resolve(directory, name), "utf8");
+    const feed = JSON.parse(files["bon-plot.json"]);
+    validatePublicFeed(
+      feed,
+      {
+        schemaVersion: 1,
+        productId: "bon-plot",
+        contentHash: feed.publication.contentHash,
+        files: Object.fromEntries(
+          Object.entries(files).map(([name, value]) => [name, hash(value)]),
+        ),
+      },
+      files,
+    );
+    assert.equal(
+      feed.publication.status,
+      "approved",
+      "Public files must be approved",
+    );
+    console.log(
+      "Public Bon Plot facts verified; no source access or publication was performed.",
+    );
+  } else {
+    assert(
+      args[0] === "--source" && args[1] && args.length <= 3,
+      "Use --source PROJECT_DIRECTORY [--check|--review]",
+    );
+    assert(!args[2] || ["--check", "--review"].includes(args[2]));
+    const result = await syncCatalog(
+      args[1],
+      fileURLToPath(new URL("..", import.meta.url)),
+      args[2]?.slice(2) ?? "write",
+    );
+    console.log(JSON.stringify(result));
+    if (!result.approved)
+      console.log("Source catalog is a draft: public files were not changed.");
+    if (process.env.GITHUB_OUTPUT)
+      await writeFile(
+        process.env.GITHUB_OUTPUT,
+        `changed=${result.changed}\ncontent_hash=${result.contentHash}\n`,
+        { flag: "a" },
+      );
+  }
 }

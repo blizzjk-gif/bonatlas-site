@@ -1,20 +1,14 @@
-name: Review Bon Plot product facts
+name: Validate received Bon Plot public facts
 
 on:
   push:
-    paths: ['scripts/sync-bon-plot.mjs', 'tests/product-sync.test.mjs', '.github/workflows/sync-bon-plot.yml']
+    paths: ['public/product-info/**', 'scripts/sync-bon-plot.mjs', 'tests/product-sync.test.mjs', '.github/workflows/sync-bon-plot.yml']
   pull_request:
-    paths: ['scripts/sync-bon-plot.mjs', 'tests/product-sync.test.mjs', '.github/workflows/sync-bon-plot.yml']
+    paths: ['public/product-info/**', 'scripts/sync-bon-plot.mjs', 'tests/product-sync.test.mjs', '.github/workflows/sync-bon-plot.yml']
   workflow_dispatch:
-  schedule:
-    - cron: '37 3 * * *'
 
 permissions:
   contents: read
-
-concurrency:
-  group: bon-plot-product-catalog
-  cancel-in-progress: false
 
 jobs:
   check:
@@ -26,107 +20,4 @@ jobs:
         with:
           node-version: '22.22.0'
       - run: node --test tests/product-sync.test.mjs
-  sync:
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
-    needs: check
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22.22.0'
-      - name: Check source access configuration
-        id: access
-        env:
-          SOURCE_TOKEN: ${{ secrets.BON_PLOT_READ_TOKEN }}
-        run: |
-          if [ -n "$SOURCE_TOKEN" ]; then
-            echo 'configured=true' >> "$GITHUB_OUTPUT"
-          else
-            echo 'configured=false' >> "$GITHUB_OUTPUT"
-            echo '::notice::Set BON_PLOT_READ_TOKEN with read-only Contents access to blizzjk-gif/bon-plot. Sync is not connected yet.'
-            echo 'Product sync is not connected: source access secret is missing.' >> "$GITHUB_STEP_SUMMARY"
-          fi
-      - uses: actions/checkout@v4
-        if: steps.access.outputs.configured == 'true'
-        with:
-          repository: blizzjk-gif/bon-plot
-          ref: main
-          token: ${{ secrets.BON_PLOT_READ_TOKEN }}
-          path: .product-source
-          persist-credentials: false
-          sparse-checkout: docs/product/generated
-      - name: Validate and prepare product facts
-        if: steps.access.outputs.configured == 'true'
-        id: catalog
-        run: |
-          node --test tests/product-sync.test.mjs
-          node scripts/sync-bon-plot.mjs --source .product-source
-      # GITHUB_TOKEN-created PRs do not start normal pull_request workflows.
-      # Validate here before proposing anything; no deployment command is run.
-      - name: Skip an edition already proposed or declined
-        if: steps.catalog.outputs.changed == 'true'
-        id: proposal
-        uses: actions/github-script@v7
-        env:
-          CONTENT_HASH: ${{ steps.catalog.outputs.content_hash }}
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            const branch = `automation/bon-plot-${process.env.CONTENT_HASH.slice(0, 16)}`;
-            const existing = await github.rest.pulls.list({ owner, repo, state: 'all', head: `${owner}:${branch}`, base: 'main' });
-            core.setOutput('needed', existing.data.length ? 'false' : 'true');
-            if (existing.data.length) {
-              await core.summary.addLink('Эта редакция уже предложена или рассмотрена', existing.data[0].html_url).write();
-            }
-      - name: Check the changed website
-        if: steps.catalog.outputs.changed == 'true' && steps.proposal.outputs.needed == 'true'
-        run: |
-          npm ci --no-audit --no-fund
-          npm run check
-          npm run build
-      - name: Prepare an isolated proposal branch
-        if: steps.catalog.outputs.changed == 'true' && steps.proposal.outputs.needed == 'true'
-        env:
-          CONTENT_HASH: ${{ steps.catalog.outputs.content_hash }}
-        run: |
-          branch="automation/bon-plot-${CONTENT_HASH:0:16}"
-          if git ls-remote --exit-code --heads origin "$branch" > /dev/null; then
-            echo "Existing proposal branch: $branch"
-          else
-            git switch -c "$branch"
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add -- public/product-info/bon-plot.json public/product-info/bon-plot.md editorial/product-updates/bon-plot.md
-            git commit -m 'docs: sync approved Bon Plot product facts'
-            git push origin "HEAD:$branch"
-          fi
-          echo "PRODUCT_BRANCH=$branch" >> "$GITHUB_ENV"
-      - name: Open a proposal for the owner
-        if: steps.catalog.outputs.changed == 'true' && steps.proposal.outputs.needed == 'true'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('node:fs');
-            const branch = process.env.PRODUCT_BRANCH;
-            const { owner, repo } = context.repo;
-            const existing = await github.rest.pulls.list({ owner, repo, state: 'all', head: `${owner}:${branch}`, base: 'main' });
-            if (!existing.data.length) {
-              const result = await github.rest.pulls.create({
-                owner, repo, head: branch, base: 'main',
-                title: 'Обновить проверенные сведения Bon Plot',
-                body: fs.readFileSync('editorial/product-updates/bon-plot.md', 'utf8') +
-                  `\n\nПроверки выполнены: ${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}\n` +
-                  '\nИзменены только справочник и редакционное задание. Страница продукта и статьи не переписывались. Автоматического слияния и публикации нет.',
-              });
-              core.summary.addLink('Предложение для проверки', result.data.html_url);
-            } else {
-              core.summary.addLink('Эта редакция уже предложена или рассмотрена; повторный PR не создаётся', existing.data[0].html_url);
-            }
-            await core.summary.write();
+      - run: node scripts/sync-bon-plot.mjs --verify-public
