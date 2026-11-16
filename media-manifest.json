@@ -191,5 +191,11 @@
     "sha256": "80ccd82cf11d0aae9a9845fada0adeea57248051569f6cace6b43e33c8bf7265",
     "size": 1265696,
     "repository": "media/objects/80ccd82cf11d0aae9a9845fada0adeea57248051569f6cace6b43e33c8bf7265/source.webp"
+  },
+  "/uploads/blog/kak-nachat-pisat-knigu-cover.webp": {
+    "path": "/uploads/ebdd4739c8cb8b5a19af4b0fdff54f969da1700af9937a65e985525905dc8a72/kak-nachat-pisat-knigu-cover.webp",
+    "sha256": "ebdd4739c8cb8b5a19af4b0fdff54f969da1700af9937a65e985525905dc8a72",
+    "size": 136874,
+    "repository": "media/objects/ebdd4739c8cb8b5a19af4b0fdff54f969da1700af9937a65e985525905dc8a72/kak-nachat-pisat-knigu-cover.webp"
   }
 }
