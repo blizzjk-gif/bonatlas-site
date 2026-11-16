@@ -491,5 +491,11 @@
     "sha256": "c43f0c0bd26fc4dabebd279f14d9a5627e127875dc8f7c9af308eb2d1a21fec5",
     "size": 168118,
     "repository": "media/objects/c43f0c0bd26fc4dabebd279f14d9a5627e127875dc8f7c9af308eb2d1a21fec5/kak-postroit-scenu-cover-1672.webp"
+  },
+  "/uploads/blog/kak-nachat-pisat-knigu-cover.webp": {
+    "path": "/uploads/ebdd4739c8cb8b5a19af4b0fdff54f969da1700af9937a65e985525905dc8a72/kak-nachat-pisat-knigu-cover.webp",
+    "sha256": "ebdd4739c8cb8b5a19af4b0fdff54f969da1700af9937a65e985525905dc8a72",
+    "size": 136874,
+    "repository": "media/objects/ebdd4739c8cb8b5a19af4b0fdff54f969da1700af9937a65e985525905dc8a72/kak-nachat-pisat-knigu-cover.webp"
   }
 }
