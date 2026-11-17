@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteOwner } from '../data/site-owner';
+
+const title = 'Контакты Bon Atlas';
+const url = new URL('/contacts/', Astro.site).href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  url,
+  name: title,
+  mainEntity: {
+    '@type': 'Person',
+    '@id': `${url}#owner`,
+    name: siteOwner.name,
+    email: siteOwner.email,
+  },
+};
+---
+
+<BaseLayout title={title} description="Как связаться с владельцем сайта Bon Atlas по вопросам редактора карт, Bon Plot и блога.">
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <section class="container contacts">
+    <h1>Контакты</h1>
+    <p>Сюда можно написать по вопросам Bon Atlas, Bon Plot и материалов блога.</p>
+    <dl>
+      <div><dt>Электронная почта</dt><dd><a href={`mailto:${siteOwner.email}`}>{siteOwner.email}</a></dd></div>
+      <div><dt>Владелец сайта</dt><dd>{siteOwner.name}<br />Физическое лицо, плательщик налога на профессиональный доход (самозанятый)</dd></div>
+    </dl>
+    <p><a href="/privacy/">Политика обработки персональных данных</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .contacts { max-width: 850px; padding-block: clamp(56px, 8vw, 112px); }
+  h1 { font-size: clamp(2rem, 6vw, 3.6rem); margin-bottom: 1rem; }
+  dl { margin-block: 2rem; padding: clamp(1rem, 3vw, 2rem); border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+  dl div + div { margin-top: 1.25rem; }
+  dt { color: var(--muted); font-size: .9rem; }
+  dd { margin: .25rem 0 0; }
+  a { overflow-wrap: anywhere; }
+</style>

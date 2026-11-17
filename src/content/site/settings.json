@@ -6,7 +6,8 @@
   "navigation": [
     { "label": "Bon Atlas", "href": "/atlas" },
     { "label": "Bon Plot", "href": "/plot" },
-    { "label": "Блог", "href": "/blog" }
+    { "label": "Блог", "href": "/blog" },
+    { "label": "Контакты", "href": "/contacts/" }
   ],
   "footerProductsTitle": "Продукты",
   "footerMaterialsTitle": "Материалы",
