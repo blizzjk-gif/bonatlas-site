@@ -14,6 +14,7 @@ const structuredData = {
     '@id': `${url}#owner`,
     name: siteOwner.name,
     email: siteOwner.email,
+    taxID: siteOwner.inn,
   },
 };
 ---
@@ -26,6 +27,7 @@ const structuredData = {
     <dl>
       <div><dt>Электронная почта</dt><dd><a href={`mailto:${siteOwner.email}`}>{siteOwner.email}</a></dd></div>
       <div><dt>Владелец сайта</dt><dd>{siteOwner.name}<br />Физическое лицо, плательщик налога на профессиональный доход (самозанятый)</dd></div>
+      <div><dt>ИНН</dt><dd>{siteOwner.inn}</dd></div>
     </dl>
     <p><a href="/privacy/">Политика обработки персональных данных</a></p>
   </section>
